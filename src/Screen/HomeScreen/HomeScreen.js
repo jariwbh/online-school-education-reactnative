@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, ScrollView } from 'react-native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,110 +15,145 @@ class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row', marginTop: hp('5%'), }}>
-                            <TouchableOpacity style={styles.menu}>
-                                <MaterialCommunityIcons name="format-align-right" size={27} color="#000000" style={{ marginTop: hp('1%'), }} />
+                    <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('7%') }}>
+                        <View style={{}}>
+                            <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold' }}>Hi Akshay </Text>
+                            <Text style={{ fontSize: hp('3%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>Class XI-B  |  Roll no: 04 </Text>
+                            <TouchableOpacity style={{ width: wp('30%'), height: hp('4.5%'), backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
+                                <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', textAlign: 'center' }}>2020-2021 </Text>
                             </TouchableOpacity>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}> Home </Text>
+                        </View>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('FeesScreen') }}>
+                            <Image source={require('../../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%') }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView>
+                        <View style={styles.inputView}>
+                            <View style={{ marginTop: hp('-6%'), justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
+                                <TouchableOpacity style={styles.cardview} >
+                                    <Image source={require('../../../assets/image/ic_attendance.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    />
+                                    <View style={{ marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>80.39 %</Text>
+                                    </View>
+                                    <View style={{ marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%') }}>Attendance</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cardview} onPress={() => { this.props.navigation.navigate('FeesScreen') }}>
+                                    <Image source={require('../../../assets/image/ic_fees_due.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    />
+                                    <View style={{ marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}> ₹6400 </Text>
+                                    </View>
+                                    <View style={{ marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%') }}> Fees Due </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                        </View>
-                        <View style={styles.no}>
-                            <TouchableOpacity >
-                                <Ionicons name="md-notifications-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity >
-                                <MaterialCommunityIcons name="message-text-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity >
-                                <Ionicons name="calendar-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={{ marginTop: hp('2%'), marginLeft: hp('5%') }}>
-                        <Text style={{ fontSize: hp('3%'), color: '#FFFFFF' }}>Hello Nicola, Welcome Back! </Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', }}>
-                        <View style={styles.cardview}>
-                            <View style={{ flexDirection: 'column', marginTop: hp('1%'), marginLeft: hp('1%'), }}>
-                                <View style={{ marginLeft: hp('1%'), flexDirection: 'row', margin: hp('1%') }}>
-                                    <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>Today</Text>
-                                    <View style={{ marginLeft: hp('3%'), }}>
-                                        <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>10:00 AM to 11:30 AM</Text>
+
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => this.props.navigation.navigate('Playquiz')}>
+                                    <Image source={require('../../../assets/image/ic_quiz.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Play Quiz</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('AssignmentScreen') }}>
+                                    <Image source={require('../../../assets/image/ic_assignment.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Assignment </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_holiday.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Holiday</Text>
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: 'column', marginLeft: hp('1%'), marginBottom: hp('1%') }}>
-                                    <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>Maths Class</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>✓ Lorem ipsum simply dummy taxt</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>✓ Contrary to popular belief </Text>
-                                </View>
-                                <View style={{ marginLeft: hp('1%'), height: hp('4.5%'), width: wp('20%'), backgroundColor: '#D6E523', borderRadius: hp('1%'), }}>
-                                    <TouchableOpacity >
-                                        <Text style={{ fontSize: hp('2%'), textAlign: 'center', color: '#858E1F' }}>join class</Text>
-                                    </TouchableOpacity>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_calendra.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Time Table </Text>
+                                    </View>
                                 </View>
                             </View>
-                            <View >
-                                <Image source={require('../../../assets/image/profile1.png')} style={{ marginLeft: hp('1%'), height: hp('10%'), width: wp('20%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                                />
-                                <Text style={{ fontSize: hp('2%'), marginLeft: hp('3%'), marginBottom: hp('1%'), color: '#FFFFFF' }}>Caroiyn</Text>
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_results.png')} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Result</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_date_sheet.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Date Sheet </Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_doubts.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Ask Doubts</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_gallery.png')} style={{ height: 45, width: 35, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Gallery</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_leave.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Leave Application</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_password.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Change Password</Text>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+                                <View style={styles.cardView}>
+                                    <Image source={require('../../../assets/image/ic_event.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Events</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.cardView} >
+                                    <Image source={require('../../../assets/image/ic_logout.png')} style={{ height: 50, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Logout</Text>
+                                    </View>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('ClassDetails') }}>
-                            <Image source={require('../../../assets/image/1.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Student</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/2.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Calender</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/3.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Attendance</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/4.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Results</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/5.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Fees</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/6.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%'), marginBottom: hp('1%') }}>Library</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', }}>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/7.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%') }}>Online-class</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/8.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%') }}>Events</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Image source={require('../../../assets/image/9.png')} style={{ height: hp('13%'), width: wp('25%'), marginTop: hp('0%'), }}
-                            />
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('-1%') }}>Parents</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </ScrollView>
                 </ImageBackground>
-            </View>
+            </View >
         );
     }
 }
@@ -132,32 +167,21 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        resizeMode: "stretch"
-        // width: wp('100%'),
-        // height: hp('100 %'),
+        resizeMode: "cover",
+        width: wp('100%'),
+        height: hp('100%'),
     },
-    menu: {
-        height: hp('6.5%'),
-        width: wp('13%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('7%'),
-        alignItems: 'center',
-        marginLeft: hp('2%'),
-    },
-    no: {
-        marginTop: hp('5%'),
-        flexDirection: 'row',
-        height: hp('5%'),
-        width: wp('30%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('3%'),
-        alignItems: 'center',
-        marginRight: hp('2%'),
-        justifyContent: 'center'
+    inputView: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: hp('5%'),
+        borderTopRightRadius: hp('5%'),
+        marginTop: hp('1%'),
+        marginTop: hp('10%'),
     },
     cardview: {
-        flexDirection: 'row',
-        backgroundColor: "#ff8566",
+        flexDirection: 'column',
+        backgroundColor: "#FFFFFF",
         borderRadius: hp('2%'),
         shadowOpacity: 0.5,
         shadowRadius: 3,
@@ -166,10 +190,24 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('92%'),
-        height: hp('21%'),
-        marginTop: hp('2%'),
-        margin: hp('3%'),
-
+        width: wp('35%'),
+        height: hp('25%'),
+        alignItems: 'center'
     },
+    cardView: {
+        flexDirection: 'column',
+        backgroundColor: "#F5F6FC",
+        borderRadius: hp('2%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
+        width: wp('35%'),
+        height: hp('25%'),
+
+        //  alignItems: 'center'
+    }
 })

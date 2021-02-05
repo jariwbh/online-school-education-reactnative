@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 
 class RegisterScreen extends Component {
@@ -13,79 +13,71 @@ class RegisterScreen extends Component {
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
-                    <View style={{ marginTop: hp('15%'), justifyContent: 'center', alignItems: 'center', }}>
-                        <Text style={{ fontSize: hp('4%'), color: '#FFFFFF' }}> Register </Text>
+                    <View style={styles.inputView}>
+                        <View style={{ marginTop: hp('-22%'), justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                            <Image source={require('../../../assets/image/vector.png')} style={{ height: hp('25%'), width: wp('93%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
+                            />
+                        </View>
+                        <View style={{ marginLeft: hp('4%') }}>
+                            <Text style={{ fontSize: hp('4%'), color: '#000000', fontWeight: 'bold' }}>Hi Student </Text>
+                        </View>
+                        <View style={{ marginLeft: hp('4%') }}>
+                            <Text style={{ fontSize: hp('3%'), color: '#000000', }}>Sign in to continue</Text>
+                        </View>
+                        <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            keyboardShouldPersistTaps={'always'}
+                        >
+                            <View>
+                                <View style={{ marginTop: hp('4%'), marginLeft: hp('5%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Full Name</Text>
+                                </View>
+                                <View >
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="Full Name"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <View style={{ marginTop: hp('3%'), marginLeft: hp('5%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Email</Text>
+                                </View>
+                                <View >
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="Email"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                </View>
+                            </View>
+                            <View>
+                                <View style={{ marginTop: hp('3%'), marginLeft: hp('5%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Mobile No</Text>
+                                </View>
+                                <View >
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="Mobile No"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                </View>
+                            </View>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('8%'), }}>
+                                <TouchableOpacity style={styles.regBtn} onPress={() => { this.props.navigation.navigate('HomeScreen') }} >
+                                    <Text style={styles.regText}>SINE UP </Text>
+                                    {/* <MaterialIcons name="arrow-right-alt" size={24} color="#FFFFFF" /> */}
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ marginBottom: hp('5%') }}></View>
+                        </ScrollView>
                     </View>
-                    <ScrollView
-                        Vertical={true}
-                        showsVerticalScrollIndicator={false}
-                        keyboardShouldPersistTaps={'always'}
-                    >
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%') }}>
-                            <View style={styles.inputView}>
-                                <TextInput
-                                    style={styles.TextInput}
-                                    //   defaultValue={this.state.fullname}
-                                    placeholder="Full Name"
-                                    type='clear'
-                                    placeholderTextColor="#A5A5A5"
-                                    returnKeyType="next"
-                                    blurOnSubmit={false}
-                                //   onSubmitEditing={() => { this.secondTextInputRef.current.focus() }}
-                                //   onChangeText={(fullname) => this.setFullName(fullname)}
-                                />
-                            </View>
-                            {/* <Text style={{ marginTop: hp('-3%'), marginLeft: hp('0%'), color: '#ff0000' }}>{this.state.usererror && this.state.usererror}</Text> */}
-                            <View style={styles.inputView}>
-                                <TextInput
-                                    style={styles.TextInput}
-                                    //   defaultValue={this.state.username}
-                                    placeholder="Email"
-                                    type='clear'
-                                    placeholderTextColor="#A5A5A5"
-                                    returnKeyType="next"
-                                    autoCapitalize="none"
-                                    autoCompleteType="email"
-                                    textContentType="emailAddress"
-                                    keyboardType="email-address"
-                                    blurOnSubmit={false}
-                                //   onSubmitEditing={() => { this.TeardTextInputRef.current.focus() }}
-                                //   ref={this.secondTextInputRef}
-                                //   onChangeText={(username) => this.setUserName(username)}
-                                />
-
-                            </View>
-                            {/* <Text style={{ marginTop: hp('-3%'), marginLeft: hp('0%'), color: '#ff0000' }}>{this.state.passworderror && this.state.passworderror}</Text> */}
-                            <View style={styles.inputView} >
-
-                                <TextInput
-                                    style={styles.TextInput}
-                                    placeholder="Mobile Number"
-                                    type='clear'
-                                    placeholderTextColor="#A5A5A5"
-                                    secureTextEntry={true}
-                                    returnKeyType="done"
-                                    keyboardType="number-pad"
-                                //   ref={this.TeardTextInputRef}
-                                //  onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
-                                />
-                            </View>
-                            {/* <Text style={{ marginTop: hp('-2.5%'), marginLeft: wp('7%'), color: '#ff0000' }}>{this.state.mobilenumberError && this.state.mobilenumberError}</Text> */}
-                        </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%'), }}>
-                            <TouchableOpacity style={styles.regBtn} onPress={() => { this.props.navigation.navigate('HomeScreen') }} >
-                                <Text style={styles.regText}>REGISTER</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                            <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>Don't have an account? </Text>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('LoginScreen') }} >
-                                <Text style={{ fontSize: hp('2%'), color: '#FFFFFF' }}>Login</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
                 </ImageBackground>
-            </View>
+            </View >
         );
     }
 }
@@ -100,45 +92,36 @@ const styles = StyleSheet.create({
     },
     backgroundImage: {
         flex: 1,
-        resizeMode: "stretch"
-        // width: wp('100%'),
-        // height: hp('100 %'),
+        resizeMode: "cover",
+        width: wp('100%'),
+        height: hp('100 %'),
     },
     inputView: {
-        flexDirection: 'row',
-        backgroundColor: "#fff",
-        borderRadius: wp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        borderColor: '#fff',
-        width: wp('70%'),
-        height: hp('8%'),
-        margin: hp('3%'),
-        alignItems: "center",
-
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: hp('5%'),
+        borderTopRightRadius: hp('5%'),
+        marginTop: hp('30%'),
     },
     TextInput: {
-        fontSize: hp('2%'),
-        flex: 1,
-        padding: hp('2%'),
+        width: wp('80%'),
+        height: hp('8%'),
+        fontSize: hp('3%'),
+        marginLeft: hp('5%'),
+        marginTop: hp('-1%'),
     },
     regBtn: {
         flexDirection: 'row',
-        width: wp('70%'),
-        backgroundColor: "#D6E523",
+        width: wp('85%'),
+        backgroundColor: "#2855AE",
         borderRadius: wp('2%'),
         height: hp('8%'),
         alignItems: "center",
         justifyContent: "center",
     },
     regText: {
-        color: '#858E1F',
+        color: '#FFFFFF',
         fontSize: hp('2.5%'),
-
+        fontWeight: 'bold',
     },
 })
