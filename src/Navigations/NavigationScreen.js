@@ -16,6 +16,7 @@ import EventsScreen from "../Screen/EventsScreen/EventsScreen"
 import FeedsDetailsScreen from "../Screen/FeedsDetailsScreen/FeedsDetailsScreen"
 import SupportScreen from "../Screen/SupportScreen/SupportScreen"
 import SchoolGalleryScreen from "../Screen/SchoolGalleryScreen/SchoolGalleryScreen"
+import ResultScreen from "../Screen/ResultScreen/ResultScreen"
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="FeedsDetailsScreen" component={FeedsDetailsScreen} />
                 <Stack.Screen name="SupportScreen" component={SupportScreen} />
                 <Stack.Screen name="SchoolGalleryScreen" component={SchoolGalleryScreen} />
+                <Stack.Screen name="ResultScreen" component={ResultScreen} />
 
 
             </Stack.Navigator>

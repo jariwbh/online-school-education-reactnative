@@ -87,13 +87,13 @@ class HomeScreen extends Component {
                                 </View>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('ResultScreen') }}>
                                     <Image source={require('../../../assets/image/ic_results.png')} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Result</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                                 <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('DateSheetScreen') }}>
                                     <Image source={require('../../../assets/image/ic_date_sheet.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
@@ -111,7 +111,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('SchoolGalleryScreen') }}>
-                                    <Image source={require('../../../assets/image/ic_gallery.png')} style={{ height: 45, width: 35, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    <Image source={require('../../../assets/image/ic_gallery.png')} style={{ height: 45, width: 42, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Gallery</Text>
@@ -143,7 +143,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('SupportScreen') }}>
-                                    <Image source={require('../../../assets/image/ic_logout.png')} style={{ height: 50, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    <Image source={require('../../../assets/image/ic_logout.png')} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Logout</Text>
