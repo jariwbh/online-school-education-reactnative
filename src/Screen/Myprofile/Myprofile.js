@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ImageBackground, Image, } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { MaterialCommunityIcons, Ionicons, AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
-import Dash from 'react-native-dash';
+
+
 
 
 export default class Myprofile extends Component {
@@ -12,113 +13,163 @@ export default class Myprofile extends Component {
         this.state = {
         };
     }
-
     render() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row', marginTop: hp('5%'), }}>
-                            <TouchableOpacity style={styles.menu}>
-                                <AntDesign name="arrowleft" size={27} color="#000000" style={{ marginTop: hp('0%'), }} />
-                            </TouchableOpacity>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginLeft: hp('1%') }}>My Profile </Text>
-                            </View>
+                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', marginLeft: hp('2%') }}>
+                            <AntDesign name="left" size={24} color="#FFFFFF" />
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('2%') }}>My Profile</Text>
                         </View>
-                        <View style={styles.no}>
-                            <TouchableOpacity >
-                                <Ionicons name="md-notifications-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity >
-                                <MaterialCommunityIcons name="message-text-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity >
-                                <Ionicons name="calendar-outline" size={24} color="#15A3AB" style={{ padding: hp('1%') }} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%'), }}>
-                        <Image source={require('../../../assets/image/Group1.png')} style={{ height: hp('25%'), width: wp('90%'), marginTop: hp('0%'), }}
-                        />
-                    </View>
-                    <View >
-                        <View style={{ marginTop: hp('-22%'), flexDirection: 'row', flex: 1 }}>
-                            <Image source={require('../../../assets/image/profile1.png')} style={{ marginLeft: hp('5%'), height: hp('13%'), width: wp('23%'), marginTop: hp('1%'), borderRadius: hp('2%') }}
-                            />
-                            <View>
-                                <Text style={{ fontSize: hp('3%'), marginLeft: hp('5%'), color: '#FFFFFF' }}>Caroiyn</Text>
-                                <Text style={{ fontSize: hp('2%'), marginLeft: hp('5%'), color: '#FFFFFF' }}>vii std - B section - female</Text>
-                                <Text style={{ fontSize: hp('2%'), marginLeft: hp('5%'), color: '#FFFFFF' }}>ID Number - CF005</Text>
-                                <Text style={{ fontSize: hp('2%'), marginLeft: hp('5%'), color: '#FFFFFF' }}>Bus No-25</Text>
-                            </View>
-                        </View>
-                        <View style={{ marginLeft: hp('49%') }}>
-                            <Image source={require('../../../assets/image/Group2.png')} style={{ height: hp('5%'), width: wp('5%'), marginTop: hp('-8%'), marginRight: hp('2.5%'), }}
-                            />
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: hp('2%') }}>
-                        <Text style={{ fontSize: hp('3%'), color: '#FFFFFF' }}>Profile Information</Text>
-                        <TouchableOpacity>
-                            <Text style={{ fontSize: hp('3%'), color: '#FFFFFF' }}>Edit</Text>
+                        <TouchableOpacity style={{ flexDirection: 'row', width: wp('25%'), height: hp('4%'), backgroundColor: '#FFFFFF', marginRight: hp('5%'), alignItems: 'center', borderRadius: hp('3%'), justifyContent: 'space-evenly' }}>
+                            <AntDesign name="check" size={24} color="#6688CA" />
+                            <Text style={{ color: '#6688CA', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('0%') }}>Done</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flexDirection: 'row' }} >
-                        <View style={{ flexDirection: 'column' }}>
-                            <View style={{ marginLeft: hp('3%') }}>
-                                <Image source={require('../../../assets/image/proicon.png')} style={{ marginTop: hp('5%'), }}
-                                />
+                    <View style={styles.cardview}>
+                        <ScrollView>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={styles.innercardview}>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('2%') }}>
+                                        <View style={{ marginLeft: hp('1%'), flexDirection: 'row', }}>
+                                            <Image source={require('../../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('2%') }}
+                                            />
+                                            <View>
+                                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', marginTop: hp('0%'), padding: hp('1%') }}>Akshay Syal</Text>
+                                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#777777' }}>Class XI-B  |  Roll no: 04</Text>
+                                            </View>
+                                        </View>
+                                        <TouchableOpacity style={{ marginRight: hp('3%') }}>
+                                            <AntDesign name="camerao" size={24} color="#777777" />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
                             <View>
-                                <Dash style={{ width: wp('2%'), height: hp('28%'), flexDirection: 'column', marginLeft: hp('5.5%'), }} dashColor='white' />
+                                <View style={{ marginTop: hp('4%'), marginLeft: hp('0%'), justifyContent: 'flex-start', alignItems: 'flex-start', flexDirection: 'row' }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('3%') }}>Adhar No</Text>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('19%') }}>Academic Year</Text>
+                                </View>
+                                <View style={{ marginTop: hp('0%'), marginLeft: hp('0%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="1234 4325 4567 1234"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="2020-2021"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                </View>
                             </View>
-                            <View style={{ marginLeft: hp('3%'), flexDirection: 'row' }}>
-                                <Image source={require('../../../assets/image/book.png')} style={{ marginTop: hp('0%'), }}
-                                />
+                            <View >
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('0%'), justifyContent: 'flex-start', alignItems: 'flex-start', flexDirection: 'row' }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('3%') }}>Admission Class</Text>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('11%') }}>Old Admission No</Text>
+                                </View>
+                                <View style={{ marginTop: hp('0%'), marginLeft: hp('0%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="VI"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-5%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                    <TextInput
+                                        style={styles.TextInput}
+                                        placeholder="T00221"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-5%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-
-                        <View style={styles.Personal}>
-                            <View style={{ flexDirection: 'row', marginLeft: hp('4.5%'), padding: hp('1%') }}>
-                                <Text style={{ fontSize: hp('2%'), }}>Personal Info</Text>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Parent Mail ID</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput1}
+                                        placeholder="parentboth84@gmail.com"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Date Of Birth</Text>
-                                <Text style={{ fontSize: hp('2%'), }}>15-12-2004</Text>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Mother Name</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput1}
+                                        placeholder="Monica Larson"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}> Blood Group </Text>
-                                <Text style={{ fontSize: hp('2%'), }}> B+ </Text>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Father Name</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput1}
+                                        placeholder="Bernard Taylor"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Admission Number </Text>
-                                <Text style={{ fontSize: hp('2%'), }}>2008-012345 </Text>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Parmanent Add.</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        style={styles.TextInput1}
+                                        placeholder="Karol Bagh, Delhi"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Father Name </Text>
-                                <Text style={{ fontSize: hp('2%'), }}>Mr.Benjamin </Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Mother Name </Text>
-                                <Text style={{ fontSize: hp('2%'), }}>Mrs.Victoria </Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ flexDirection: 'column', marginLeft: hp('9%'), marginTop: hp('-10%') }}>
-                        <View style={styles.Personal1} >
-                            <View style={{ flexDirection: 'row', marginLeft: hp('4.5%'), padding: hp('1%') }}>
-                                <Text style={{ fontSize: hp('2%'), }}>Personal Info</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Phone Number </Text>
-                                <Text style={{ fontSize: hp('2%'), }}>+1 XXXXX YYYYY</Text>
-                            </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 0.3 }} >
-                                <Text style={{ fontSize: hp('2%'), }}>Address </Text>
-                                <Text style={{ fontSize: hp('2%'), }}>28,Bird Spring Lane US </Text>
-                            </View>
-                        </View>
+                            <View style={{ marginBottom: hp('5%') }}></View>
+                        </ScrollView>
                     </View>
                 </ImageBackground>
             </View>
@@ -137,45 +188,35 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         height: hp('100 %'),
     },
-    menu: {
-        height: hp('5%'),
-        width: wp('10%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('7%'),
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft: hp('2%'),
+    cardview: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: hp('5%'),
+        borderTopRightRadius: hp('5%'),
+        marginTop: hp('7%'),
+
     },
-    no: {
-        marginTop: hp('5%'),
-        flexDirection: 'row',
-        height: hp('5%'),
-        width: wp('30%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('3%'),
-        alignItems: 'center',
-        marginRight: hp('2%'),
-        justifyContent: 'center'
-    },
-    Personal: {
-        // flex: 1,
-        marginTop: hp('5%'),
+    innercardview: {
         flexDirection: 'column',
-        height: hp('30%'),
-        width: wp('70%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('3%'),
-        marginLeft: hp('3%'),
-        marginRight: hp('2%'),
+        backgroundColor: "#FFFFFF",
+        borderColor: '#2855AE',
+        borderWidth: hp('0.2%'),
+        borderRadius: hp('2%'),
+        width: wp('90%'),
+        marginTop: hp('2%')
     },
-    Personal1: {
-        marginTop: hp('5%'),
-        flexDirection: 'column',
-        height: hp('15%'),
-        width: wp('70%'),
-        backgroundColor: '#FFFFFF',
-        borderRadius: hp('3%'),
+    TextInput: {
+        width: wp('40%'),
+        height: hp('8%'),
+        fontSize: hp('3%'),
+        marginLeft: hp('0%'),
+        marginTop: hp('-1%'),
+    },
+    TextInput1: {
+        width: wp('90%'),
+        height: hp('8%'),
+        fontSize: hp('3%'),
         marginLeft: hp('3%'),
-        marginRight: hp('2%'),
-    }
+        marginTop: hp('-1%'),
+    },
 })

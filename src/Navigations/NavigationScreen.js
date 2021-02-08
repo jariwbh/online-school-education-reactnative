@@ -8,8 +8,14 @@ import FeesScreen from "../Screen/FeesScreen/FeesScreen";
 import PayonlineScreen from "../Screen/PayonlineScreen/PayonlineScreen";
 import AssignmentScreen from "../Screen/AssignmentScreen/AssignmentScreen"
 import Playquiz from "../Screen/Playquiz/Playquiz"
-//import Myprofile from "../Screen/Myprofile/Myprofile";
-
+import Myprofile from "../Screen/Myprofile/Myprofile";
+import DateSheetScreen from "../Screen/DateSheetScreen/DateSheetScreen"
+import AskDoubtsScreen from "../Screen/AskDoubtsScreen/AskDoubtsScreen"
+import ChangePasswordScreen from "../Screen/ChangePasswordScreen/ChangePasswordScreen"
+import EventsScreen from "../Screen/EventsScreen/EventsScreen"
+import FeedsDetailsScreen from "../Screen/FeedsDetailsScreen/FeedsDetailsScreen"
+import SupportScreen from "../Screen/SupportScreen/SupportScreen"
+import SchoolGalleryScreen from "../Screen/SchoolGalleryScreen/SchoolGalleryScreen"
 
 const Stack = createStackNavigator();
 
@@ -26,7 +32,14 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="PayonlineScreen" component={PayonlineScreen} />
                 <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} />
                 <Stack.Screen name="Playquiz" component={Playquiz} />
-
+                <Stack.Screen name="Myprofile" component={Myprofile} />
+                <Stack.Screen name="DateSheetScreen" component={DateSheetScreen} />
+                <Stack.Screen name="AskDoubtsScreen" component={AskDoubtsScreen} />
+                <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+                <Stack.Screen name="EventsScreen" component={EventsScreen} />
+                <Stack.Screen name="FeedsDetailsScreen" component={FeedsDetailsScreen} />
+                <Stack.Screen name="SupportScreen" component={SupportScreen} />
+                <Stack.Screen name="SchoolGalleryScreen" component={SchoolGalleryScreen} />
 
 
             </Stack.Navigator>

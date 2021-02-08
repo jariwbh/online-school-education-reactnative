@@ -58,7 +58,7 @@ export default class PayonlineScreen extends Component {
                             </View>
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('25%'), }}>
-                            <TouchableOpacity style={styles.payBtn} onPress={() => { this.props.navigation.navigate('RegisterScreen') }} >
+                            <TouchableOpacity style={styles.payBtn} onPress={() => { }} >
                                 <Text style={styles.payText}>PAY NOW</Text>
                                 {/* <MaterialIcons name="arrow-right-alt" size={24} color="#FFFFFF" /> */}
                             </TouchableOpacity>

@@ -23,7 +23,7 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', textAlign: 'center' }}>2020-2021 </Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('FeesScreen') }}>
+                        <TouchableOpacity onPress={() => { this.props.navigation.navigate('Myprofile') }}>
                             <Image source={require('../../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%') }}
                             />
                         </TouchableOpacity>
@@ -94,29 +94,29 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Result</Text>
                                     </View>
                                 </View>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('DateSheetScreen') }}>
                                     <Image source={require('../../../assets/image/ic_date_sheet.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Date Sheet </Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('AskDoubtsScreen') }}>
                                     <Image source={require('../../../assets/image/ic_doubts.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Ask Doubts</Text>
                                     </View>
-                                </View>
-                                <View style={styles.cardView}>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('SchoolGalleryScreen') }}>
                                     <Image source={require('../../../assets/image/ic_gallery.png')} style={{ height: 45, width: 35, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Gallery</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
                                 <View style={styles.cardView}>
@@ -126,29 +126,29 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Leave Application</Text>
                                     </View>
                                 </View>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('ChangePasswordScreen') }}>
                                     <Image source={require('../../../assets/image/ic_password.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Change Password</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('EventsScreen') }}>
                                     <Image source={require('../../../assets/image/ic_event.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Events</Text>
                                     </View>
-                                </View>
-                                <View style={styles.cardView} >
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('SupportScreen') }}>
                                     <Image source={require('../../../assets/image/ic_logout.png')} style={{ height: 50, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Logout</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>
