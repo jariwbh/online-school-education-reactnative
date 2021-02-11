@@ -20,10 +20,10 @@ export default class DateSheetScreen extends Component {
                             </View>
                             <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>11</Text>
+                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>11</Text>
                                     <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
                                 </View>
-                                <View style={{ marginLeft: hp('-15%') }}>
+                                <View style={{ marginLeft: hp('0%') }}>
                                     <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Science</Text>
                                     <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Monday</Text>
                                 </View>

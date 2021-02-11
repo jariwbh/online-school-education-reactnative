@@ -31,7 +31,7 @@ class HomeScreen extends Component {
                     <ScrollView>
                         <View style={styles.inputView}>
                             <View style={{ marginTop: hp('-6%'), justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
-                                <TouchableOpacity style={styles.cardview} >
+                                <TouchableOpacity style={styles.cardview} onPress={() => { this.props.navigation.navigate('AttendanceScreen') }}>
                                     <Image source={require('../../../assets/image/ic_attendance.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%'), marginTop: hp('1%') }}
                                     />
                                     <View style={{ marginTop: hp('1%') }}>
@@ -78,13 +78,13 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Holiday</Text>
                                     </View>
                                 </View>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('TimeTableScreen') }}>
                                     <Image source={require('../../../assets/image/ic_calendra.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Time Table </Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('ResultScreen') }}>
@@ -119,13 +119,13 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
-                                <View style={styles.cardView}>
+                                <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('LeaveApplicationScreen') }}>
                                     <Image source={require('../../../assets/image/ic_leave.png')} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Leave Application</Text>
                                     </View>
-                                </View>
+                                </TouchableOpacity>
                                 <TouchableOpacity style={styles.cardView} onPress={() => { this.props.navigation.navigate('ChangePasswordScreen') }}>
                                     <Image source={require('../../../assets/image/ic_password.png')} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />

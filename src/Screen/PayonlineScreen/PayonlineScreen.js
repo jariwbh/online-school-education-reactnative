@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Text, View, ImageBackground, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto, AntDesign } from '@expo/vector-icons';
 
 export default class PayonlineScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), marginLeft: hp('3%') }}>
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Fees Due</Text>
+                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
+                        <AntDesign name="left" size={24} color="#FFFFFF" />
+                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Pay Online</Text>
                     </View>
                     <View style={styles.cardview}>
                         <View>

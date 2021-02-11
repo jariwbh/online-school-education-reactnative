@@ -40,7 +40,7 @@ export class FeesScreen extends Component {
                                 <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
                                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                 </View>
-                                <TouchableOpacity style={{ width: hp('54%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}
+                                <TouchableOpacity style={{ width: hp('46.5%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}
                                     onPress={() => { this.props.navigation.navigate('PayonlineScreen') }}>
                                     <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>PAY NOW</Text>
                                 </TouchableOpacity>
@@ -76,7 +76,7 @@ export class FeesScreen extends Component {
                                     <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
                                         <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                     </View>
-                                    <TouchableOpacity style={{ width: hp('54%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}>
+                                    <TouchableOpacity style={{ width: hp('46.5%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}>
                                         <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>DONWLOAD</Text>
                                     </TouchableOpacity>
                                 </View>

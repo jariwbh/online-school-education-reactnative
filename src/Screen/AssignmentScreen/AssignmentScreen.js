@@ -31,7 +31,7 @@ export default class AssignmentScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>10 Dec 20</Text>
                                     </View>
-                                    <View style={{ width: hp('50%'), backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('5%'), marginLeft: hp('2%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}>
+                                    <View style={{ width: hp('50%'), flex: 1, backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('5%'), marginLeft: hp('2%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}>
                                         <TouchableOpacity onPress={() => { }}>
                                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>To BE SUBMITTED</Text>
                                         </TouchableOpacity>
@@ -54,7 +54,7 @@ export default class AssignmentScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>30 Oct 20</Text>
                                     </View>
-                                    <View style={{ width: hp('50%'), backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('5%'), marginLeft: hp('2%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}>
+                                    <View style={{ width: hp('50%'), flex: 1, backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('5%'), marginLeft: hp('2%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}>
                                         <TouchableOpacity
                                             onPress={() => { }}>
                                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>To BE SUBMITTED</Text>

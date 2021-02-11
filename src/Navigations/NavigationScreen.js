@@ -17,6 +17,9 @@ import FeedsDetailsScreen from "../Screen/FeedsDetailsScreen/FeedsDetailsScreen"
 import SupportScreen from "../Screen/SupportScreen/SupportScreen"
 import SchoolGalleryScreen from "../Screen/SchoolGalleryScreen/SchoolGalleryScreen"
 import ResultScreen from "../Screen/ResultScreen/ResultScreen"
+import LeaveApplicationScreen from "../Screen/LeaveApplicationScreen/LeaveApplicationScreen"
+import AttendanceScreen from "../Screen/AttendanceScreen/AttendanceScreen"
+import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
 
 const Stack = createStackNavigator();
 
@@ -42,7 +45,9 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="SupportScreen" component={SupportScreen} />
                 <Stack.Screen name="SchoolGalleryScreen" component={SchoolGalleryScreen} />
                 <Stack.Screen name="ResultScreen" component={ResultScreen} />
-
+                <Stack.Screen name="LeaveApplicationScreen" component={LeaveApplicationScreen} />
+                <Stack.Screen name="AttendanceScreen" component={AttendanceScreen} />
+                <Stack.Screen name="TimeTableScreen" component={TimeTableScreen} />
 
             </Stack.Navigator>
 
