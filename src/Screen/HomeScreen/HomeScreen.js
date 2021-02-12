@@ -19,8 +19,8 @@ class HomeScreen extends Component {
                         <View style={{}}>
                             <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold' }}>Hi Akshay </Text>
                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>Class XI-B  |  Roll no: 04 </Text>
-                            <TouchableOpacity style={{ width: wp('30%'), height: hp('4.5%'), backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
-                                <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', textAlign: 'center' }}>2020-2021 </Text>
+                            <TouchableOpacity style={{ width: wp('35%'), height: hp('4.5%'), alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
+                                <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', }}>2020-2021 </Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() => { this.props.navigation.navigate('Myprofile') }}>
