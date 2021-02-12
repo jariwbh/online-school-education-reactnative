@@ -18,13 +18,13 @@ class HomeScreen extends Component {
                     <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('7%') }}>
                         <View style={{}}>
                             <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold' }}>Hi Akshay </Text>
-                            <Text style={{ fontSize: hp('3%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>Class XI-B  |  Roll no: 04 </Text>
+                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>Class XI-B  |  Roll no: 04 </Text>
                             <TouchableOpacity style={{ width: wp('30%'), height: hp('4.5%'), backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
                                 <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', textAlign: 'center' }}>2020-2021 </Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() => { this.props.navigation.navigate('Myprofile') }}>
-                            <Image source={require('../../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%') }}
+                            <Image source={require('../../../assets/image/profile1.png')} style={{ height: 90, width: 90, borderRadius: hp('10%') }}
                             />
                         </TouchableOpacity>
                     </View>
@@ -32,7 +32,7 @@ class HomeScreen extends Component {
                         <View style={styles.inputView}>
                             <View style={{ marginTop: hp('-6%'), justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
                                 <TouchableOpacity style={styles.cardview} onPress={() => { this.props.navigation.navigate('AttendanceScreen') }}>
-                                    <Image source={require('../../../assets/image/ic_attendance.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    <Image source={require('../../../assets/image/ic_attendance.png')} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
                                     />
                                     <View style={{ marginTop: hp('1%') }}>
                                         <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>80.39 %</Text>
@@ -42,7 +42,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.cardview} onPress={() => { this.props.navigation.navigate('FeesScreen') }}>
-                                    <Image source={require('../../../assets/image/ic_fees_due.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    <Image source={require('../../../assets/image/ic_fees_due.png')} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
                                     />
                                     <View style={{ marginTop: hp('1%') }}>
                                         <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}> ₹6400 </Text>

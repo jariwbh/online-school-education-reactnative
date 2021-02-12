@@ -32,7 +32,7 @@ export default class AssignmentScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>10 Dec 20</Text>
                                     </View>
                                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <TouchableOpacity style={{ width: hp('40%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), borderRadius: hp('2%') }} onPress={() => { }}>
+                                        <TouchableOpacity style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), borderRadius: hp('2%') }} onPress={() => { }}>
                                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
                                         </TouchableOpacity>
                                     </View>
@@ -55,7 +55,7 @@ export default class AssignmentScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>30 Oct 20</Text>
                                     </View>
                                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <TouchableOpacity onPress={() => { }} style={{ width: hp('40%'), backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), alignItems: 'center', borderRadius: hp('2%'), }}>
+                                        <TouchableOpacity onPress={() => { }} style={{ width: wp('60%'), backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), alignItems: 'center', borderRadius: hp('2%'), }}>
                                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
                                         </TouchableOpacity>
                                     </View>
