@@ -9,8 +9,8 @@ export default class ResultScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
-                    <Image source={require('../../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: wp('100%'), height: hp('45%'), }} />
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+                    <Image source={require('../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: wp('100%'), height: hp('45%'), }} />
                     <View style={{ marginTop: hp('8%'), position: 'absolute' }}>
                         <View style={{ marginLeft: hp('3%'), flexDirection: 'row', }}>
                             <TouchableOpacity>
@@ -21,16 +21,16 @@ export default class ResultScreen extends Component {
                             </TouchableOpacity>
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Image source={require('../../../assets/image/grey_circle.png')} style={{ width: 120, height: 120, }} />
-                            <Image source={require('../../../assets/image/circle_bg.png')} style={{ width: 100, height: 100, position: 'absolute' }} />
+                            <Image source={require('../../assets/image/grey_circle.png')} style={{ width: 120, height: 120, }} />
+                            <Image source={require('../../assets/image/circle_bg.png')} style={{ width: 100, height: 100, position: 'absolute' }} />
                         </View>
                         <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('-13%') }}>
                             <Text style={{ fontSize: hp('4%'), fontWeight: 'bold' }}>85%</Text>
                             <Text style={{ fontSize: hp('2%'), fontWeight: 'bold' }}>GRADE A</Text>
                         </View>
                         <View>
-                            <Image source={require('../../../assets/image/star_bg.png')} style={{ width: 40, height: 40, marginLeft: hp('19%') }} />
-                            <Image source={require('../../../assets/image/ic_star.png')} style={{ width: 30, height: 30, position: 'absolute', marginLeft: hp('19.5%'), }} />
+                            <Image source={require('../../assets/image/star_bg.png')} style={{ width: 40, height: 40, marginLeft: hp('19%') }} />
+                            <Image source={require('../../assets/image/ic_star.png')} style={{ width: 30, height: 30, position: 'absolute', marginLeft: hp('19.5%'), }} />
                         </View>
                     </View>
                     <View style={styles.cardview}>
@@ -83,7 +83,7 @@ export default class ResultScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View>
-                                <Image source={require('../../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
+                                <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
                                 />
                             </View>
                         </ScrollView>

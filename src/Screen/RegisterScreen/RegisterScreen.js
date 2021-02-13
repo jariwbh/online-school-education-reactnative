@@ -12,10 +12,10 @@ class RegisterScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={styles.inputView}>
                         <View style={{ marginTop: hp('-22%'), justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-                            <Image source={require('../../../assets/image/vector.png')} style={{ height: hp('25%'), width: wp('93%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
+                            <Image source={require('../../assets/image/vector.png')} style={{ height: hp('25%'), width: wp('93%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
                             />
                         </View>
                         <View style={{ marginLeft: hp('4%') }}>
@@ -77,7 +77,7 @@ class RegisterScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </SafeAreaView >
+            </SafeAreaView>
         );
     }
 }

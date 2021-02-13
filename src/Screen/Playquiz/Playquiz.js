@@ -3,14 +3,13 @@ import { Text, View, StyleSheet, SafeAreaView, ImageBackground, TouchableOpacity
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { RadioButton } from 'react-native-paper';
 
 export default class Playquiz extends Component {
     render() {
 
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), justifyContent: 'space-between' }}>
                         <View style={{ marginLeft: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity>

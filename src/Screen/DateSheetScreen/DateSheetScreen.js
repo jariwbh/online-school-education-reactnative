@@ -9,7 +9,7 @@ export default class DateSheetScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Datesheet</Text>
@@ -122,7 +122,7 @@ export default class DateSheetScreen extends Component {
                                 <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                             </View>
                             <View>
-                                <Image source={require('../../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
+                                <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
                                 />
                             </View>
                         </ScrollView>

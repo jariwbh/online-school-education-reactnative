@@ -5,8 +5,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-
-
 export default class Myprofile extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +14,7 @@ export default class Myprofile extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', marginLeft: hp('2%') }}>
                             <AntDesign name="left" size={24} color="#FFFFFF" />
@@ -33,7 +31,7 @@ export default class Myprofile extends Component {
                                 <View style={styles.innercardview}>
                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('2%') }}>
                                         <View style={{ marginLeft: hp('1%'), flexDirection: 'row', }}>
-                                            <Image source={require('../../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('2%') }}
+                                            <Image source={require('../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('2%') }}
                                             />
                                             <View>
                                                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', marginTop: hp('0%'), padding: hp('1%') }}>Akshay Syal</Text>

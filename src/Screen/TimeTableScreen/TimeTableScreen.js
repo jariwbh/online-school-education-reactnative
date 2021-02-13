@@ -3,7 +3,6 @@ import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-
 export default class TimeTableScreen extends Component {
     constructor(props) {
         super(props);
@@ -41,7 +40,7 @@ export default class TimeTableScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>TimeTable</Text>
@@ -57,7 +56,6 @@ export default class TimeTableScreen extends Component {
                                     </TouchableOpacity>
                                 ))
                             }
-
                         </View>
                         <ScrollView>
                             <View>
@@ -77,7 +75,6 @@ export default class TimeTableScreen extends Component {
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Cherise James</Text>
                                             <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 1</Text>
                                         </View>
-
                                     </View>
                                     <View style={styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
@@ -118,7 +115,7 @@ export default class TimeTableScreen extends Component {
                                                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>10:30am - 11:00am</Text>
                                             </View>
                                             <View>
-                                                <Image source={require('../../../assets/image/lunch_break.png')} style={{ width: wp('12%'), height: hp('7%'), marginRight: hp('3%'), }}
+                                                <Image source={require('../../assets/image/lunch_break.png')} style={{ width: wp('12%'), height: hp('7%'), marginRight: hp('3%'), }}
                                                 />
                                             </View>
                                         </View>

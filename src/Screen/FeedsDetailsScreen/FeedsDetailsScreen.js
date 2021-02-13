@@ -9,7 +9,7 @@ export default class FeedsDetailsScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View>
-                    <Image source={require('../../../assets/image/dp_bg.png')} style={{ height: hp('50 %'), width: wp('140%'), }}
+                    <Image source={require('../../assets/image/dp_bg.png')} style={{ height: hp('50 %'), width: wp('140%'), }}
                     />
                     <AntDesign name="left" size={30} color="#FFFFFF" style={{ position: 'absolute', marginTop: hp('5%'), marginLeft: hp('2%') }} />
                 </View>

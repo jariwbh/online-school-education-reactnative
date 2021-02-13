@@ -8,7 +8,7 @@ export default class EventsScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Events & Programs</Text>
@@ -20,7 +20,7 @@ export default class EventsScreen extends Component {
                                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>Sleepover Night</Text>
                                 </View>
                                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }}>
-                                    <Image source={require('../../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
+                                    <Image source={require('../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                                     />
                                     <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('3%') }}>
                                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>
@@ -42,7 +42,7 @@ export default class EventsScreen extends Component {
                                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>Fishing Tournament</Text>
                                 </View>
                                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }}>
-                                    <Image source={require('../../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
+                                    <Image source={require('../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                                     />
                                     <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('3%') }}>
                                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>
@@ -65,7 +65,7 @@ export default class EventsScreen extends Component {
                                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>Rhyme Time: A Night of Poetry</Text>
                                 </View>
                                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }}>
-                                    <Image source={require('../../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
+                                    <Image source={require('../../assets/image/dp_bg.png')} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                                     />
                                     <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('3%') }}>
                                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>

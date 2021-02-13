@@ -8,7 +8,7 @@ export default class SchoolGalleryScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>School Gallery</Text>
@@ -17,40 +17,40 @@ export default class SchoolGalleryScreen extends Component {
                         <ScrollView>
                             <View style={{ marginTop: hp('0%'), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
                                 <View style={{ marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-                                    <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                    <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
                                     />
                                 </View>
                                 <View style={{ marginTop: hp('-11%'), }}>
-                                    <Image source={require('../../../assets/image/galleryimage1.png')} style={{ height: hp('20%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                    <Image source={require('../../assets/image/galleryimage1.png')} style={{ height: hp('20%'), width: wp('45%'), borderRadius: hp('2%') }}
                                     />
                                 </View>
                             </View>
                             <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginTop: hp('-13%'), marginRight: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage1.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage1.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: hp('-10%'), marginLeft: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage1.png')} style={{ height: hp('20%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage1.png')} style={{ height: hp('20%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ marginTop: hp('-8%'), flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ marginTop: hp('-25%'), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ marginTop: hp('-8%'), flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ marginTop: hp('-15%'), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('25%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                             <View style={{ marginTop: hp('-25%'), flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: hp('1.5%') }}>
-                                <Image source={require('../../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
+                                <Image source={require('../../assets/image/galleryimage2.png')} style={{ height: hp('35%'), width: wp('45%'), borderRadius: hp('2%') }}
                                 />
                             </View>
                         </ScrollView>

@@ -9,7 +9,7 @@ export default class AskDoubtsScreen extends Component {
 
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Ask Doubt</Text>
@@ -82,7 +82,7 @@ export default class AskDoubtsScreen extends Component {
                         </View>
                     </View>
                 </ImageBackground>
-            </SafeAreaView >
+            </SafeAreaView>
         )
     }
 }

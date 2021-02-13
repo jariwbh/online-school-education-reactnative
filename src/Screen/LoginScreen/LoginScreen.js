@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, ImageBackground, Image, TextInput, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
@@ -15,9 +12,9 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('10%'), justifyContent: 'center', alignItems: 'center', }}>
-                        <Image source={require('../../../assets/image/vector.png')} style={{ height: hp('20%'), width: wp('75%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
+                        <Image source={require('../../assets/image/vector.png')} style={{ height: hp('20%'), width: wp('75%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
                         />
                     </View>
                     <View style={{ marginLeft: hp('4%') }}>
@@ -66,7 +63,7 @@ export default class LoginScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </SafeAreaView >
+            </SafeAreaView>
         );
     }
 }
