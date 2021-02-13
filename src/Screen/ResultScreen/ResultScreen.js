@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default class ResultScreen extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <Image source={require('../../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: wp('100%'), height: hp('45%'), }} />
                     <View style={{ marginTop: hp('8%'), position: 'absolute' }}>
@@ -88,7 +88,7 @@ export default class ResultScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </View>
+            </SafeAreaView>
         )
     }
 }

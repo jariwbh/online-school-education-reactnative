@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
+import { Text, View, SafeAreaView, ImageBackground, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import { AntDesign, Fontisto } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default class LeaveApplicationScreen extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
@@ -66,7 +66,7 @@ export default class LeaveApplicationScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </View>
+            </SafeAreaView>
         )
     }
 }

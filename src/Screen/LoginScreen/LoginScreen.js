@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TextInput, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, ImageBackground, Image, TextInput, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -13,7 +13,7 @@ export default class LoginScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('10%'), justifyContent: 'center', alignItems: 'center', }}>
                         <Image source={require('../../../assets/image/vector.png')} style={{ height: hp('20%'), width: wp('75%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
@@ -65,7 +65,7 @@ export default class LoginScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </View >
+            </SafeAreaView >
         );
     }
 }

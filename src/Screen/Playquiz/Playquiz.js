@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { RadioButton } from 'react-native-paper';
@@ -8,7 +8,7 @@ export default class Playquiz extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), justifyContent: 'space-between' }}>
                         <View style={{ marginLeft: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -68,7 +68,7 @@ export default class Playquiz extends Component {
                         <View style={{ marginBottom: hp('5%') }}></View>
                     </ScrollView>
                 </ImageBackground>
-            </View>
+            </SafeAreaView>
         )
     }
 }

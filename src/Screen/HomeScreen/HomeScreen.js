@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, SafeAreaView, Image, ScrollView } from 'react-native';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -13,7 +13,7 @@ class HomeScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('7%') }}>
                         <View style={{}}>
@@ -153,7 +153,7 @@ class HomeScreen extends Component {
                         </View>
                     </ScrollView>
                 </ImageBackground>
-            </View >
+            </SafeAreaView >
         );
     }
 }

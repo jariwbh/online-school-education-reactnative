@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, StyleSheet, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
+import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AntDesign } from '@expo/vector-icons';
 
@@ -39,7 +39,7 @@ export default class TimeTableScreen extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <ImageBackground source={require('../../../assets/image/bg.png')} style={styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
@@ -160,7 +160,7 @@ export default class TimeTableScreen extends Component {
                         </ScrollView>
                     </View>
                 </ImageBackground>
-            </View>
+            </SafeAreaView>
         )
     }
 }
