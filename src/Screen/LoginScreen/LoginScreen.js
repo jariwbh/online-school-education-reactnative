@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, ImageBackground, Image, TextInput, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 export default class LoginScreen extends Component {
     constructor(props) {

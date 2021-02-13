@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, ImageBackground, SafeAreaView, Image, StyleSheet } from 'react-native'
-import { AntDesign, Fontisto } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { ScrollView } from 'react-native-gesture-handler';
 

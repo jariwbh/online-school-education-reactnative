@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, SafeAreaView, View, ImageBackground, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { AntDesign, Fontisto } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 
 export default class EventsScreen extends Component {

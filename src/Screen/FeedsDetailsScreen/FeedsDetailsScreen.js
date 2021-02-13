@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AntDesign, Fontisto } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 export default class FeedsDetailsScreen extends Component {
     render() {

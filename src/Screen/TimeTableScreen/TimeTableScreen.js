@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
 
 export default class TimeTableScreen extends Component {
     constructor(props) {

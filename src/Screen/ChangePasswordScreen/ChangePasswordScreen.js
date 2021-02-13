@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AntDesign, Fontisto } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class ChangePasswordScreen extends Component {

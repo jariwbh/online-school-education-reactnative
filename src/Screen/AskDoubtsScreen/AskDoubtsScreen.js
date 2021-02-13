@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, ImageBackground, TouchableOpacity, TextInput } from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 // import { Dropdown } from 'react-native-material-dropdown';
 import { Picker } from '@react-native-picker/picker';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, ImageBackground, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AntDesign, } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class AttendanceScreen extends Component {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, SafeAreaView, StyleSheet, TouchableOpacity, ImageBackground, Image, } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 
