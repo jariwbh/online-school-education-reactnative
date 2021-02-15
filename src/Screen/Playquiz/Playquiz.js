@@ -10,8 +10,8 @@ export default class Playquiz extends Component {
     render() {
 
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), justifyContent: 'space-between' }}>
                         <View style={{ marginLeft: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                             <TouchableOpacity>

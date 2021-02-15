@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import * as STYLES from './Styles';
 
 export default class TimeTableScreen extends Component {
     constructor(props) {
@@ -39,20 +40,20 @@ export default class TimeTableScreen extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>TimeTable</Text>
                     </View>
-                    <View style={styles.cardview}>
-                        <View style={styles.listTab}>
+                    <View style={STYLES.styles.cardview}>
+                        <View style={STYLES.styles.listTab}>
                             {
                                 this.state.listTab.map(e => (
                                     <TouchableOpacity
-                                        style={[styles.btnTab]} onPress={() => this.setstateFilter(e.status)}
+                                        style={[STYLES.styles.btnTab]} onPress={() => this.setstateFilter(e.status)}
                                     >
-                                        <Text style={styles.textTab}>{e.status}</Text>
+                                        <Text style={STYLES.styles.textTab}>{e.status}</Text>
                                     </TouchableOpacity>
                                 ))
                             }
@@ -60,7 +61,7 @@ export default class TimeTableScreen extends Component {
                         <ScrollView>
                             <View>
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Computer Science</Text>
 
@@ -76,7 +77,7 @@ export default class TimeTableScreen extends Component {
                                             <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 1</Text>
                                         </View>
                                     </View>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Mathematics </Text>
 
@@ -92,7 +93,7 @@ export default class TimeTableScreen extends Component {
                                             <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 2</Text>
                                         </View>
                                     </View>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>English</Text>
 
@@ -108,7 +109,7 @@ export default class TimeTableScreen extends Component {
                                             <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 3</Text>
                                         </View>
                                     </View>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%'), alignItems: 'center' }}>
                                             <View style={{ flexDirection: 'column', }}>
                                                 <Text style={{ fontSize: hp('2.5%'), margin: hp('1%'), marginLeft: hp('2%'), color: '#313131', fontWeight: 'bold', }}>Lunch Break</Text>
@@ -120,7 +121,7 @@ export default class TimeTableScreen extends Component {
                                             </View>
                                         </View>
                                     </View>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Science</Text>
 
@@ -136,7 +137,7 @@ export default class TimeTableScreen extends Component {
                                             <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 4</Text>
                                         </View>
                                     </View>
-                                    <View style={styles.innercardview}>
+                                    <View style={STYLES.styles.innercardview}>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                             <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Social Study</Text>
 
@@ -162,70 +163,5 @@ export default class TimeTableScreen extends Component {
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
-    cardview: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('7%'),
 
-    },
-    listTab: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        marginBottom: 20,
-        marginTop: 15,
-    },
-    btnTab: {
-        width: Dimensions.get('window').width / 6.5,
-        flexDirection: 'row',
-        borderColor: '#00C464',
-        borderRadius: hp('2%'),
-        borderWidth: 1,
-        padding: 5,
-        justifyContent: 'center'
-    },
-    textTab: {
-        fontSize: 16
-    },
-    btnTabActive: {
-        backgroundColor: '#00C464'
-    },
-    textTabActive: {
-        color: '#FFF'
-    },
-    textTabInActive: {
-        color: '#00C464'
-    },
-    itemContainer: {
-        flexDirection: 'row',
-        paddingVertical: 15
-    },
-    innercardview: {
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        borderColor: '#bfbfbf',
-        borderWidth: hp('0.2%'),
-        borderRadius: hp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: wp('90%'),
-        marginTop: hp('2%')
-    },
-})
 
