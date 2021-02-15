@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { REGISTERSCREEN } from '../../Action/Type'
+import { HOMESCREEN, REGISTERSCREEN } from '../../Action/Type'
 import * as STYLES from './Styles';
 
 export default class LoginScreen extends Component {
@@ -142,7 +142,7 @@ export default class LoginScreen extends Component {
                             </View>
                             <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
                                 <Text style={STYLES.styles.innerText}> Don't have an account? </Text>
-                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(REGISTERSCREEN) }} >
+                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(HOMESCREEN) }} >
                                     <Text style={STYLES.styles.baseText}>Create</Text>
                                 </TouchableOpacity>
                             </View>

@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, SafeAreaView, ImageBackground, TouchableOpacity
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as STYLES from './Styles';
+
 
 export default class Playquiz extends Component {
     render() {
@@ -72,22 +74,4 @@ export default class Playquiz extends Component {
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
-    inputView: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('1%'),
-        marginTop: hp('10%'),
-    },
-})
+
