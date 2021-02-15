@@ -3,11 +3,13 @@ import { Text, View, SafeAreaView, StyleSheet, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import * as STYLES from './Styles';
+
 
 export default class FeedsDetailsScreen extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={STYLES.styles.container}>
                 <View>
                     <Image source={require('../../assets/image/dp_bg.png')} style={{ height: hp('50 %'), width: wp('140%'), }}
                     />
@@ -27,8 +29,3 @@ export default class FeedsDetailsScreen extends Component {
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-})

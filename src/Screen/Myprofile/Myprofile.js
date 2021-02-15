@@ -4,6 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-na
 import { ScrollView } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as STYLES from './Styles';
 
 export default class Myprofile extends Component {
     constructor(props) {
@@ -13,8 +14,8 @@ export default class Myprofile extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', marginLeft: hp('2%') }}>
                             <AntDesign name="left" size={24} color="#FFFFFF" />
@@ -25,10 +26,10 @@ export default class Myprofile extends Component {
                             <Text style={{ color: '#6688CA', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('0%') }}>Done</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.cardview}>
+                    <View style={STYLES.styles.cardview}>
                         <ScrollView>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={styles.innercardview}>
+                                <View style={STYLES.styles.innercardview}>
                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('2%') }}>
                                         <View style={{ marginLeft: hp('1%'), flexDirection: 'row', }}>
                                             <Image source={require('../../assets/image/profile1.png')} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('2%') }}
@@ -51,13 +52,13 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ marginTop: hp('0%'), marginLeft: hp('0%'), justifyContent: 'space-around', flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput}
+                                        style={STYLES.styles.TextInput}
                                         placeholder="1234 4325 4567 1234"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
                                     />
                                     <TextInput
-                                        style={styles.TextInput}
+                                        style={STYLES.styles.TextInput}
                                         placeholder="2020-2021"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -71,7 +72,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ marginTop: hp('0%'), marginLeft: hp('0%'), justifyContent: 'space-around', flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput}
+                                        style={STYLES.styles.TextInput}
                                         placeholder="VI"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -82,7 +83,7 @@ export default class Myprofile extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     <TextInput
-                                        style={styles.TextInput}
+                                        style={STYLES.styles.TextInput}
                                         placeholder="T00221"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -100,7 +101,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput1}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="parentboth84@gmail.com"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -118,7 +119,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput1}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="Monica Larson"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -136,7 +137,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput1}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="Bernard Taylor"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -154,7 +155,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        style={styles.TextInput1}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="Karol Bagh, Delhi"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
@@ -176,45 +177,3 @@ export default class Myprofile extends Component {
 }
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100 %'),
-    },
-    cardview: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('7%'),
-
-    },
-    innercardview: {
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        borderColor: '#2855AE',
-        borderWidth: hp('0.2%'),
-        borderRadius: hp('2%'),
-        width: wp('90%'),
-        marginTop: hp('2%')
-    },
-    TextInput: {
-        width: wp('40%'),
-        height: hp('8%'),
-        fontSize: hp('3%'),
-        marginLeft: hp('0%'),
-        marginTop: hp('-1%'),
-    },
-    TextInput1: {
-        width: wp('90%'),
-        height: hp('8%'),
-        fontSize: hp('3%'),
-        marginLeft: hp('3%'),
-        marginTop: hp('-1%'),
-    },
-})

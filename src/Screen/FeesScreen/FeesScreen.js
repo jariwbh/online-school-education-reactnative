@@ -2,20 +2,20 @@ import React, { Component } from 'react'
 import { Text, View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import * as STYLES from './Styles';
 
 export class FeesScreen extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Fees Due</Text>
                     </View>
-                    <View style={styles.cardview}>
+                    <View style={STYLES.styles.cardview}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <View style={styles.innercardview}>
+                            <View style={STYLES.styles.innercardview}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Receipt No.</Text>
                                     <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>#98761</Text>
@@ -47,7 +47,7 @@ export class FeesScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={styles.innercardview}>
+                                <View style={STYLES.styles.innercardview}>
                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Receipt No.</Text>
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>#98431</Text>
@@ -92,40 +92,3 @@ export class FeesScreen extends Component {
 
 export default FeesScreen
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
-    cardview: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('7%'),
-
-    },
-    innercardview: {
-        // flex: 1,
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        borderColor: '#2855AE',
-        borderWidth: hp('0.2%'),
-        borderRadius: hp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: wp('90%'),
-        //height: hp('30%'),
-        marginTop: hp('2%')
-    },
-})
