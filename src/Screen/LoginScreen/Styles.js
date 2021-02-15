@@ -35,6 +35,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    loginBtnLoading: {
+        flexDirection: 'row',
+        width: wp('85%'),
+        backgroundColor: "#6789CA",
+        borderRadius: wp('2%'),
+        height: hp('8%'),
+        alignItems: "center",
+        justifyContent: "center",
+    },
     loginText: {
         color: '#FFFFFF',
         fontSize: hp('2.5%'),

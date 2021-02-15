@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { REGISTERSCREEN } from '../../Action/Type'
+import AsyncStorage from '@react-native-community/async-storage';
+import LoginService from '../../Services/LoginService/LoginService';
+import { HOMESCREEN, REGISTERSCREEN, AUTHUSER } from '../../Action/Type'
+import Loading from '../../Components/Loader/Loading';
 import * as STYLES from './Styles';
 
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
+            username: 'MYISCH10001',
             usererror: null,
-            password: null,
+            password: 'MYISCH10001',
             passworderror: null,
             loading: false,
         };
@@ -45,9 +48,10 @@ export default class LoginScreen extends Component {
     }
 
     authenticateUser = (user) => (
-        AsyncStorage.setItem('@authuser', JSON.stringify(user))
+        AsyncStorage.setItem(AUTHUSER, JSON.stringify(user))
     )
 
+    //SIGN IN BUTTON ONPRESS TO PROCESS
     onPressSubmit = async () => {
         const { username, password } = this.state;
         if (!username || !password) {
@@ -63,25 +67,33 @@ export default class LoginScreen extends Component {
         try {
             await LoginService(body)
                 .then(response => {
-                    if (response != null || response != 'undefind') {
-                        this.authenticateUser(response.data.user);
-                        //appConfig.headers["authkey"] = response.user.addedby;
-                        ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
-                        this.props.navigation.navigate(REGISTERSCREEN)
-                        // this.props.navigation.navigate('TabNavigation');
+                    if (response.data.type && response.data.type == 'Error') {
+                        console.log('response', response.status)
+                        this.setState({ loading: false })
+                        ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
                         this.resetScreen();
+                        return
+                    }
+
+                    if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                        this.authenticateUser(response.data.user);
+                        ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
+                        this.setState({ loading: false })
+                        this.props.navigation.navigate(HOMESCREEN)
+                        //this.resetScreen();
                         return
                     }
                 })
         }
         catch (error) {
+            console.log('error', error)
             this.setState({ loading: false })
             ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG)
         };
     }
 
     render() {
-        const { usererror, passworderror } = this.state;
+        const { usererror, passworderror, loading } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
@@ -136,13 +148,16 @@ export default class LoginScreen extends Component {
                                 </View>
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%'), }}>
-                                <TouchableOpacity style={STYLES.styles.loginBtn} onPress={() => this.onPressSubmit()} >
-                                    <Text style={STYLES.styles.loginText}>SIGN IN </Text>
+                                <TouchableOpacity
+                                    style={loading == true ? STYLES.styles.loginBtnLoading : STYLES.styles.loginBtn}
+                                    onPress={() => this.onPressSubmit()}
+                                    disabled={loading == true ? true : false}>
+                                    {loading == true ? <Loading /> : <Text style={STYLES.styles.loginText}>SIGN IN </Text>}
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
                                 <Text style={STYLES.styles.innerText}> Don't have an account? </Text>
-                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(REGISTERSCREEN) }} >
+                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(REGISTERSCREEN), this.resetScreen() }}>
                                     <Text style={STYLES.styles.baseText}>Create</Text>
                                 </TouchableOpacity>
                             </View>
