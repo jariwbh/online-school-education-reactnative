@@ -11,9 +11,7 @@ function SplashScreen(props) {
       var getUser = await AsyncStorage.getItem(AUTHUSER)
       var userData = JSON.parse(getUser)
       if (userData) {
-        if (userData && userData.property && userData.property.address) {
-          return props.navigation.navigate(HOMESCREEN)
-        }
+        return props.navigation.navigate(HOMESCREEN)
       } else {
         props.navigation.navigate(LOGINSCREEN)
       }
@@ -21,7 +19,7 @@ function SplashScreen(props) {
 
     setTimeout(() => {
       AuthController();
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (

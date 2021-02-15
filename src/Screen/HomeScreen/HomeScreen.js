@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, SafeAreaView, Image, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, FlatList } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
+import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import * as STYLES from './Styles';
 
 class HomeScreen extends Component {
@@ -9,6 +10,12 @@ class HomeScreen extends Component {
         super(props);
         this.state = {
         };
+    }
+
+    onPressLogout() {
+        AsyncStorage.removeItem(AUTHUSER);
+        ToastAndroid.show("Log Out Success!", ToastAndroid.SHORT);
+        this.props.navigation.replace(LOGINSCREEN);
     }
 
     render() {
@@ -142,7 +149,7 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Events</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('SupportScreen') }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.onPressLogout()}>
                                     <Image source={require('../../assets/image/ic_logout.png')} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
@@ -159,5 +166,4 @@ class HomeScreen extends Component {
 }
 
 export default HomeScreen;
-
 

@@ -97,7 +97,7 @@ class RegisterScreen extends Component {
     }
 
     render() {
-        const { fullnameError, usernameError, mobilenumberErro, loading } = this.state;
+        const { fullnameError, usernameError, mobilenumberError, loading } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
