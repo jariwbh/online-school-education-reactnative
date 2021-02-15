@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import RegisterService from "../../Services/RegisterService/RegisterService";
+import Loading from '../../Components/Loader/Loading';
 import { LOGINSCREEN } from '../../Action/Type'
 import * as STYLES from './Styles';
 
@@ -55,7 +57,7 @@ class RegisterScreen extends Component {
         return this.setState({ mobilenumber: mobilenumber, mobilenumberError: null })
     }
 
-    //SIGN IN BUTTON ONPRESS TP PROCESS
+    //SIGN UP BUTTON ONPRESS TO PROCESS
     onPressSubmit = async () => {
         const { fullname, username, mobilenumber } = this.state;
         if (!fullname || !username || !mobilenumber) {
@@ -74,9 +76,17 @@ class RegisterScreen extends Component {
         this.setState({ loading: true })
         try {
             await RegisterService(body).then(response => {
-                if (response != null) {
+                if (response.data.type && response.data.type == 'Error') {
+                    console.log('response', response.status)
+                    this.setState({ loading: false })
+                    ToastAndroid.show("SignUp Failed!", ToastAndroid.LONG);
+                    return
+                }
+                if (response.data != null && response.data != 'undefind' && response.status == 200) {
                     ToastAndroid.show("SignUp Success!", ToastAndroid.LONG);
+                    this.setState({ loading: false })
                     this.props.navigation.navigate(LOGINSCREEN);
+                    return
                 }
             })
         }
@@ -87,13 +97,13 @@ class RegisterScreen extends Component {
     }
 
     render() {
-        const { fullnameError, usernameError, mobilenumberError } = this.state;
+        const { fullnameError, usernameError, mobilenumberErro, loading } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                         <View style={STYLES.styles.inputView}>
-                            <View style={{ marginTop: hp('-28%'), justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
+                            <View style={{ marginTop: hp('-23%'), justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
                                 <Image source={require('../../assets/image/vector.png')} style={{ height: hp('25%'), width: wp('93%'), marginTop: hp('0%'), borderRadius: hp('0%') }}
                                 />
                             </View>
@@ -166,8 +176,11 @@ class RegisterScreen extends Component {
                                 </View>
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('3%'), }}>
-                                <TouchableOpacity style={STYLES.styles.regBtn} onPress={() => this.onPressSubmit()} >
-                                    <Text style={STYLES.styles.regText}>SIGN UP </Text>
+                                <TouchableOpacity
+                                    style={loading == true ? STYLES.styles.regBtnLoading : STYLES.styles.regBtn}
+                                    disabled={loading == true ? true : false}
+                                    onPress={() => this.onPressSubmit()}>
+                                    {loading == true ? <Loading /> : <Text style={STYLES.styles.regText}>SIGN UP </Text>}
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
