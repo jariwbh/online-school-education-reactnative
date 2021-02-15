@@ -1,50 +1,36 @@
 import React, { useEffect } from 'react';
-import {
-  View,
-  StatusBar,
-  ImageBackground,
-  Dimensions,
-  Animated,
-} from 'react-native';
-//import AsyncStorage from '@react-native-community/async-storage';
+import { View, StatusBar, SafeAreaView, Animated } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { AUTHUSER, HOMESCREEN, LOGINSCREEN } from '../../Action/Type'
+import * as STYLES from './Styles';
 
 function SplashScreen(props) {
+  // check AuthController use to Login Or Not Login
   useEffect(() => {
-    async function fetchMyAPI() {
-      //   var getUser = await AsyncStorage.getItem('@authuserlaundry')
-      //   var userData;
-      //   userData = JSON.parse(getUser)
-      //   if (userData != null) {
-      //     if (userData && userData.property && userData.property.address) {
-      //       return props.navigation.navigate('HomeScreen')
-      //     }
-      //   } else {
-      props.navigation.navigate('LoginScreen')
-      //   }
+    async function AuthController() {
+      var getUser = await AsyncStorage.getItem(AUTHUSER)
+      var userData = JSON.parse(getUser)
+      if (userData) {
+        if (userData && userData.property && userData.property.address) {
+          return props.navigation.navigate(HOMESCREEN)
+        }
+      } else {
+        props.navigation.navigate(LOGINSCREEN)
+      }
     }
 
     setTimeout(() => {
-      fetchMyAPI();
+      AuthController();
     }, 5000);
-
   }, []);
 
-  const { width, height } = Dimensions.get('screen');
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }} >
       <StatusBar backgroundColor="#6789CA" barStyle="dark-content" />
       <View style={{ flex: 1 }}>
-        <Animated.Image
-          style={{
-            resizeMode: 'cover',
-            flex: 1,
-            height: height,
-            width: width
-          }}
-          source={require('../../assets/splash.png')}
-        />
+        <Animated.Image style={STYLES.styles.imageStyle} source={require('../../assets/splash.png')} />
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 
