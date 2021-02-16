@@ -84,7 +84,7 @@ export default class EventsScreen extends Component {
                         </ScrollView>
                     }
                 </View>
-            </SafeAreaView >
+            </SafeAreaView>
         )
     }
 }

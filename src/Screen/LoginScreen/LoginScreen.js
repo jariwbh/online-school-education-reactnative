@@ -155,12 +155,12 @@ export default class LoginScreen extends Component {
                                     {loading == true ? <Loading /> : <Text style={STYLES.styles.loginText}>SIGN IN </Text>}
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
+                            {/* <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
                                 <Text style={STYLES.styles.innerText}> Don't have an account? </Text>
                                 <TouchableOpacity onPress={() => { this.props.navigation.navigate(REGISTERSCREEN), this.resetScreen() }}>
                                     <Text style={STYLES.styles.baseText}>Create</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         </View>
                     </ScrollView>
                 </ImageBackground>

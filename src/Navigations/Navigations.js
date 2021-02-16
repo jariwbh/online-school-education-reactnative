@@ -49,11 +49,32 @@ function MainNavigation({ navigation }) {
             <HomeStack.Screen name="FeesScreen" component={FeesScreen} />
             <HomeStack.Screen name="PayonlineScreen" component={PayonlineScreen} />
             <HomeStack.Screen name="AssignmentScreen" component={AssignmentScreen} />
-            <HomeStack.Screen name="Playquiz" component={Playquiz} />
+            <HomeStack.Screen name="Playquiz" options={{
+                headerTintColor: '#FFFFFF', title: 'Play Quiz',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={Playquiz} />
+
             <HomeStack.Screen name="Myprofile" component={Myprofile} />
             <HomeStack.Screen name="DateSheetScreen" component={DateSheetScreen} />
-            <HomeStack.Screen name="AskDoubtsScreen" component={AskDoubtsScreen} />
-            <HomeStack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+
+            <HomeStack.Screen name="AskDoubtsScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Ask Doubt',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={AskDoubtsScreen} />
+
+            <HomeStack.Screen name="ChangePasswordScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Change Password',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={ChangePasswordScreen} />
 
             <HomeStack.Screen name="EventsScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Events & Programs',
@@ -63,7 +84,8 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={EventsScreen} />
 
-            <HomeStack.Screen name="FeedsDetailsScreen" component={FeedsDetailsScreen} />
+            <HomeStack.Screen name="FeedsDetailsScreen" options={{ title: '', headerShown: false }} component={FeedsDetailsScreen} />
+
             <HomeStack.Screen name="SupportScreen" component={SupportScreen} />
 
             <HomeStack.Screen name="SchoolGalleryScreen" options={{
@@ -75,7 +97,15 @@ function MainNavigation({ navigation }) {
             }} component={SchoolGalleryScreen} />
 
             <HomeStack.Screen name="ResultScreen" component={ResultScreen} />
-            <HomeStack.Screen name="LeaveApplicationScreen" component={LeaveApplicationScreen} />
+
+            <HomeStack.Screen name="LeaveApplicationScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Ask Doubt',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={LeaveApplicationScreen} />
+
             <HomeStack.Screen name="AttendanceScreen" component={AttendanceScreen} />
             <HomeStack.Screen name="TimeTableScreen" component={TimeTableScreen} />
         </HomeStack.Navigator>
