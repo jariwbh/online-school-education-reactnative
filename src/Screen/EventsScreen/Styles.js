@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#5D81C6'
     },
     backgroundImage: {
         flex: 1,
@@ -21,11 +22,8 @@ const styles = StyleSheet.create({
 
     },
     innercardview: {
-        //  flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
         borderRadius: hp('2%'),
         shadowOpacity: 0.5,
         shadowRadius: 3,
@@ -35,9 +33,8 @@ const styles = StyleSheet.create({
         },
         elevation: 2,
         width: wp('90%'),
-        // height: hp('30%'),
-        marginTop: hp('2%'),
-
+        marginTop: hp('1%'),
+        marginBottom: hp('3%')
     },
 })
 

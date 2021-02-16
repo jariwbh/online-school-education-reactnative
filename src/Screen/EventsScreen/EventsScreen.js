@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, SafeAreaView, View, FlatList, ImageBackground, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { Text, SafeAreaView, View, FlatList, RefreshControl, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
@@ -15,13 +15,13 @@ export default class EventsScreen extends Component {
         super(props);
         this.state = {
             EventList: [],
-            loader: true
+            loader: true,
+            refreshing: false,
         };
     }
 
     getEventList() {
         EventListService().then(response => {
-            console.log("response", response.data);
             this.setState({ EventList: response.data })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
@@ -39,7 +39,6 @@ export default class EventsScreen extends Component {
     }
 
     renderEventListService = ({ item }) => (
-
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate('FeedsDetailsScreen', { item })}>
                 <View style={{ flexDirection: 'column', marginTop: hp('1%') }}>
@@ -60,36 +59,31 @@ export default class EventsScreen extends Component {
                 </View>
             </TouchableOpacity>
         </View>
-
     )
 
     render() {
-        const { EventList, loader, } = this.state
-
+        const { EventList, loader, refreshing } = this.state
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Events & Programs</Text>
-                    </View>
-
-                    <View style={STYLES.styles.cardview}>
-                        {(EventList == null) || (EventList && EventList.length == 0) ?
-                            (loader == false ?
-                                <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Service Available</Text>
-                                : <Loader />
-                            )
-                            :
-                            <FlatList
-                                data={EventList}
-                                renderItem={this.renderEventListService}
-                                keyExtractor={item => `${item._id}`}
-                            />
-                        }
-                    </View>
-
-                </ImageBackground>
+                <View style={STYLES.styles.cardview}>
+                    {(EventList == null) || (EventList && EventList.length == 0) ?
+                        (loader == false ?
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
+                            : <Loader />
+                        )
+                        :
+                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                            <View style={{}}>
+                                <FlatList
+                                    data={EventList}
+                                    renderItem={this.renderEventListService}
+                                    keyExtractor={item => `${item._id}`}
+                                />
+                            </View>
+                        </ScrollView>
+                    }
+                </View>
             </SafeAreaView >
         )
     }
