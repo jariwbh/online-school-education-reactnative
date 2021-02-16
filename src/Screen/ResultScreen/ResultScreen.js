@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Image, ImageBackground } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as STYLES from './Styles';
 
 export default class ResultScreen extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <Image source={require('../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: wp('100%'), height: hp('45%'), }} />
                     <View style={{ marginTop: hp('8%'), position: 'absolute' }}>
                         <View style={{ marginLeft: hp('3%'), flexDirection: 'row', }}>
@@ -33,7 +34,7 @@ export default class ResultScreen extends Component {
                             <Image source={require('../../assets/image/ic_star.png')} style={{ width: 30, height: 30, position: 'absolute', marginLeft: hp('19.5%'), }} />
                         </View>
                     </View>
-                    <View style={styles.cardview}>
+                    <View style={STYLES.styles.cardview}>
                         <ScrollView>
                             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%') }}>
                                 <Text style={{ fontSize: hp('2%'), color: '#313131', fontWeight: 'bold' }}>You are Excellent, </Text>
@@ -42,7 +43,7 @@ export default class ResultScreen extends Component {
                                 <Text style={{ fontSize: hp('4%'), color: '#313131', fontWeight: 'bold' }}>Akshay Syal !! </Text>
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                                <View style={styles.innercardview1}>
+                                <View style={STYLES.styles.innercardview1}>
                                     <View style={{ marginLeft: hp('0%'), }}>
                                         <Text style={{ fontSize: hp('3%'), margin: hp('1%') }}>English</Text>
                                         <Text style={{ fontSize: hp('3%'), margin: hp('1%') }}>Hindi</Text>
@@ -53,7 +54,7 @@ export default class ResultScreen extends Component {
                                         <Text style={{ fontSize: hp('3%'), margin: hp('1%') }}>Computer</Text>
                                     </View>
                                 </View>
-                                <View style={styles.innercardview2}>
+                                <View style={STYLES.styles.innercardview2}>
                                     <View style={{ backgroundColor: '#E6EFFF', }}>
                                         <Text style={{ fontSize: hp('3%'), textAlign: 'center', margin: hp('1%') }}>100</Text>
                                         <Text style={{ fontSize: hp('3%'), textAlign: 'center', margin: hp('1%') }}>100</Text>
@@ -64,7 +65,7 @@ export default class ResultScreen extends Component {
                                         <Text style={{ fontSize: hp('3%'), textAlign: 'center', margin: hp('1%') }}>100</Text>
                                     </View>
                                 </View>
-                                <View style={styles.innercardview3}>
+                                <View style={STYLES.styles.innercardview3}>
                                     <View style={{ backgroundColor: '#6AC259', borderTopRightRadius: hp('2%'), borderBottomRightRadius: hp('2%'), }}>
                                         <Text style={{ fontSize: hp('3%'), textAlign: 'center', margin: hp('1%') }}>74-B</Text>
                                         <Text style={{ fontSize: hp('3%'), textAlign: 'center', margin: hp('1%') }}>87-B</Text>
@@ -77,8 +78,8 @@ export default class ResultScreen extends Component {
                                 </View>
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('8%'), }}>
-                                <TouchableOpacity style={styles.pdfBtn} onPress={() => { }} >
-                                    <Text style={styles.pdfText}>DOWNLOAD PDF </Text>
+                                <TouchableOpacity style={STYLES.styles.pdfBtn} onPress={() => { }} >
+                                    <Text style={STYLES.styles.pdfText}>DOWNLOAD PDF </Text>
                                     <FontAwesome name="file-pdf-o" size={24} color="#FFFFFF" style={{ marginLeft: hp('2%') }} />
                                 </TouchableOpacity>
                             </View>
@@ -93,93 +94,3 @@ export default class ResultScreen extends Component {
         )
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
-    cardview: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('-5.5%'),
-
-    },
-    innercardview1: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('2%'),
-        borderBottomLeftRadius: hp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: wp('50%'),
-        marginTop: hp('2%'),
-        //  height: hp('10%')
-    },
-    innercardview2: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        // borderRadius: hp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: wp('20%'),
-        marginTop: hp('2%'),
-        // height: hp('10%')
-    },
-    innercardview3: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
-        flexDirection: 'column',
-        backgroundColor: "#FFFFFF",
-        borderTopRightRadius: hp('2%'),
-        borderBottomRightRadius: hp('2%'),
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: wp('20%'),
-        marginTop: hp('2%'),
-        //  height: hp('10%')
-    },
-    pdfBtn: {
-        flexDirection: 'row',
-        width: wp('85%'),
-        backgroundColor: "#2855AE",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    pdfText: {
-        color: '#FFFFFF',
-        fontSize: hp('2.5%'),
-        fontWeight: 'bold',
-
-    },
-})

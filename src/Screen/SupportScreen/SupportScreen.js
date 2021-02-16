@@ -2,17 +2,19 @@ import React, { Component } from 'react'
 import { Text, View, ImageBackground, SafeAreaView, StyleSheet, Image } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import * as STYLES from './Styles';
+
 
 export default class SupportScreen extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={styles.backgroundImage}>
+            <SafeAreaView style={STYLES.styles.container}>
+                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
                         <AntDesign name="left" size={24} color="#FFFFFF" />
                         <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Support</Text>
                     </View>
-                    <View style={styles.cardview}>
+                    <View style={STYLES.styles.cardview}>
                         <View style={{ marginTop: hp('7%'), justifyContent: 'center', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/blob.png')} style={{ height: 120, width: 120, }}
                             />
@@ -38,22 +40,3 @@ export default class SupportScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
-    cardview: {
-        flex: 1,
-        backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('7%'),
-
-    },
-})
