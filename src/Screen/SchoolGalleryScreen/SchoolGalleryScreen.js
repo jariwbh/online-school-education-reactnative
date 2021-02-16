@@ -10,8 +10,7 @@ export default class SchoolGalleryScreen extends Component {
         super(props);
         this.state = {
             SchoolGalleryList: [],
-            loader: true,
-            refreshing: false,
+            loader: true
         };
     }
 
