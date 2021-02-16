@@ -45,7 +45,7 @@ export default class EventsScreen extends Component {
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>{item.eventname}</Text>
                 </View>
                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }} >
-                    <Image source={{ uri: item.gallery[0] ? (item.gallery[0] ? item.gallery : Eventicon) : Eventicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
+                    <Image source={{ uri: item.gallery ? item.gallery : Eventicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                     />
                     <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('0%') }}>
                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>
