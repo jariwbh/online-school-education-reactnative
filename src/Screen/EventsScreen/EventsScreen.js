@@ -8,7 +8,7 @@ import { EventListService } from '../../Services/EventsService/EventsService'
 import moment from 'moment'
 import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
-const serviceicon = 'https://res.cloudinary.com/dphukth24/image/upload/v1613462857/dp_bg_vsci5n.png'
+const Eventicon = 'https://res.cloudinary.com/dphukth24/image/upload/v1613462857/dp_bg_vsci5n.png'
 
 export default class EventsScreen extends Component {
     constructor(props) {
@@ -45,7 +45,7 @@ export default class EventsScreen extends Component {
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>{item.eventname}</Text>
                 </View>
                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }} >
-                    <Image source={{ uri: item.gallery[0] ? (item.gallery[0] ? item.gallery : serviceicon) : serviceicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
+                    <Image source={{ uri: item.gallery[0] ? (item.gallery[0] ? item.gallery : Eventicon) : Eventicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                     />
                     <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('0%') }}>
                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>
