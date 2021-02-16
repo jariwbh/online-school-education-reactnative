@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import LoginService from '../../Services/LoginService/LoginService';
-import { HOMESCREEN, REGISTERSCREEN, AUTHUSER } from '../../Action/Type'
+import { MAINSCREEN, REGISTERSCREEN, AUTHUSER } from '../../Action/Type'
 import Loading from '../../Components/Loader/Loading';
 import * as STYLES from './Styles';
 
@@ -79,7 +79,7 @@ export default class LoginScreen extends Component {
                         this.authenticateUser(response.data.user);
                         ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
                         this.setState({ loading: false })
-                        this.props.navigation.navigate(HOMESCREEN)
+                        this.props.navigation.navigate(MAINSCREEN)
                         //this.resetScreen();
                         return
                     }

@@ -36,10 +36,6 @@ export default class SchoolGalleryScreen extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                    <AntDesign name="left" size={24} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>School Gallery</Text>
-                </View>
                 <View style={STYLES.styles.cardview}>
                     <ScrollView>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>

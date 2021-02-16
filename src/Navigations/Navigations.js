@@ -21,6 +21,8 @@ import LeaveApplicationScreen from "../Screen/LeaveApplicationScreen/LeaveApplic
 import AttendanceScreen from "../Screen/AttendanceScreen/AttendanceScreen"
 import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
 import SplashScreen from '../Screen/SplashScreen/splashScreen';
+import BackButton from '../Components/BackButton/BackButton';
+import { HOMESCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -30,24 +32,52 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="SplashScreen" component={SplashScreen} />
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-                <Stack.Screen name="HomeScreen" component={HomeScreen} />
-                <Stack.Screen name="FeesScreen" component={FeesScreen} />
-                <Stack.Screen name="PayonlineScreen" component={PayonlineScreen} />
-                <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} />
-                <Stack.Screen name="Playquiz" component={Playquiz} />
-                <Stack.Screen name="Myprofile" component={Myprofile} />
-                <Stack.Screen name="DateSheetScreen" component={DateSheetScreen} />
-                <Stack.Screen name="AskDoubtsScreen" component={AskDoubtsScreen} />
-                <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
-                <Stack.Screen name="EventsScreen" component={EventsScreen} />
-                <Stack.Screen name="FeedsDetailsScreen" component={FeedsDetailsScreen} />
-                <Stack.Screen name="SupportScreen" component={SupportScreen} />
-                <Stack.Screen name="SchoolGalleryScreen" component={SchoolGalleryScreen} />
-                <Stack.Screen name="ResultScreen" component={ResultScreen} />
-                <Stack.Screen name="LeaveApplicationScreen" component={LeaveApplicationScreen} />
-                <Stack.Screen name="AttendanceScreen" component={AttendanceScreen} />
-                <Stack.Screen name="TimeTableScreen" component={TimeTableScreen} />
+                <Stack.Screen name="MainScreen" component={MainNavigation} />
             </Stack.Navigator>
         </NavigationContainer>
+    );
+};
+
+
+
+const HomeStack = createStackNavigator();
+function MainNavigation({ navigation }) {
+    return (
+        <HomeStack.Navigator headerMode='screen' initialRouteName='HomeScreen'>
+            <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
+
+            <HomeStack.Screen name="FeesScreen" component={FeesScreen} />
+            <HomeStack.Screen name="PayonlineScreen" component={PayonlineScreen} />
+            <HomeStack.Screen name="AssignmentScreen" component={AssignmentScreen} />
+            <HomeStack.Screen name="Playquiz" component={Playquiz} />
+            <HomeStack.Screen name="Myprofile" component={Myprofile} />
+            <HomeStack.Screen name="DateSheetScreen" component={DateSheetScreen} />
+            <HomeStack.Screen name="AskDoubtsScreen" component={AskDoubtsScreen} />
+            <HomeStack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen} />
+
+            <HomeStack.Screen name="EventsScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Events & Programs',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={EventsScreen} />
+
+            <HomeStack.Screen name="FeedsDetailsScreen" component={FeedsDetailsScreen} />
+            <HomeStack.Screen name="SupportScreen" component={SupportScreen} />
+
+            <HomeStack.Screen name="SchoolGalleryScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'School Gallery',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={SchoolGalleryScreen} />
+
+            <HomeStack.Screen name="ResultScreen" component={ResultScreen} />
+            <HomeStack.Screen name="LeaveApplicationScreen" component={LeaveApplicationScreen} />
+            <HomeStack.Screen name="AttendanceScreen" component={AttendanceScreen} />
+            <HomeStack.Screen name="TimeTableScreen" component={TimeTableScreen} />
+        </HomeStack.Navigator>
     );
 };

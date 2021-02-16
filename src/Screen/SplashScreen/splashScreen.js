@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StatusBar, SafeAreaView, Animated } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { AUTHUSER, HOMESCREEN, LOGINSCREEN } from '../../Action/Type'
+import { AUTHUSER, MAINSCREEN, LOGINSCREEN } from '../../Action/Type'
 import * as STYLES from './Styles';
 
 function SplashScreen(props) {
@@ -11,7 +11,7 @@ function SplashScreen(props) {
       var getUser = await AsyncStorage.getItem(AUTHUSER)
       var userData = JSON.parse(getUser)
       if (userData) {
-        return props.navigation.navigate(HOMESCREEN)
+        return props.navigation.navigate(MAINSCREEN)
       } else {
         props.navigation.navigate(LOGINSCREEN)
       }
