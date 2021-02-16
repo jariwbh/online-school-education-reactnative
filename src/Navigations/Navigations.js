@@ -47,9 +47,7 @@ export default NavigationsApp = () => {
                 <Stack.Screen name="LeaveApplicationScreen" component={LeaveApplicationScreen} />
                 <Stack.Screen name="AttendanceScreen" component={AttendanceScreen} />
                 <Stack.Screen name="TimeTableScreen" component={TimeTableScreen} />
-
             </Stack.Navigator>
-
         </NavigationContainer>
     );
 };
