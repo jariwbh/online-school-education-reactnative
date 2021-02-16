@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#5D81C6'
     },
     backgroundImage: {
         flex: 1,
@@ -18,8 +19,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
         marginTop: hp('7%'),
-
-
     },
 })
 export { styles };

@@ -61,3 +61,5 @@ const studentCategory = [
         name: 'Logout'
     },
 ]
+
+export { studentCategory };
