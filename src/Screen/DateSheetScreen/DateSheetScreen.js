@@ -1,134 +1,96 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ImageBackground, StyleSheet, Image } from 'react-native'
+import { Text, View, SafeAreaView, FlatList, RefreshControl, ImageBackground, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as STYLES from './Styles';
+import { ExamDatesheet } from '../../Services/DateSheetService/DateSheetService'
+import Loader from '../../Components/Loader/Loader'
+import moment from 'moment'
+
 
 export default class DateSheetScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            examSchedule: [],
+            loader: true,
+            refreshing: false
+        };
+    }
+
+    getexamSchedule() {
+        ExamDatesheet().then(response => {
+            this.setState({ examSchedule: response.data[0].examschedule })
+            this.wait(1000).then(() => this.setState({ loader: false }));
+        });
+
+    }
+
+    componentDidMount() {
+        this.getexamSchedule();
+    }
+
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.ExamSchedule()
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
+    }
+
+    renderexamSchedule = ({ item }) => (
+        <View>
+            <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
+                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+            </View>
+            <View style={{ alignItems: 'center', marginTop: hp('2%'), marginLeft: hp('0%'), marginRight: hp('0%'), flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ marginLeft: hp('2%'), }}>
+                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
+                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
+                </View>
+                <View style={{ marginLeft: hp('0%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), fontWeight: 'bold' }}>{item.subjectid.title}</Text>
+                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
+                </View>
+                <View style={{ marginLeft: hp('0%'), marginRight: hp('2%'), flexDirection: 'row', justifyContent: 'flex-end' }}>
+                    <Fontisto name="clock" size={20} color="#A5A5A5" />
+                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>{moment(item.starttime).format('LT')}</Text>
+                </View>
+            </View>
+        </View>
+    )
+
     render() {
+        const { examSchedule, loader, refreshing } = this.state
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Datesheet</Text>
-                    </View>
-                    <View style={STYLES.styles.cardview}>
-                        <ScrollView>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>11</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Science</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Monday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>13</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>English</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Wednesday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>15</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Hindi</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Friday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>18</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Math</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Monday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>20</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Social Study</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Wednesday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#3A3A3A', fontWeight: 'bold' }}>22</Text>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>JAN</Text>
-                                </View>
-                                <View style={{ marginLeft: hp('0%') }}>
-                                    <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>Drawing</Text>
-                                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>Friday</Text>
-                                </View>
-                                <View style={{ marginRight: hp('5%'), flexDirection: 'row' }}>
-                                    <Fontisto name="clock" size={20} color="#A5A5A5" />
-                                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>09:00 AM</Text>
-                                </View>
-                            </View>
-                            <View style={{ alignItems: 'center', marginTop: hp('3%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
-                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                            </View>
-                            <View>
-                                <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
-                                />
-                            </View>
+                <View style={STYLES.styles.cardview}>
+                    {(examSchedule == null) || (examSchedule && examSchedule.length == 0) ?
+                        (loader == false ?
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Exam Schedule Available</Text>
+                            : <Loader />
+                        )
+                        :
+                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+
+                            <FlatList
+                                data={examSchedule}
+                                renderItem={this.renderexamSchedule}
+                                keyExtractor={item => `${item._id}`}
+                            />
                         </ScrollView>
+                    }
+                    <View>
+                        <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
+                        />
                     </View>
-                </ImageBackground>
+                </View>
             </SafeAreaView>
         )
     }
