@@ -16,7 +16,7 @@ export default class EventsScreen extends Component {
         this.state = {
             EventList: [],
             loader: true,
-            refreshing: false,
+            refreshing: false
         };
     }
 
@@ -37,7 +37,12 @@ export default class EventsScreen extends Component {
             setTimeout(resolve, timeout);
         });
     }
-
+    onRefresh = () => {
+        const { _id } = this.state;
+        this.setState({ refreshing: true })
+        this.EventService(_id)
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
+    }
     renderEventListService = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate('FeedsDetailsScreen', { item })}>

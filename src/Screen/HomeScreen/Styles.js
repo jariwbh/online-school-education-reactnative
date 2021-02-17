@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('35%'),
+        width: wp('40%'),
         height: hp('25%'),
         alignItems: 'center'
     },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('35%'),
+        width: wp('40%'),
         height: hp('25%'),
 
         //  alignItems: 'center'
