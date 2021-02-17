@@ -7,12 +7,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#5D81C6'
     },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
-    },
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",

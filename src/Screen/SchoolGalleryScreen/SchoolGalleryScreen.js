@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import SchoolGalleryService from '../../Services/SchoolGalleryService/SchoolGalleryService';
-import { Text, View, SafeAreaView, Image, FlatList, ScrollView } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { View, SafeAreaView, Image, FlatList, ScrollView } from 'react-native'
+import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 
 export default class SchoolGalleryScreen extends Component {
@@ -14,19 +14,26 @@ export default class SchoolGalleryScreen extends Component {
         };
     }
 
-    renderGallery({ item }) {
-        <View style={{ marginTop: hp('3%'), alignItems: 'center' }}>
+    renderSecondRoute = ({ item }) => (
+        <View style={{ marginTop: hp('3%'), justifyContent: "space-between", margin: 15 }}>
             <Image source={{ uri: item.property.documents[0].attachment }}
-                style={{ height: hp('30%'), width: wp('30%'), borderRadius: hp('2%') }} />
+                style={{ height: hp('30%'), width: wp('40%'), borderRadius: hp('2%') }} />
         </View>
-    }
+    )
 
     getSchoolGalleryService() {
         SchoolGalleryService().then(response => {
             if (response.status == 200 && response.data != null) {
                 this.setState({ SchoolGalleryList: response.data })
+                this.wait(1000).then(() => this.setState({ loader: false }));
             }
         })
+    }
+
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
     }
 
     componentDidMount() {
@@ -37,16 +44,23 @@ export default class SchoolGalleryScreen extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
-                    <ScrollView>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', }}>
-                            <FlatList
-                                numColumns={2}
-                                data={this.state.SchoolGalleryList}
-                                renderItem={this.renderGallery}
-                                keyExtractor={item => item._id}
-                            />
-                        </View>
-                    </ScrollView>
+                    {(this.state.SchoolGalleryList == null) || (this.state.SchoolGalleryList && this.state.SchoolGalleryList.length == 0) ?
+                        (this.state.loader == false ?
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
+                            : <Loader />
+                        )
+                        :
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <View style={{ alignItems: 'center' }}>
+                                <FlatList
+                                    numColumns={2}
+                                    data={this.state.SchoolGalleryList}
+                                    renderItem={this.renderSecondRoute}
+                                    keyExtractor={item => item._id}
+                                />
+                            </View>
+                        </ScrollView>
+                    }
                 </View>
             </SafeAreaView>
         )

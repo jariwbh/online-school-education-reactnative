@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, ImageBackground, TouchableOpacity, TextInput } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-// import { Dropdown } from 'react-native-material-dropdown';
 import { Picker } from '@react-native-picker/picker';
 import * as STYLES from './Styles';
 
 export default class AskDoubtsScreen extends Component {
     render() {
-
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Ask Doubt</Text>
-                    </View>
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <View style={{ marginTop: hp('7%'), marginLeft: hp('5%') }}>
                             <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Select Teacher</Text>
@@ -75,15 +68,14 @@ export default class AskDoubtsScreen extends Component {
                                 />
                             </View>
                         </View>
-
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('8%'), }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('8%'), marginBottom: hp('10%') }}>
                             <TouchableOpacity style={STYLES.styles.sendBtn} onPress={() => { }} >
                                 <Text style={STYLES.styles.sendText}>SEND </Text>
                                 {/* <MaterialIcons name="arrow-right-alt" size={24} color="#FFFFFF" /> */}
                             </TouchableOpacity>
                         </View>
                     </View>
-                </ImageBackground>
+                </ScrollView>
             </SafeAreaView>
         )
     }
