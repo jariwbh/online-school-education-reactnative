@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
+import { Text, View, ScrollView, SafeAreaView, TextInput, TouchableOpacity, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import * as STYLES from './Styles';
 
-
 export default class PayonlineScreen extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Pay Online</Text>
-                    </View>
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <View>
                             <View style={{ marginTop: hp('7%'), marginLeft: hp('5%') }}>
@@ -61,14 +56,18 @@ export default class PayonlineScreen extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('25%'), }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('7%'), }}>
                             <TouchableOpacity style={STYLES.styles.payBtn} onPress={() => { }} >
                                 <Text style={STYLES.styles.payText}>PAY NOW</Text>
                                 {/* <MaterialIcons name="arrow-right-alt" size={24} color="#FFFFFF" /> */}
                             </TouchableOpacity>
                         </View>
+                        <View>
+                            <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('22%'), marginTop: hp('4%') }}
+                            />
+                        </View>
                     </View>
-                </ImageBackground>
+                </ScrollView>
             </SafeAreaView>
         )
     }

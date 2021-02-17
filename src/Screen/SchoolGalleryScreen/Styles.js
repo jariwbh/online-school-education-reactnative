@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
-        marginTop: hp('7%'),
+        marginTop: hp('4%'),
     },
 })
 export { styles };

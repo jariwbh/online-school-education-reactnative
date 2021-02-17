@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as STYLES from './Styles';
 
 export class FeesScreen extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Fees Due</Text>
-                    </View>
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <View style={STYLES.styles.innercardview}>
@@ -82,9 +77,45 @@ export class FeesScreen extends Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: hp('5%') }}>
+                                <View style={STYLES.styles.innercardview}>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Receipt No.</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>#98431</Text>
+                                    </View>
+                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                                    </View>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Month</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>September</Text>
+                                    </View>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Payment Date</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>10 Sep 20</Text>
+                                    </View>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Pay Mode</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>Cash on Counter</Text>
+                                    </View>
+                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                                    </View>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Total Pending Amount</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>$999</Text>
+                                    </View>
+                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                                    </View>
+                                    <TouchableOpacity style={{ width: wp('89.5%'), backgroundColor: '#2855AE', alignItems: 'center', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}>
+                                        <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>DONWLOAD</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </View>
                     </View>
-                </ImageBackground>
+                </ScrollView>
             </SafeAreaView>
         )
     }

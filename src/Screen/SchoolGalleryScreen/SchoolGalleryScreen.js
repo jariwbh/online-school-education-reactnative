@@ -15,7 +15,7 @@ export default class SchoolGalleryScreen extends Component {
     }
 
     renderSecondRoute = ({ item }) => (
-        <View style={{ marginTop: hp('3%'), justifyContent: "space-between", margin: 15 }}>
+        <View style={{ marginTop: hp('2%'), justifyContent: "space-between", margin: 15 }}>
             <Image source={{ uri: item.property.documents[0].attachment }}
                 style={{ height: hp('30%'), width: wp('40%'), borderRadius: hp('2%') }} />
         </View>
@@ -51,7 +51,7 @@ export default class SchoolGalleryScreen extends Component {
                         )
                         :
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={{ alignItems: 'center' }}>
+                            <View style={{ alignItems: 'center', marginBottom: hp('1%') }}>
                                 <FlatList
                                     numColumns={2}
                                     data={this.state.SchoolGalleryList}

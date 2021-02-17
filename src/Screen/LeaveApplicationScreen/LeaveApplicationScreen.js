@@ -10,7 +10,7 @@ export default class LeaveApplicationScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <View>
-                            <View style={{ marginTop: hp('7%'), marginLeft: hp('5%') }}>
+                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
                                 <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>class Teacher</Text>
                             </View>
                             <View >
@@ -23,7 +23,7 @@ export default class LeaveApplicationScreen extends Component {
                             </View>
                         </View>
                         <View>
-                            <View style={{ marginTop: hp('7%'), marginLeft: hp('5%') }}>
+                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
                                 <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Application Title</Text>
                             </View>
                             <View >
@@ -36,7 +36,7 @@ export default class LeaveApplicationScreen extends Component {
                             </View>
                         </View>
                         <View>
-                            <View style={{ marginTop: hp('7%'), marginLeft: hp('5%') }}>
+                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
                                 <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Description</Text>
                             </View>
                             <View >
@@ -48,13 +48,13 @@ export default class LeaveApplicationScreen extends Component {
                                 />
                             </View>
                         </View>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('8%'), }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%'), }}>
                             <TouchableOpacity style={STYLES.styles.sendBtn} onPress={() => { }} >
                                 <Text style={STYLES.styles.sendText}>SEND REQUEST </Text>
                             </TouchableOpacity>
                         </View>
                         <View>
-                            <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }}
+                            <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('22%'), marginTop: hp('4%') }}
                             />
                         </View>
                     </View>

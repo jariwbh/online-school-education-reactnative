@@ -1,19 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { ScrollView } from 'react-native-gesture-handler';
 import * as STYLES from './Styles';
 
 export default class AssignmentScreen extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
-                    <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                        <AntDesign name="left" size={24} color="#FFFFFF" />
-                        <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Assignment</Text>
-                    </View>
+                <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <ScrollView>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -78,12 +72,17 @@ export default class AssignmentScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
                                         <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>30 Sep 20</Text>
                                     </View>
+                                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <TouchableOpacity onPress={() => { }} style={{ width: wp('60%'), backgroundColor: '#2855AE', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), alignItems: 'center', borderRadius: hp('2%'), }}>
+                                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                             <View style={{ marginBottom: hp('3%') }}></View>
                         </ScrollView>
                     </View>
-                </ImageBackground>
+                </ScrollView>
             </SafeAreaView>
         )
     }

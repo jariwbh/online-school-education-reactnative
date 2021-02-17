@@ -6,6 +6,7 @@ import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
 import moment from 'moment';
+const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -58,15 +59,15 @@ class HomeScreen extends Component {
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                         <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('7%') }}>
                             <View >
-                                <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold' }}>{StudentData.property.fullname} </Text>
+                                <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize' }}>{StudentData.property.fullname} </Text>
                                 <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.streetnumber} </Text>
                                 <TouchableOpacity style={{ width: wp('35%'), height: hp('4.5%'), alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
                                     <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Myprofile') }}>
-                                <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : "https://res.cloudinary.com/dnogrvbs2/image/upload/v1610428971/userimage_qif8wv.jpg" }} style={{ height: 90, width: 90, borderRadius: hp('10%') }}
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Myprofile', { StudentData }) }}>
+                                <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: 90, width: 90, borderRadius: hp('10%') }}
                                 />
                             </TouchableOpacity>
                         </View>
@@ -86,10 +87,10 @@ class HomeScreen extends Component {
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_fees_due_ksr4t7.png' }} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
                                     />
                                     <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}> ₹6400 </Text>
+                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}> ₹{StudentData.paymentterms[0].amount} </Text>
                                     </View>
                                     <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%') }}> Fees Due </Text>
+                                        <Text style={{ fontSize: hp('2.5%') }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

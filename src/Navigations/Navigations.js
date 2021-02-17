@@ -38,17 +38,36 @@ export default NavigationsApp = () => {
     );
 };
 
-
-
 const HomeStack = createStackNavigator();
 function MainNavigation({ navigation }) {
     return (
         <HomeStack.Navigator headerMode='screen' initialRouteName='HomeScreen'>
             <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
 
-            <HomeStack.Screen name="FeesScreen" component={FeesScreen} />
-            <HomeStack.Screen name="PayonlineScreen" component={PayonlineScreen} />
-            <HomeStack.Screen name="AssignmentScreen" component={AssignmentScreen} />
+            <HomeStack.Screen name="FeesScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Fess Due',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={FeesScreen} />
+
+            <HomeStack.Screen name="PayonlineScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Pay Online',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={PayonlineScreen} />
+
+            <HomeStack.Screen name="AssignmentScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Assignment',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={AssignmentScreen} />
+
             <HomeStack.Screen name="Playquiz" options={{
                 headerTintColor: '#FFFFFF', title: 'Play Quiz',
                 headerStyle: {
@@ -57,8 +76,21 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={Playquiz} />
 
-            <HomeStack.Screen name="Myprofile" component={Myprofile} />
-            <HomeStack.Screen name="DateSheetScreen" component={DateSheetScreen} />
+            <HomeStack.Screen name="Myprofile" options={{
+                headerTintColor: '#FFFFFF', title: 'My Profile',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={Myprofile} />
+
+            <HomeStack.Screen name="DateSheetScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Exam Date Sheet',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={DateSheetScreen} />
 
             <HomeStack.Screen name="AskDoubtsScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Ask Doubt',
@@ -86,7 +118,13 @@ function MainNavigation({ navigation }) {
 
             <HomeStack.Screen name="FeedsDetailsScreen" options={{ title: '', headerShown: false }} component={FeedsDetailsScreen} />
 
-            <HomeStack.Screen name="SupportScreen" component={SupportScreen} />
+            <HomeStack.Screen name="SupportScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Support',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={SupportScreen} />
 
             <HomeStack.Screen name="SchoolGalleryScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'School Gallery',
@@ -96,7 +134,7 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={SchoolGalleryScreen} />
 
-            <HomeStack.Screen name="ResultScreen" component={ResultScreen} />
+            <HomeStack.Screen name="ResultScreen" options={{ title: '', headerShown: false }} component={ResultScreen} />
 
             <HomeStack.Screen name="LeaveApplicationScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Ask Doubt',
@@ -106,8 +144,22 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={LeaveApplicationScreen} />
 
-            <HomeStack.Screen name="AttendanceScreen" component={AttendanceScreen} />
-            <HomeStack.Screen name="TimeTableScreen" component={TimeTableScreen} />
+            <HomeStack.Screen name="AttendanceScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Attendance',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={AttendanceScreen} />
+
+            <HomeStack.Screen name="TimeTableScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'TimeTable',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={TimeTableScreen} />
+
         </HomeStack.Navigator>
     );
 };
