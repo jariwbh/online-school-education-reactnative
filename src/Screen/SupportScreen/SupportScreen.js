@@ -9,10 +9,6 @@ export default class SupportScreen extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <View style={{ marginTop: hp('8%'), flexDirection: 'row', marginLeft: hp('3%') }}>
-                    <AntDesign name="left" size={24} color="#FFFFFF" />
-                    <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), fontWeight: 'bold', marginLeft: hp('3%') }}>Support</Text>
-                </View>
                 <View style={STYLES.styles.cardview}>
                     <View style={{ marginTop: hp('7%'), justifyContent: 'center', alignItems: 'center' }}>
                         <Image source={require('../../assets/image/blob.png')} style={{ height: 120, width: 120, }}

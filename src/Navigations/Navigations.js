@@ -22,6 +22,7 @@ import AttendanceScreen from "../Screen/AttendanceScreen/AttendanceScreen"
 import HolidayScreen from "../Screen/HolidayScreen/HolidayScreen"
 import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
 import SplashScreen from '../Screen/SplashScreen/splashScreen';
+import MeettingScreen from '../Screen/MeettingScreen/MeettingScreen';
 import BackButton from '../Components/BackButton/BackButton';
 import { HOMESCREEN } from '../Action/Type';
 
@@ -126,6 +127,14 @@ function MainNavigation({ navigation }) {
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={SupportScreen} />
+
+            <HomeStack.Screen name="MeettingScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Meetting',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={MeettingScreen} />
 
             <HomeStack.Screen name="SchoolGalleryScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'School Gallery',
