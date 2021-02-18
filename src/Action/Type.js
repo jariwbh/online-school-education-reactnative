@@ -6,4 +6,5 @@ export const MAINSCREEN = 'MainScreen'
 export const HOMESCREEN = 'HomeScreen'
 export const LOGINSCREEN = 'LoginScreen'
 export const REGISTERSCREEN = 'RegisterScreen'
+export const FEEDSDETAILSSCREEN = 'FeedsDetailsScreen'
 

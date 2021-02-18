@@ -14,6 +14,15 @@ const styles = StyleSheet.create({
         marginTop: hp('4%'),
 
     },
+    innercardview: {
+        flexDirection: 'column',
+        backgroundColor: "#FFFFFF",
+        borderRadius: hp('2%'),
+        width: wp('90%'),
+        marginTop: hp('1%'),
+        marginBottom: hp('1%'),
+        borderWidth: 0.5
+    },
 })
 
 export { styles };

@@ -8,6 +8,7 @@ import { EventListService } from '../../Services/EventsService/EventsService'
 import moment from 'moment'
 import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
+import { FEEDSDETAILSSCREEN } from '../../Action/Type';
 const Eventicon = 'https://res.cloudinary.com/dphukth24/image/upload/v1613462857/dp_bg_vsci5n.png'
 
 export default class EventsScreen extends Component {
@@ -15,8 +16,7 @@ export default class EventsScreen extends Component {
         super(props);
         this.state = {
             EventList: [],
-            loader: true,
-            refreshing: false
+            loader: true
         };
     }
 
@@ -49,7 +49,7 @@ export default class EventsScreen extends Component {
     //render EventList using FlateList
     renderEventListService = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate('FeedsDetailsScreen', { item })}>
+            <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate(FEEDSDETAILSSCREEN, { item })}>
                 <View style={{ flexDirection: 'column', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>{item.eventname}</Text>
                 </View>
