@@ -14,6 +14,7 @@ export default class SchoolGalleryScreen extends Component {
         };
     }
 
+    //Render SchoolGallery using FlatList
     renderSecondRoute = ({ item }) => (
         <View style={{ marginTop: hp('2%'), justifyContent: "space-between", margin: 15 }}>
             <Image source={{ uri: item.property.documents[0].attachment }}
@@ -21,6 +22,7 @@ export default class SchoolGalleryScreen extends Component {
         </View>
     )
 
+    //SchoolGallery Service Api
     getSchoolGalleryService() {
         SchoolGalleryService().then(response => {
             if (response.status == 200 && response.data != null) {
