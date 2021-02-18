@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
+import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as STYLES from './Styles';
+import { timeTableService } from '../../Services/TimeTableService/TimeTableService'
+import Loader from '../../Components/Loader/Loader'
 
 export default class TimeTableScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            timeTable: [],
+            loader: true,
+            refreshing: false,
             status: 'MON',
             listTab: [
                 {
@@ -38,7 +42,52 @@ export default class TimeTableScreen extends Component {
         };
     }
 
+    gettimeTable() {
+        timeTableService().then(response => {
+            this.setState({ timeTable: response.data })
+            this.wait(1000).then(() => this.setState({ loader: false }));
+        });
+
+    }
+
+    componentDidMount() {
+        this.gettimeTable();
+    }
+
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.gettimeTable()
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
+    }
+
+    rendertimeTable = ({ item }) => (
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={STYLES.styles.innercardview}>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>{item.lessonid.subjectid.title}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>{(item.starttime) + '-' + (item.endtime)}</Text>
+                </View>
+                <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>{item.trainerid[0].property.fullname}</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>{item.lessonid.title}</Text>
+                </View>
+            </View>
+        </View>
+    )
     render() {
+        const { timeTable, loader, refreshing } = this.state
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -53,105 +102,22 @@ export default class TimeTableScreen extends Component {
                             ))
                         }
                     </View>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View>
-                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Computer Science</Text>
-
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>08:15am - 9:00am</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Cherise James</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 1</Text>
-                                    </View>
-                                </View>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Mathematics </Text>
-
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>09:00am - 09:45am</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Rivka Steadman</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 2</Text>
-                                    </View>
-                                </View>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>English</Text>
-
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>09:45am - 10:30am</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Rivka Steadman</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 3</Text>
-                                    </View>
-                                </View>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%'), alignItems: 'center' }}>
-                                        <View style={{ flexDirection: 'column', }}>
-                                            <Text style={{ fontSize: hp('2.5%'), margin: hp('1%'), marginLeft: hp('2%'), color: '#313131', fontWeight: 'bold', }}>Lunch Break</Text>
-                                            <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>10:30am - 11:00am</Text>
-                                        </View>
-                                        <View>
-                                            <Image source={require('../../assets/image/lunch_break.png')} style={{ width: wp('12%'), height: hp('7%'), marginRight: hp('3%'), }}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Science</Text>
-
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>11:00am - 11:45am</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Danica Partridge</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 4</Text>
-                                    </View>
-                                </View>
-                                <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131' }}>Social Study</Text>
-
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>11:45am - 12:30pm</Text>
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
-                                    </View>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Danica Partridge</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold' }}>Period 5</Text>
-                                    </View>
-                                </View>
-                                <View style={{ marginBottom: hp('5%') }}></View>
+                    {(timeTable == null) || (timeTable && timeTable.length == 0) ?
+                        (loader == false ?
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Time Table Available</Text>
+                            : <Loader />
+                        )
+                        :
+                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                            <View style={{}}>
+                                <FlatList
+                                    data={timeTable}
+                                    renderItem={this.rendertimeTable}
+                                    keyExtractor={item => `${item._id}`}
+                                />
                             </View>
-                        </View>
-                    </ScrollView>
+                        </ScrollView>
+                    }
                 </View>
             </SafeAreaView >
         )
