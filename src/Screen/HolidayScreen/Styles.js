@@ -1,5 +1,5 @@
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
-        marginTop: hp('5%'),
+        marginTop: hp('4%'),
 
     },
 })

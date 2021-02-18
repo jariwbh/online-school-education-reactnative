@@ -8,7 +8,6 @@ import { ExamDatesheet } from '../../Services/DateSheetService/DateSheetService'
 import Loader from '../../Components/Loader/Loader'
 import moment from 'moment'
 
-
 export default class DateSheetScreen extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +23,6 @@ export default class DateSheetScreen extends Component {
             this.setState({ examSchedule: response.data[0].examschedule })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
-
     }
 
     componentDidMount() {
@@ -38,8 +36,8 @@ export default class DateSheetScreen extends Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
-        this.ExamSchedule()
+        this.setState({ refreshing: true });
+        this.getexamSchedule();
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
@@ -78,7 +76,6 @@ export default class DateSheetScreen extends Component {
                         )
                         :
                         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-
                             <FlatList
                                 data={examSchedule}
                                 renderItem={this.renderexamSchedule}
