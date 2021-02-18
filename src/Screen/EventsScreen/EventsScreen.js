@@ -20,6 +20,7 @@ export default class EventsScreen extends Component {
         };
     }
 
+    //get Event Api
     getEventList() {
         EventListService().then(response => {
             this.setState({ EventList: response.data })
@@ -37,12 +38,15 @@ export default class EventsScreen extends Component {
             setTimeout(resolve, timeout);
         });
     }
+
     onRefresh = () => {
         const { _id } = this.state;
         this.setState({ refreshing: true })
         this.EventService(_id)
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
+
+    //render EventList using FlateList
     renderEventListService = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate('FeedsDetailsScreen', { item })}>
@@ -68,7 +72,6 @@ export default class EventsScreen extends Component {
 
     render() {
         const { EventList, loader, refreshing } = this.state
-        this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -79,7 +82,7 @@ export default class EventsScreen extends Component {
                         )
                         :
                         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                            <View style={{}}>
+                            <View>
                                 <FlatList
                                     data={EventList}
                                     renderItem={this.renderEventListService}

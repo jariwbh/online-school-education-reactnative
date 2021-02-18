@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native'
+import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import * as STYLES from './Styles';
 import { timeTableService } from '../../Services/TimeTableService/TimeTableService'
@@ -42,7 +42,8 @@ export default class TimeTableScreen extends Component {
         };
     }
 
-    gettimeTable() {
+    //Get Time Table Api
+    getTimeTable() {
         timeTableService().then(response => {
             this.setState({ timeTable: response.data })
             this.wait(1000).then(() => this.setState({ loader: false }));
@@ -51,7 +52,7 @@ export default class TimeTableScreen extends Component {
     }
 
     componentDidMount() {
-        this.gettimeTable();
+        this.getTimeTable();
     }
 
     wait = (timeout) => {
@@ -62,11 +63,12 @@ export default class TimeTableScreen extends Component {
 
     onRefresh = () => {
         this.setState({ refreshing: true })
-        this.gettimeTable()
+        this.getTimeTable()
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
-    rendertimeTable = ({ item }) => (
+    //render TimeTable Using flatlist
+    renderTimeTable = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
@@ -87,7 +89,6 @@ export default class TimeTableScreen extends Component {
     )
     render() {
         const { timeTable, loader, refreshing } = this.state
-        this.wait(3000).then(() => this.setState({ refreshing: false }));
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -112,14 +113,14 @@ export default class TimeTableScreen extends Component {
                             <View style={{}}>
                                 <FlatList
                                     data={timeTable}
-                                    renderItem={this.rendertimeTable}
+                                    renderItem={this.renderTimeTable}
                                     keyExtractor={item => `${item._id}`}
                                 />
                             </View>
                         </ScrollView>
                     }
                 </View>
-            </SafeAreaView >
+            </SafeAreaView>
         )
     }
 }

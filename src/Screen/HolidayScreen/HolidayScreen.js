@@ -15,6 +15,7 @@ export default class HolidayScreen extends Component {
         };
     }
 
+    //get Holiday Api
     getHolidayService() {
         HodidayService().then(response => {
             this.setState({ holidaysList: response.data });
@@ -26,21 +27,15 @@ export default class HolidayScreen extends Component {
         this.getHolidayService();
     }
 
+    //render Holidays using Flatlist
     renderHolidays() {
         let datedata = {}
-
-        //console.log("this.state.holidaysList", this.state.holidaysList);
-
         this.state.holidaysList.forEach(element => {
-
-
             if (element && element.property && element.property.date) {
-
                 var date = moment(element.property.date).format('YYYY-MM-DD');
                 if (!datedata[date]) {
                     datedata[date] = {};
                 }
-
                 datedata[date] = {
                     customStyles: {
                         container: { backgroundColor: '#ffa500' },
@@ -49,7 +44,6 @@ export default class HolidayScreen extends Component {
                 };
             }
         });
-        console.log('datedata', datedata)
         this.setState({ renderList: datedata });
     }
 
