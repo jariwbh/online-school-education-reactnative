@@ -13,10 +13,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
         marginTop: hp('5%'),
-
     },
     innercardview: {
-        flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
         borderRadius: hp('2%'),
@@ -29,8 +27,6 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: wp('90%'),
         marginTop: hp('2%')
-        // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
     },
 })
 

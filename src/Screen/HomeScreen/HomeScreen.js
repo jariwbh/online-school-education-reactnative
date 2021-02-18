@@ -6,6 +6,8 @@ import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
 import moment from 'moment';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
 
 class HomeScreen extends Component {
@@ -177,6 +179,23 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('SupportScreen') }}>
+                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Support</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('MeettingScreen') }}>
+                                    {/* <Image source={require('../../assets/image/ic_gallery.png')} style={{ height: 45, width: 42, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
+                                    /> */}
+                                    <MaterialCommunityIcons name="video-box" size={60} color="#3c62aa" style={{ marginLeft: hp('2%'), marginTop: hp('2%') }} />
+                                    <View style={{ marginTop: hp('3%') }}>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Meetting</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('EventsScreen') }}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
@@ -192,7 +211,6 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-
                         </View>
                     </ScrollView>
                     : <Loader />}
