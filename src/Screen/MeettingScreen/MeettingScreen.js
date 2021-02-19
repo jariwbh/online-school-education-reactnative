@@ -6,13 +6,15 @@ import { meettingService } from '../../Services/MeettingService/MeettingService'
 import moment from 'moment'
 import Loader from '../../Components/Loader/Loader'
 
+
 export default class MeettingScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             meetting: [],
             loader: true,
-            refreshing: false
+            refreshing: false,
+            buttondisabled: false,
         };
     }
 
@@ -50,7 +52,7 @@ export default class MeettingScreen extends Component {
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Today Date </Text>
-                <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.startdate).format('ll')}</Text>
+                <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.property.date).format('ll')}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                 <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Start Time </Text>
@@ -62,14 +64,15 @@ export default class MeettingScreen extends Component {
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
-                    onPress={() => { Linking.openURL(item.property.url) }}>
+                    onPress={() => { Linking.openURL(item.property.url) }}
+                    disabled={this.state.buttondisabled == false ? true : false}>
                     <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%'), fontWeight: 'bold' }}>Join Meeting </Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
     render() {
-        const { meetting, loader, refreshing } = this.state
+        const { meetting, loader, refreshing, } = this.state
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>

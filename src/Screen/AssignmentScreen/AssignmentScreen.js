@@ -14,7 +14,9 @@ export default class AssignmentScreen extends Component {
         this.state = {
             assignmentList: [],
             loader: true,
-            refreshing: false
+            refreshing: false,
+
+
         };
     }
 
@@ -51,7 +53,7 @@ export default class AssignmentScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: hp('2%'), marginTop: hp('1%'), }}>
                     <HTML baseFontStyle={{ fontSize: hp('2.5%'), textTransform: 'capitalize', fontWeight: 'bold' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
-                    <TouchableOpacity onPress={() => Linking.openURL()}>
+                    <TouchableOpacity onPress={() => Linking.openURL(item.attachmenturl)}>
                         <FontAwesome name="file-pdf-o" size={20} color="#6789CA" style={{ marginRight: hp('2%') }} />
                     </TouchableOpacity>
                 </View>
