@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, Image } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import * as STYLES from './Styles';
-
 
 export default class SupportScreen extends Component {
     render() {

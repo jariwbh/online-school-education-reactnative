@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import SchoolGalleryService from '../../Services/SchoolGalleryService/SchoolGalleryService';
-import { View, SafeAreaView, Image, FlatList, ScrollView } from 'react-native'
+import { View, SafeAreaView, Image, FlatList, ScrollView, Text } from 'react-native'
 import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 
@@ -40,6 +40,7 @@ export default class SchoolGalleryScreen extends Component {
 
     componentDidMount() {
         this.getSchoolGalleryService();
+        this.wait(1000).then(() => this.setState({ loader: false }));
     }
 
     render() {
@@ -48,7 +49,7 @@ export default class SchoolGalleryScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(this.state.SchoolGalleryList == null) || (this.state.SchoolGalleryList && this.state.SchoolGalleryList.length == 0) ?
                         (this.state.loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Data Found</Text>
                             : <Loader />
                         )
                         :

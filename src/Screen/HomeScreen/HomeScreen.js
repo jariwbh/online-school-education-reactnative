@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, FlatList } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader';
@@ -17,6 +18,7 @@ class HomeScreen extends Component {
             StudentData: null,
             studentProfile: null,
             loader: true,
+            attendencePercent: null
         };
     }
 
@@ -27,7 +29,16 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        this.getdata()
+        this.getdata();
+    }
+
+    async getAttendenceCalculateService(id) {
+        return AttendenceCalculateService(id).then(response => {
+            var StudentDayIn = response.data.length
+            var calAttendences = ((StudentDayIn / 365) * 100).toFixed(2)
+            this.setState({ attendencePercent: calAttendences });
+            return;
+        })
     }
 
     getdata = async () => {
@@ -39,6 +50,7 @@ class HomeScreen extends Component {
         } else {
             var userData;
             userData = JSON.parse(getUser)
+            this.getAttendenceCalculateService(userData._id)
             this.wait(3000).then(() => this.setState({
                 loader: false,
                 StudentData: userData,
@@ -54,12 +66,12 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { StudentData, studentProfile, loader } = this.state;
+        const { StudentData, studentProfile, loader, attendencePercent } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 {loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-                        <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('7%') }}>
+                        <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('4%') }}>
                             <View >
                                 <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize' }}>{StudentData.property.fullname} </Text>
                                 <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>
@@ -79,7 +91,7 @@ class HomeScreen extends Component {
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_attendance_mzthkn.png' }} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
                                     />
                                     <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>80.39 %</Text>
+                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>{attendencePercent} %</Text>
                                     </View>
                                     <View style={{ marginTop: hp('1%') }}>
                                         <Text style={{ fontSize: hp('2.5%') }}>Attendance</Text>

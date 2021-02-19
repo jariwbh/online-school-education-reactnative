@@ -1,10 +1,11 @@
 import Axios from '../../Helpers/appConfig'
 
-const ExamDatesheet = () => {
+const ExamDatesheet = (id) => {
+    console.log('id', id)
     const body =
     {
         "search": [{
-            "searchfield": "courseid", "searchvalue": "602b949c54a4b45dfc8a1629", "criteria": "eq", "datatype": "ObjectId"
+            "searchfield": "courseid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId"
         },
         { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }],
     }

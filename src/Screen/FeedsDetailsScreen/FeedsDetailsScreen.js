@@ -13,7 +13,6 @@ export default class FeedsDetailsScreen extends Component {
         super(props);
         this.eventDetails = this.props.route.params.item;
         this.state = {
-            eventID: this.eventDetails._id,
             eventImage: this.eventDetails.gallery,
             eventDate: this.eventDetails.startdate,
             eventTitle: this.eventDetails.eventname,
@@ -33,13 +32,13 @@ export default class FeedsDetailsScreen extends Component {
     }
 
     render() {
-        const { eventID, eventImage, eventDate, eventTitle, eventDescription } = this.state
+        const { eventImage, eventDate, eventTitle, eventDescription } = this.state
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 {this.state.loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View>
-                            <Image source={{ uri: eventImage }} resizeMode="stretch" style={{ height: 350, width: 360 }} />
+                            <Image source={{ uri: eventImage }} resizeMode="stretch" style={{ height: hp('50%'), width: wp('100%') }} />
                             <AntDesign name="left" size={30} color="#FFFFFF" style={{ position: 'absolute', marginTop: hp('5%'), marginLeft: hp('2%') }} />
                         </View>
                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row', marginTop: hp('1%') }}>

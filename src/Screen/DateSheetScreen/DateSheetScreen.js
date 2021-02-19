@@ -1,33 +1,50 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, FlatList, RefreshControl, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { ExamDatesheet } from '../../Services/DateSheetService/DateSheetService'
+import AsyncStorage from '@react-native-community/async-storage';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { ScrollView } from 'react-native-gesture-handler';
-import * as STYLES from './Styles';
-import { ExamDatesheet } from '../../Services/DateSheetService/DateSheetService'
+import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader'
+import * as STYLES from './Styles';
 import moment from 'moment'
 
 export default class DateSheetScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            studentClassId: null,
             examSchedule: [],
             loader: true,
             refreshing: false
         };
     }
 
+    //get local storage fetch infomation 
+    getStudentData = async () => {
+        var getUser = await AsyncStorage.getItem(AUTHUSER);
+        if (getUser == null) {
+            setTimeout(() => {
+                this.props.navigation.replace(LOGINSCREEN)
+            }, 3000);;
+        } else {
+            var userData = JSON.parse(getUser);
+            this.getexamSchedule(userData.membershipid._id);
+            this.wait(1000).then(() => this.setState({ studentClassId: userData.membershipid._id }));
+        }
+    }
+
     //get exam schedule api
-    getexamSchedule() {
-        ExamDatesheet().then(response => {
+    getexamSchedule(id) {
+        ExamDatesheet(id).then(response => {
             this.setState({ examSchedule: response.data[0].examschedule })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
     }
 
     componentDidMount() {
-        this.getexamSchedule();
+        this.getStudentData();
     }
 
     wait = (timeout) => {
@@ -37,8 +54,9 @@ export default class DateSheetScreen extends Component {
     }
 
     onRefresh = () => {
+        const { studentClassId } = this.state;
         this.setState({ refreshing: true });
-        this.getexamSchedule();
+        this.getexamSchedule(studentClassId);
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
@@ -50,7 +68,7 @@ export default class DateSheetScreen extends Component {
             </View>
             <View style={{ alignItems: 'center', marginTop: hp('2%'), marginLeft: hp('0%'), marginRight: hp('0%'), flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ marginLeft: hp('2%'), }}>
-                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
+                    <Text style={{ fontSize: hp('3.5%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
                     <Text style={{ fontSize: hp('2%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
                 </View>
                 <View style={{ marginLeft: hp('0%') }}>
@@ -72,7 +90,7 @@ export default class DateSheetScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(examSchedule == null) || (examSchedule && examSchedule.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Exam Schedule Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('20%') }}>No Exam Schedule Available</Text>
                             : <Loader />
                         )
                         :
@@ -82,10 +100,15 @@ export default class DateSheetScreen extends Component {
                                 renderItem={this.renderexamSchedule}
                                 keyExtractor={item => `${item._id}`}
                             />
+                            <View style={{ marginBottom: hp('20%') }}></View>
                         </ScrollView>
                     }
-                    <View>
-                        <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('20%'), marginTop: hp('4%') }} />
+                    <View style={{ position: 'absolute', bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
+                        <Image source={require('../../assets/image/1.png')}
+                            style={{
+                                width: wp('100%'),
+                                height: hp('20%'),
+                            }} />
                     </View>
                 </View>
             </SafeAreaView>

@@ -11,4 +11,13 @@ const AttendenceService = (data) => {
     return Axios.post('attendances/filter', body)
 }
 
-export { AttendenceService } 
+const AttendenceCalculateService = (id) => {
+    const body =
+    {
+        "search": [{ "searchfield": "membrozid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId" },
+        { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }]
+    }
+    return Axios.post('attendances/filter', body)
+}
+
+export { AttendenceService, AttendenceCalculateService } 

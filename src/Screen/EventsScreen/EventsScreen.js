@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Text, SafeAreaView, View, FlatList, RefreshControl, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native'
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import { Text, SafeAreaView, View, FlatList, RefreshControl, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import * as STYLES from './Styles';
 import { EventListService } from '../../Services/EventsService/EventsService'
-import moment from 'moment'
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import { FEEDSDETAILSSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
-import { FEEDSDETAILSSCREEN } from '../../Action/Type';
+import * as STYLES from './Styles';
+import moment from 'moment'
+
 const Eventicon = 'https://res.cloudinary.com/dphukth24/image/upload/v1613462857/dp_bg_vsci5n.png'
 
 export default class EventsScreen extends Component {
@@ -26,7 +26,6 @@ export default class EventsScreen extends Component {
             this.setState({ EventList: response.data })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
-
     }
 
     componentDidMount() {
@@ -40,9 +39,8 @@ export default class EventsScreen extends Component {
     }
 
     onRefresh = () => {
-        const { _id } = this.state;
         this.setState({ refreshing: true })
-        this.EventService(_id)
+        this.getEventList()
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
@@ -81,15 +79,17 @@ export default class EventsScreen extends Component {
                             : <Loader />
                         )
                         :
-                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                            <View>
-                                <FlatList
-                                    data={EventList}
-                                    renderItem={this.renderEventListService}
-                                    keyExtractor={item => `${item._id}`}
-                                />
-                            </View>
-                        </ScrollView>
+                        <View style={{ marginTop: hp('1%') }}>
+                            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                                <View>
+                                    <FlatList
+                                        data={EventList}
+                                        renderItem={this.renderEventListService}
+                                        keyExtractor={item => `${item._id}`}
+                                    />
+                                </View>
+                            </ScrollView>
+                        </View>
                     }
                 </View>
             </SafeAreaView>

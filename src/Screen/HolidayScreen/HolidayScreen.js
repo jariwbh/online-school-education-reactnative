@@ -10,16 +10,21 @@ import moment from 'moment';
 export default class HolidayScreen extends Component {
     constructor(props) {
         super(props);
+        this.startDate = moment().clone().startOf('month').format('YYYY-MM-DD');
+        this.endDate = moment().clone().endOf('month').format('YYYY-MM-DD');
+        this.currentMonth = moment().clone().startOf('month').format('M');
         this.state = {
             holidaysList: [],
             renderList: null,
             loader: true,
         };
+        this.onChangeMonth = this.onChangeMonth.bind(this);
     }
 
     //get Holiday Api
     getHolidayService() {
         HodidayService().then(response => {
+
             this.setState({ holidaysList: response.data });
             this.wait(1000).then(() => this.setState({ loader: false }));
             this.renderCalendarHolidays();
@@ -36,12 +41,33 @@ export default class HolidayScreen extends Component {
         });
     }
 
+
+
+    //get current month and fetch to start and end date 
+    async getDateRange(startDate, stopDate) {
+        var dateArray = [];
+        var currentDate = moment(startDate);
+        var stopDate = moment(stopDate);
+        while (currentDate <= stopDate) {
+            dateArray.push(moment(currentDate).format('YYYY-MM-DD'))
+            currentDate = moment(currentDate).add(1, 'days');
+        }
+        return dateArray;
+    }
+
     //render Calendar Holidays using Calendar
-    renderCalendarHolidays() {
-        let holidayDate = {}
+    async renderCalendarHolidays() {
+
+        var dateArray = await this.getDateRange(this.startDate, this.endDate);
+
+        let combineArray = [];
+        let holidayDate = {};
+
         this.state.holidaysList.forEach(element => {
             if (element && element.property && element.property.date) {
+
                 var date = moment(element.property.date).format('YYYY-MM-DD');
+                combineArray.push(date)
                 if (!holidayDate[date]) {
                     holidayDate[date] = {};
                 }
@@ -53,8 +79,18 @@ export default class HolidayScreen extends Component {
                 };
             }
         });
-        console.log("holidayDate", holidayDate);
+
+        var holidays = dateArray.filter(function (item) {
+            return combineArray.includes(item)
+        })
+        console.log("holidayDate", holidays);
         this.setState({ renderList: holidayDate });
+    }
+
+    async onChangeMonth(month) {
+        this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
+        this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');
+        this.renderCalendarHolidays();
     }
 
     //render Holidays List using FlatList
@@ -84,14 +120,16 @@ export default class HolidayScreen extends Component {
                         :
                         <>
                             <View style={{ marginTop: hp('5%') }} />
-                            <Calendar
-                                markedDates={this.state.renderList}
-                                markingType={'custom'}
-                            />
-                            <View>
-                                <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#313131', marginTop: hp('2%'), marginBottom: hp('1%') }}>List of Holiday</Text>
-                            </View>
                             <ScrollView showsVerticalScrollIndicator={false}>
+                                <Calendar
+                                    markedDates={this.state.renderList}
+                                    onMonthChange={(month) => this.onChangeMonth(month.month)}
+                                    markingType={'custom'}
+                                    hideExtraDays={true}
+                                />
+                                <View>
+                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#313131', marginTop: hp('2%'), marginBottom: hp('1%') }}>List of Holiday</Text>
+                                </View>
                                 <FlatList
                                     data={this.state.holidaysList}
                                     renderItem={this.renderHolidaysList}
