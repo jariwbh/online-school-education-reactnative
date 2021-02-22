@@ -1,6 +1,6 @@
 import Axios from '../../Helpers/appConfig'
 
-const meettingService = () => {
+const meetingService = () => {
     const body =
     {
         "search": [{
@@ -14,4 +14,4 @@ const meettingService = () => {
 }
 
 
-export { meettingService } 
+export { meetingService } 

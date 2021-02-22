@@ -105,6 +105,8 @@ export default class AttendanceScreen extends Component {
                     this.dateConversion(moment(element).format('YYYY-MM-DD'), '#ffcccb')
                 }
             });
+        } else {
+            this.setState({ absentList: 0 });
         }
 
         await this.state.holidaysList.forEach(element => {
@@ -134,7 +136,7 @@ export default class AttendanceScreen extends Component {
         };
     }
 
-    //get color with days wise
+    //get color with Sunday days Only
     getDayColor(date, color) {
         var dt = moment(date, "YYYY-MM-DD").format('dddd');
         if (dt == "Sunday") return "#F0E68C"
@@ -153,9 +155,18 @@ export default class AttendanceScreen extends Component {
         return dateArray;
     }
 
+    //change month to call funation
     async onChangeMonth(month) {
+        console.log("month", month)
+
         this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
-        this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');;
+
+        if (this.currentMonth == month) {
+            this.endDate = this.today;
+        } else {
+            this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');
+        }
+
         let data = {
             id: this.studentDetails._id,
             datRange: { "$gte": this.startDate, "$lte": this.endDate }

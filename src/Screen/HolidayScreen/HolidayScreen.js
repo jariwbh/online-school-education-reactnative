@@ -17,6 +17,7 @@ export default class HolidayScreen extends Component {
             holidaysList: [],
             renderList: null,
             loader: true,
+            currentMonthHolidays: []
         };
         this.onChangeMonth = this.onChangeMonth.bind(this);
     }
@@ -41,8 +42,6 @@ export default class HolidayScreen extends Component {
         });
     }
 
-
-
     //get current month and fetch to start and end date 
     async getDateRange(startDate, stopDate) {
         var dateArray = [];
@@ -57,17 +56,12 @@ export default class HolidayScreen extends Component {
 
     //render Calendar Holidays using Calendar
     async renderCalendarHolidays() {
-
         var dateArray = await this.getDateRange(this.startDate, this.endDate);
-
-        let combineArray = [];
         let holidayDate = {};
-
         this.state.holidaysList.forEach(element => {
             if (element && element.property && element.property.date) {
 
                 var date = moment(element.property.date).format('YYYY-MM-DD');
-                combineArray.push(date)
                 if (!holidayDate[date]) {
                     holidayDate[date] = {};
                 }
@@ -80,13 +74,14 @@ export default class HolidayScreen extends Component {
             }
         });
 
-        var holidays = dateArray.filter(function (item) {
-            return combineArray.includes(item)
+        var holidays = this.state.holidaysList.filter(function (item) {
+            return dateArray.includes(moment(item.property.date).format('YYYY-MM-DD'))
         })
-        console.log("holidayDate", holidays);
-        this.setState({ renderList: holidayDate });
+
+        this.setState({ renderList: holidayDate, currentMonthHolidays: holidays });
     }
 
+    //change month to call funation
     async onChangeMonth(month) {
         this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
         this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');
@@ -131,10 +126,11 @@ export default class HolidayScreen extends Component {
                                     <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#313131', marginTop: hp('2%'), marginBottom: hp('1%') }}>List of Holiday</Text>
                                 </View>
                                 <FlatList
-                                    data={this.state.holidaysList}
+                                    data={this.state.currentMonthHolidays}
                                     renderItem={this.renderHolidaysList}
                                     keyExtractor={item => item._id}
                                 />
+                                <View style={{ marginBottom: hp('3%') }}></View>
                             </ScrollView></>
                     }
                 </View>

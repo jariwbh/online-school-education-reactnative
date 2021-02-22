@@ -198,12 +198,12 @@ class HomeScreen extends Component {
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Support</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('MeettingScreen') }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('MeetingScreen') }}>
                                     {/* <Image source={require('../../assets/image/ic_gallery.png')} style={{ height: 45, width: 42, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     /> */}
                                     <MaterialCommunityIcons name="video-box" size={60} color="#3c62aa" style={{ marginLeft: hp('2%'), marginTop: hp('2%') }} />
                                     <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Meetting</Text>
+                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Meeting</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>

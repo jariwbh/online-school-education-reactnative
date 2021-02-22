@@ -1,34 +1,32 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, RefreshControl, ScrollView, Linking, FlatList, TouchableOpacity } from 'react-native'
-import * as STYLES from './Styles';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { meettingService } from '../../Services/MeettingService/MeettingService'
-import moment from 'moment'
+import { meetingService } from '../../Services/MeetingService/MeetingService'
 import Loader from '../../Components/Loader/Loader'
+import * as STYLES from './Styles';
+import moment from 'moment'
 
-
-export default class MeettingScreen extends Component {
+export default class MeetingScreen extends Component {
     constructor(props) {
         super(props);
+        this.today = moment().format('YYYY-MM-DD');
         this.state = {
-            meetting: [],
+            meetingList: [],
             loader: true,
             refreshing: false,
-            buttondisabled: false,
         };
     }
 
-    getmeetting() {
-        meettingService().then(response => {
-            console.log('response', response.data);
-            this.setState({ meetting: response.data })
+    getMeeting() {
+        meetingService().then(response => {
+            this.setState({ meetingList: response.data })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
 
     }
 
     componentDidMount() {
-        this.getmeetting();
+        this.getMeeting();
     }
 
     wait = (timeout) => {
@@ -36,14 +34,15 @@ export default class MeettingScreen extends Component {
             setTimeout(resolve, timeout);
         });
     }
+
     onRefresh = () => {
         this.setState({ refreshing: true })
-        this.getmeetting()
+        this.getMeeting()
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
-    rendermeetting = ({ item }) => (
-        <View>
+    renderMeeting = ({ item }) => (
+        <View style={STYLES.styles.innercardview}>
             <View style={{ marginTop: hp('1%'), flex: 1, width: wp('35%'), height: hp('4%'), backgroundColor: '#E6EFFF', marginLeft: hp('2%'), borderRadius: hp('1%') }}>
                 <Text style={{ fontSize: hp('2%'), flex: 1, marginLeft: hp('2%'), color: '#6789CA', }}>{item.property.courseid}</Text>
             </View>
@@ -63,39 +62,37 @@ export default class MeettingScreen extends Component {
                 <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.property.endtime).format('LT')}</Text>
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
+                <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
                     onPress={() => { Linking.openURL(item.property.url) }}
-                    disabled={this.state.buttondisabled == false ? true : false}>
+                    disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
                     <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%'), fontWeight: 'bold' }}>Join Meeting </Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
     render() {
-        const { meetting, loader, refreshing, } = this.state
+        const { meetingList, loader, refreshing } = this.state
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={STYLES.styles.innercardview}>
-                            {(meetting == null) || (meetting && meetting.length == 0) ?
-                                (loader == false ?
-                                    <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
-                                    : <Loader />
-                                )
-                                :
-                                <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                                    <View style={{}}>
-                                        <FlatList
-                                            data={meetting}
-                                            renderItem={this.rendermeetting}
-                                            keyExtractor={item => `${item._id}`}
-                                        />
-                                    </View>
-                                </ScrollView>
-                            }
+                    {(meetingList == null) || (meetingList && meetingList.length == 0) ?
+                        (loader == false ?
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
+                            : <Loader />
+                        )
+                        :
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: ('2%') }}>
+                            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                                <View>
+                                    <FlatList
+                                        data={meetingList}
+                                        renderItem={this.renderMeeting}
+                                        keyExtractor={item => `${item._id}`}
+                                    />
+                                </View>
+                            </ScrollView>
                         </View>
-                    </View>
+                    }
                 </View>
             </SafeAreaView>
         )
