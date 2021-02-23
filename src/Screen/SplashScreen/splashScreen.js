@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, StatusBar, SafeAreaView, Animated } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import { AUTHUSER, MAINSCREEN, LOGINSCREEN } from '../../Action/Type'
+import AsyncStorage from '@react-native-community/async-storage';
+import MyPermissionController from '../../Helpers/appPermission'
 import * as STYLES from './Styles';
 
 function SplashScreen(props) {
@@ -20,6 +21,14 @@ function SplashScreen(props) {
     setTimeout(() => {
       AuthController();
     }, 3000);
+
+    setTimeout(
+      () =>
+        MyPermissionController.checkAndRequestStoragePermission()
+          .then((granted) => console.log('>Storage Permission Granted'))
+          .catch((err) => console.log(err)),
+      500,
+    );
   }, []);
 
   return (

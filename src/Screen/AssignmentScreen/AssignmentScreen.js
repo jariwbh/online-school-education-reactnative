@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Linking, RefreshControl, FlatList, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ToastAndroid, RefreshControl, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import * as STYLES from './Styles';
-import Loader from '../../Components/Loader/Loader'
 import { assignmentListService } from '../../Services/AssignmentService/AssignmentService'
-import HTML from 'react-native-render-html';
-import moment from 'moment'
+import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Loader from '../../Components/Loader/Loader'
+import HTML from 'react-native-render-html';
+import RNFetchBlob from 'rn-fetch-blob';
+import * as STYLES from './Styles';
+import moment from 'moment'
 
 export default class AssignmentScreen extends Component {
     constructor(props) {
@@ -14,23 +16,21 @@ export default class AssignmentScreen extends Component {
         this.state = {
             assignmentList: [],
             loader: true,
-            refreshing: false,
-
-
+            refreshing: false
         };
+        this.onPressDownloadFile = this.onPressDownloadFile.bind(this);
     }
 
-    getassignmentList() {
+    getAssignmentList() {
         assignmentListService().then(response => {
-            console.log('response', response.data);
-            this.setState({ assignmentList: response.data })
+            this.setState({ assignmentList: response.data });
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
-
     }
 
     componentDidMount() {
-        this.getassignmentList();
+        this.checkPermission();
+        this.getAssignmentList();
     }
 
     wait = (timeout) => {
@@ -40,12 +40,69 @@ export default class AssignmentScreen extends Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
-        this.getassignmentList()
+        this.setState({ refreshing: true });
+        this.getAssignmentList();
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
-    renderassignmentList = ({ item }) => (
+    //check permission 
+    checkPermission() {
+        setTimeout(
+            () =>
+                MyPermissionController.checkAndRequestStoragePermission()
+                    .then((granted) => console.log('>Storage Permission Granted'))
+                    .catch((err) => console.log(err)),
+            500,
+        );
+    }
+
+    //download file 
+    onPressDownloadFile(item) {
+        const REMOTE_IMAGE_PATH = `${item.attachmenturl}`;
+        // To add the time suffix in filename
+        let date = new Date();
+        // Image URL which we want to download
+        let image_URL = REMOTE_IMAGE_PATH;
+        // Getting the extention of the file
+        let ext = this.getExtention(image_URL);
+        ext = '.' + ext[0];
+        // Get config and fs from RNFetchBlob
+        // config: To pass the downloading related options
+        // fs: Directory path where we want our image to download
+        const { config, fs } = RNFetchBlob;
+        let PictureDir = fs.dirs.PictureDir;
+        let options = {
+            fileCache: true,
+            addAndroidDownloads: {
+                // Related to the Android only
+                useDownloadManager: true,
+                notification: true,
+                path:
+                    PictureDir +
+                    `/${item.title}_` +
+                    Math.floor(date.getTime() + date.getSeconds() / 2) +
+                    ext,
+                description: 'file',
+            },
+        };
+        config(options)
+            .fetch('GET', image_URL)
+            .then(res => {
+                // Showing alert after successful downloading
+                console.log('res -> ', JSON.stringify(res));
+                ToastAndroid.show("File Downloaded Successfully", ToastAndroid.LONG);
+            });
+    }
+
+    // Getting the extention of the file
+    getExtention = (filename) => {
+        // To get the file extension
+        return /[.]/.exec(filename) ?
+            /[^.]+$/.exec(filename) : undefined;
+    };
+
+    //render AssignmentList using flatlist
+    renderAssignmentList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ marginTop: hp('1%'), flex: 1, width: wp('35%'), height: hp('4%'), backgroundColor: '#E6EFFF', marginLeft: hp('2%'), borderRadius: hp('1%') }}>
@@ -53,7 +110,7 @@ export default class AssignmentScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: hp('2%'), marginTop: hp('1%'), }}>
                     <HTML baseFontStyle={{ fontSize: hp('2.5%'), textTransform: 'capitalize', fontWeight: 'bold' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
-                    <TouchableOpacity onPress={() => Linking.openURL(item.attachmenturl)}>
+                    <TouchableOpacity onPress={() => this.onPressDownloadFile(item)}>
                         <FontAwesome name="file-pdf-o" size={20} color="#6789CA" style={{ marginRight: hp('2%') }} />
                     </TouchableOpacity>
                 </View>
@@ -74,7 +131,7 @@ export default class AssignmentScreen extends Component {
         </View>
     )
     render() {
-        const { assignmentList, loader, refreshing } = this.state
+        const { assignmentList, loader, refreshing } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -84,15 +141,16 @@ export default class AssignmentScreen extends Component {
                             : <Loader />
                         )
                         :
-                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                            <View>
+                        <View style={{ marginTop: hp('2%') }}>
+                            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <FlatList
                                     data={assignmentList}
-                                    renderItem={this.renderassignmentList}
+                                    renderItem={this.renderAssignmentList}
                                     keyExtractor={item => `${item._id}`}
                                 />
-                            </View>
-                        </ScrollView>
+                                <View style={{ marginBottom: hp('5%') }}></View>
+                            </ScrollView>
+                        </View>
                     }
                 </View>
             </SafeAreaView>

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     btnTab: {
         width: Dimensions.get('window').width / 6.5,
         flexDirection: 'row',
-        borderColor: '#00C464',
+        borderColor: '#5D81C6',
         borderRadius: hp('2%'),
         borderWidth: 1,
         padding: 5,
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     btnTabActive: {
-        backgroundColor: '#00C464'
+        backgroundColor: '#5D81C6'
     },
     textTabActive: {
         color: '#FFF'
     },
     textTabInActive: {
-        color: '#00C464'
+        color: '#000000'
     },
     itemContainer: {
         flexDirection: 'row',
