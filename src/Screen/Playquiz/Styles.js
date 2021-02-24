@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
-        marginTop: hp('1%'),
         marginTop: hp('10%'),
     },
 })

@@ -9,19 +9,6 @@ export default class Playquiz extends Component {
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                {/* <View style={{ marginTop: hp('8%'), justifyContent: 'space-between' }}>
-                        <View style={{ marginLeft: hp('3%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <TouchableOpacity>
-                                <AntDesign name="left" size={24} color="#FFFFFF" />
-                            </TouchableOpacity>
-                            <View style={{ marginLeft: hp('-25%') }}>
-                                <Text style={{ color: '#FFFFFF', fontSize: hp('3%') }}>Play Quiz</Text>
-                            </View>
-                            <TouchableOpacity style={{ marginRight: hp('3%'), }}>
-                                <Text style={{ color: '#FFFFFF', fontSize: hp('3%') }}>Skip</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View> */}
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('1%') }}>
                         <View style={{ width: wp('90%'), height: hp('7%'), borderRadius: hp('3%'), flexDirection: 'row', backgroundColor: '#05518B', justifyContent: 'space-between', alignItems: 'center' }}>

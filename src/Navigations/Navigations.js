@@ -23,6 +23,7 @@ import HolidayScreen from "../Screen/HolidayScreen/HolidayScreen"
 import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
 import SplashScreen from '../Screen/SplashScreen/splashScreen';
 import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
+import Playquizstart from '../Screen/Playquiz/Playquizstart'
 import BackButton from '../Components/BackButton/BackButton';
 import { HOMESCREEN } from '../Action/Type';
 
@@ -77,6 +78,14 @@ function MainNavigation({ navigation }) {
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={Playquiz} />
+
+            <HomeStack.Screen name="Playquizstart" options={{
+                headerTintColor: '#FFFFFF', title: 'Play Quiz Start',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={Playquizstart} />
 
             <HomeStack.Screen name="Myprofile" options={{
                 headerTintColor: '#FFFFFF', title: 'My Profile',
