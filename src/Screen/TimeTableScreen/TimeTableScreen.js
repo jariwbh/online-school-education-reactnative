@@ -85,10 +85,6 @@ export default class TimeTableScreen extends Component {
         });
     }
 
-    setstateFilter = status => {
-        this.setState({ status: day })
-    }
-
     onRefresh = () => {
         const { postData } = this.state;
         this.setState({ refreshing: true });

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ToastAndroid, RefreshControl, FlatList, ScrollView, TouchableOpacity } from 'react-native'
+import {
+    Text, View, SafeAreaView, ToastAndroid, RefreshControl, FlatList, ScrollView,
+    TouchableOpacity, Button, StyleSheet, Modal, TextInput, Dimensions
+} from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { assignmentListService } from '../../Services/AssignmentService/AssignmentService'
 import MyPermissionController from '../../Helpers/appPermission';
@@ -9,6 +12,9 @@ import HTML from 'react-native-render-html';
 import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
 import moment from 'moment'
+// Import Document Picker
+import DocumentPicker from 'react-native-document-picker';
+const { width } = Dimensions.get("window");
 
 export default class AssignmentScreen extends Component {
     constructor(props) {
@@ -16,9 +22,15 @@ export default class AssignmentScreen extends Component {
         this.state = {
             assignmentList: [],
             loader: true,
-            refreshing: false
+            refreshing: false,
+            newComment: null,
+            isModalVisible: false,
+            Description: null,
+            singleFile: null
         };
         this.onPressDownloadFile = this.onPressDownloadFile.bind(this);
+        this.onPressUploadFile = this.onPressUploadFile.bind(this);
+        //this.selectFile = this.selectFile.bind(this);
     }
 
     getAssignmentList() {
@@ -56,7 +68,7 @@ export default class AssignmentScreen extends Component {
         );
     }
 
-    //download file 
+    //pdf image icon click to download file 
     onPressDownloadFile(item) {
         const REMOTE_IMAGE_PATH = `${item.attachmenturl}`;
         // To add the time suffix in filename
@@ -101,6 +113,78 @@ export default class AssignmentScreen extends Component {
             /[^.]+$/.exec(filename) : undefined;
     };
 
+    selectFile = async () => {
+        // Opening Document Picker to select one file
+        try {
+            const res = await DocumentPicker.pick({
+                // Provide which type of file you want user to pick
+                type: [DocumentPicker.types.allFiles],
+                // There can me more options as well
+                // DocumentPicker.types.allFiles
+                // DocumentPicker.types.images
+                // DocumentPicker.types.plainText
+                // DocumentPicker.types.audio
+                // DocumentPicker.types.pdf
+            });
+            // Printing the log realted to the file
+            console.log('res : ' + JSON.stringify(res));
+            //let selectFile = JSON.stringify(res);
+            console.log('selectFile.size', res.size);
+            // if (res.size <= 10000) {
+            console.log('selectFile', res.uri);
+            this.onPressUploadFile(res.uri);
+            //this.setState({ singleFile: res.uri });
+            //}
+            // Setting the state to show single file attributes
+        } catch (err) {
+            console.log('err', err)
+            // Handling any exception (If any)
+            if (DocumentPicker.isCancel(err)) {
+                // If user canceled the document selection
+                alert('Canceled');
+            } else {
+                // For Unknown Error
+                alert('Unknown Error: ' + JSON.stringify(err));
+                throw err;
+            }
+        }
+    };
+
+    //submitted button click to upload file
+    onPressUploadFile = (singleFile) => {
+        console.log('file', singleFile)
+        if (singleFile != null) {
+            const data = new FormData()
+            data.append('file', singleFile)
+            data.append('upload_preset', 'gs95u3um')
+            data.append("cloud_name", "dlopjt9le")
+            fetch("https://api.cloudinary.com/v1_1/dlopjt9le/upload", {
+                method: "post", body: data, headers: { 'Content-Type': 'multipart/form-data; ' },
+            }).then(res => res.json()).
+                then(data => {
+                    console.log('data', data);
+                    this.toggleModalVisibility();
+                }).catch(err => {
+                    alert("An Error Occured While Uploading")
+                })
+        } else {
+            alert('Please Select File first');
+        }
+    }
+
+    onPressSubmit() {
+        this.selectFile();
+        //this.toggleModalVisibility()
+    }
+
+    toggleModalVisibility() {
+        this.setState({ isModalVisible: false })
+    }
+
+    UploadFileController() {
+        this.setState({ isModalVisible: true })
+    }
+
     //render AssignmentList using flatlist
     renderAssignmentList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -123,7 +207,9 @@ export default class AssignmentScreen extends Component {
                     <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.duedate).format('LL')}</Text>
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginLeft: hp('0%'), marginBottom: hp('3%'), borderRadius: hp('2%') }} onPress={() => { }}>
+                    <TouchableOpacity
+                        style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
+                        onPress={() => this.UploadFileController()}>
                         <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
                     </TouchableOpacity>
                 </View>
@@ -150,6 +236,42 @@ export default class AssignmentScreen extends Component {
                                 />
                                 <View style={{ marginBottom: hp('5%') }}></View>
                             </ScrollView>
+                            {/** This button is responsible to open the modal */}
+                            <Modal animationType="fade"
+                                transparent visible={this.state.isModalVisible ? true : false}
+                                presentationStyle="overFullScreen"
+                                onDismiss={() => this.toggleModalVisibility()}>
+                                <View style={styles.viewWrapper}>
+                                    <View style={styles.modalView}>
+                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: hp('2.5%'), marginTop: hp('1%') }}>Submit Assignment</Text>
+                                        </View>
+                                        <View style={{ marginTop: hp('2%'), flexDirection: 'row' }}>
+                                            <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)' }}></View>
+                                        </View>
+                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <TouchableOpacity
+                                                style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
+                                                onPress={() => { this.selectFile() }}>
+                                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>Select Document</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ marginLeft: wp('7%') }}>
+                                            <Text style={{ fontSize: hp('2.5%'), marginBottom: hp('1%') }}>Remarks :</Text>
+                                        </View>
+                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <TextInput
+                                                value={this.state.Description} style={styles.textInput}
+                                                onChangeText={(value) => { }} />
+                                        </View>
+                                        {/** This button is responsible to close the modal */}
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                                            <Button color="#2855AE" title="SUBMIT" style onPress={() => this.onPressSubmit()} />
+                                            <Button color="#2855AE" title="CANCEL" onPress={() => this.toggleModalVisibility()} />
+                                        </View>
+                                    </View>
+                                </View>
+                            </Modal>
                         </View>
                     }
                 </View>
@@ -157,3 +279,41 @@ export default class AssignmentScreen extends Component {
         )
     }
 }
+
+// These are user defined styles 
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#fff",
+    },
+    viewWrapper: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+    },
+    modalView: {
+        position: "absolute",
+        top: "30%",
+        left: "50%",
+        elevation: 5,
+        transform: [{ translateX: -(width * 0.4) },
+        { translateY: -90 }],
+        height: 350,
+        width: width * 0.8,
+        backgroundColor: "#fff",
+        borderRadius: 7,
+    },
+    textInput: {
+        width: "80%",
+        height: 100,
+        borderRadius: 5,
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderColor: "rgba(0, 0, 0, 0.2)",
+        borderWidth: 1,
+        marginBottom: 8,
+    },
+});
