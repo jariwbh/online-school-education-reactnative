@@ -110,7 +110,7 @@ class HomeScreen extends Component {
                             </View>
 
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate('Playquiz')}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate('Playquizstart')}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>
