@@ -3,46 +3,103 @@ import {
     Text, View, SafeAreaView, ToastAndroid, RefreshControl, FlatList, ScrollView,
     TouchableOpacity, Button, StyleSheet, Modal, TextInput, Dimensions
 } from 'react-native'
+import { assignmentListService, submitAssignmentListService, uploadAssignmentService } from '../../Services/AssignmentService/AssignmentService'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { assignmentListService } from '../../Services/AssignmentService/AssignmentService'
+import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWASSIGNMENTSCREEN } from '../../Action/Type';
+import DocumentPicker from 'react-native-document-picker';
+import axiosConfig from "../../Helpers/axiosConfig";
 import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
 import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
 import moment from 'moment'
-// Import Document Picker
-import DocumentPicker from 'react-native-document-picker';
 const { width } = Dimensions.get("window");
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class AssignmentScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            studentInfo: null,
+            studentId: null,
             assignmentList: [],
             loader: true,
             refreshing: false,
-            newComment: null,
             isModalVisible: false,
-            Description: null,
-            singleFile: null
+            assignmentRemarks: null,
+            singleFile: null,
+            fileURL: null,
+            contextId: null,
+            spinner: false
         };
+        this.submitAssignmentList = [];
         this.onPressDownloadFile = this.onPressDownloadFile.bind(this);
         this.onPressUploadFile = this.onPressUploadFile.bind(this);
-        //this.selectFile = this.selectFile.bind(this);
     }
 
-    getAssignmentList() {
-        assignmentListService().then(response => {
-            this.setState({ assignmentList: response.data });
+    //get assignment list api
+    async getAssignmentList() {
+        const { studentId } = this.state;
+        await assignmentListService().then(response => {
+            let newAssignment = []
+            if (response.data && response.data.length != 0) {
+                response.data.forEach(element => {
+                    element.viewResult = false;
+                    if (element.memberids && element.memberids.length != 0) {
+                        var check = element.memberids.indexOf(studentId);
+                        if (check != -1) {
+                            this.submitAssignmentList.forEach(ele => {
+                                if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
+                                    element.viewResult = true;
+                                    element.viewResultID = ele._id;
+                                }
+                            });
+                            newAssignment.push(element);
+                        }
+                    } else {  // All Student of Particular Membership
+                        this.submitAssignmentList.forEach(ele => {
+                            if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
+                                element.viewResult = true;
+                                element.viewResultID = ele._id;
+                            }
+                        });
+                        newAssignment.push(element);
+                    }
+                });
+            }
+            this.setState({ assignmentList: newAssignment });
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
     }
 
+    async getSubmitAssignmentList(studentId) {
+        await submitAssignmentListService(studentId).then(response => {
+            this.submitAssignmentList = response.data;
+            this.wait(1000).then(() => this.setState({ loader: false }));
+        });
+    }
+
+    //get student information api
+    getStudentData = async () => {
+        var getUser = await AsyncStorage.getItem(AUTHUSER);
+        if (getUser == null) {
+            setTimeout(() => {
+                this.props.navigation.replace(LOGINSCREEN)
+            }, 3000);;
+        } else {
+            var userData = JSON.parse(getUser);
+            await this.setState({ studentInfo: userData, studentId: userData._id });
+            await this.getSubmitAssignmentList(userData._id);
+            await this.getAssignmentList();
+        }
+    }
+
     componentDidMount() {
+        this.getStudentData();
         this.checkPermission();
-        this.getAssignmentList();
     }
 
     wait = (timeout) => {
@@ -51,10 +108,12 @@ export default class AssignmentScreen extends Component {
         });
     }
 
-    onRefresh = () => {
+    onRefresh = async () => {
+        const { studentId } = this.state;
         this.setState({ refreshing: true });
-        this.getAssignmentList();
-        this.wait(3000).then(() => this.setState({ refreshing: false }));
+        await this.getAssignmentList();
+        await this.getSubmitAssignmentList(studentId);
+        await this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
     //check permission 
@@ -102,7 +161,7 @@ export default class AssignmentScreen extends Component {
             .then(res => {
                 // Showing alert after successful downloading
                 console.log('res -> ', JSON.stringify(res));
-                ToastAndroid.show("File Downloaded Successfully", ToastAndroid.LONG);
+                ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
             });
     }
 
@@ -113,76 +172,143 @@ export default class AssignmentScreen extends Component {
             /[^.]+$/.exec(filename) : undefined;
     };
 
+    // Opening Document Picker to select one file
     selectFile = async () => {
-        // Opening Document Picker to select one file
         try {
             const res = await DocumentPicker.pick({
                 // Provide which type of file you want user to pick
-                type: [DocumentPicker.types.allFiles],
-                // There can me more options as well
                 // DocumentPicker.types.allFiles
-                // DocumentPicker.types.images
-                // DocumentPicker.types.plainText
-                // DocumentPicker.types.audio
-                // DocumentPicker.types.pdf
+                type: [DocumentPicker.types.allFiles],
             });
             // Printing the log realted to the file
             console.log('res : ' + JSON.stringify(res));
-            //let selectFile = JSON.stringify(res);
-            console.log('selectFile.size', res.size);
-            // if (res.size <= 10000) {
-            console.log('selectFile', res.uri);
-            this.onPressUploadFile(res.uri);
-            //this.setState({ singleFile: res.uri });
-            //}
+            if (res.size <= 30000) {
+                this.setState({ spinner: true });
+                this.onPressUploadFile(res);
+                this.setState({ singleFile: res });
+            } else {
+                alert('The Maximum size for the upload is 10 MB');
+            }
             // Setting the state to show single file attributes
         } catch (err) {
-            console.log('err', err)
             // Handling any exception (If any)
+            this.setState({ spinner: true });
             if (DocumentPicker.isCancel(err)) {
                 // If user canceled the document selection
-                alert('Canceled');
-            } else {
-                // For Unknown Error
-                alert('Unknown Error: ' + JSON.stringify(err));
-                throw err;
+                this.setState({ spinner: true });
+                alert('Attachment Canceled');
             }
         }
     };
 
     //submitted button click to upload file
-    onPressUploadFile = (singleFile) => {
-        console.log('file', singleFile)
+    onPressUploadFile = async (singleFile) => {
         if (singleFile != null) {
-            const data = new FormData()
-            data.append('file', singleFile)
-            data.append('upload_preset', 'gs95u3um')
-            data.append("cloud_name", "dlopjt9le")
-            fetch("https://api.cloudinary.com/v1_1/dlopjt9le/upload", {
-                method: "post", body: data, headers: { 'Content-Type': 'multipart/form-data; ' },
-            }).then(res => res.json()).
-                then(data => {
-                    console.log('data', data);
-                    this.toggleModalVisibility();
-                }).catch(err => {
-                    alert("An Error Occured While Uploading")
+            await RNFetchBlob.fetch('POST', 'https://api.cloudinary.com/v1_1/dlopjt9le/upload', { 'Content-Type': 'multipart/form-data' },
+                [{ name: 'file', filename: singleFile.name, type: singleFile.type, data: RNFetchBlob.wrap(singleFile.uri) },
+                { name: 'upload_preset', data: 'gs95u3um' }])
+                .then(response => response.json())
+                .then(data => {
+                    this.wait(3000).then(() => { this.setState({ spinner: false }) });
+                    if (data && data.url) {
+                        ToastAndroid.show("Uploading File Success", ToastAndroid.CENTER);
+                        this.setState({ fileURL: data.url });
+                    }
+                }).catch(error => {
+                    alert("Uploading Failed!");
                 })
         } else {
-            alert('Please Select File first');
+            alert('Please Select File');
         }
     }
 
-    onPressSubmit() {
-        this.selectFile();
-        //this.toggleModalVisibility()
+    //model popup submit button to submit assignment
+    async onSubmitAssignment() {
+        const { studentInfo, contextId, assignmentRemarks, fileURL, studentId } = this.state;
+        let body = {
+            status: "done",
+            dispositionid: "5def2f78686b1901582ff6c7", //dispositions api id
+            formdispositionid: "5def3054686b1901582ff6cf",
+            formid: "5a3366a50861a9670928e5c9", //static
+            contextid: contextId, //membertask api id 
+            property: {
+                remark: assignmentRemarks,
+                attachment: [fileURL],
+                submitteddate: moment().format('YYYY-MM-DD'),
+                followupdate: moment().format('YYYY-MM-DD')
+            },
+            userid: studentId,
+            onUser: "Member",
+            objectid: contextId, //membertask api id
+            onObject: "Membertask",
+            onModel: "Formdata",
+        }
+
+        if (!fileURL) {
+            alert('Please Select File');
+            return;
+        }
+
+        if (!assignmentRemarks) {
+            alert('Please Enter Remarks');
+            return;
+        }
+
+        try {
+            if (studentInfo) {
+                await axiosConfig(studentId);
+                //Upload Assignment Service
+                await uploadAssignmentService(body).then(response => {
+                    if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                        ToastAndroid.show("Assignment Sumitted", ToastAndroid.LONG);
+                        let token = studentInfo.addedby;
+                        axiosConfig(token);
+                        this.toggleModalVisibility();
+                        return;
+                    }
+                })
+            }
+        }
+        catch (error) {
+            this.props.navigation.replace(LOGINSCREEN);
+            ToastAndroid.show("User Invalid!", ToastAndroid.LONG)
+        };
     }
 
+    //cancel button click to reset data
+    resetButton() {
+        this.setState({
+            assignmentRemarks: null,
+            singleFile: null,
+            fileURL: null,
+        })
+    }
+    //student input type comment set data
+    assignmentRemarks(value) {
+        this.setState({ assignmentRemarks: value });
+    }
+
+    //model pop hide function
     toggleModalVisibility() {
-        this.setState({ isModalVisible: false })
+        this.setState({ isModalVisible: false });
+        this.resetButton();
     }
 
-    UploadFileController() {
-        this.setState({ isModalVisible: true })
+    //model popup show funaction
+    UploadFileController(item) {
+        this.setState({ contextId: item._id })
+        this.setState({ isModalVisible: true });
+        this.resetButton();
+    }
+
+    //View Assignment function
+    viewAssignment(item) {
+        let assignmentView = this.submitAssignmentList.find(x => x._id === item.viewResultID);
+        if (assignmentView) {
+            this.props.navigation.replace(VIEWASSIGNMENTSCREEN, { assignmentView });
+        } else {
+            ToastAndroid.show("View Assignment Problem", ToastAndroid.SHORT);
+        }
     }
 
     //render AssignmentList using flatlist
@@ -190,7 +316,7 @@ export default class AssignmentScreen extends Component {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ marginTop: hp('1%'), flex: 1, width: wp('35%'), height: hp('4%'), backgroundColor: '#E6EFFF', marginLeft: hp('2%'), borderRadius: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2%'), flex: 1, marginLeft: hp('2%'), color: '#6789CA', }}>{item.title}</Text>
+                    <Text style={{ fontSize: hp('2%'), flex: 1, marginLeft: hp('2%'), color: '#6789CA', }}>{item.membershipid.membershipname}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: hp('2%'), marginTop: hp('1%'), }}>
                     <HTML baseFontStyle={{ fontSize: hp('2.5%'), textTransform: 'capitalize', fontWeight: 'bold' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
@@ -200,24 +326,36 @@ export default class AssignmentScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Assign Date </Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.startdate).format('LL')}</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.createdAt).format('LL')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('0%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
                     <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.duedate).format('LL')}</Text>
                 </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity
-                        style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
-                        onPress={() => this.UploadFileController()}>
-                        <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
-                    </TouchableOpacity>
-                </View>
+                {item.viewResult == false &&
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? true : false}
+                            style={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
+                            onPress={() => this.UploadFileController(item)}>
+                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+                {item.viewResult == true &&
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity
+                            style={STYLES.styles.submitButton}
+                            onPress={() => this.viewAssignment(item)}>
+                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>VIEW ASSIGNMENT</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
             </View>
         </View>
     )
+
     render() {
-        const { assignmentList, loader, refreshing } = this.state;
+        const { assignmentList, loader, refreshing, singleFile, } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -250,8 +388,8 @@ export default class AssignmentScreen extends Component {
                                             <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)' }}></View>
                                         </View>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                            <TouchableOpacity
-                                                style={{ width: wp('60%'), backgroundColor: '#2855AE', alignItems: 'center', marginTop: hp('5%'), height: hp('6%'), marginBottom: hp('3%'), borderRadius: hp('2%') }}
+                                            <TouchableOpacity disabled={singleFile == null ? false : true}
+                                                style={singleFile == null ? STYLES.styles.selectFilebtn : STYLES.styles.selectFilebtnDisable}
                                                 onPress={() => { this.selectFile() }}>
                                                 <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>Select Document</Text>
                                             </TouchableOpacity>
@@ -261,17 +399,21 @@ export default class AssignmentScreen extends Component {
                                         </View>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                             <TextInput
-                                                value={this.state.Description} style={styles.textInput}
-                                                onChangeText={(value) => { }} />
+                                                value={this.state.remarks} style={styles.textInput}
+                                                onChangeText={(value) => this.assignmentRemarks(value)} />
                                         </View>
                                         {/** This button is responsible to close the modal */}
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                                            <Button color="#2855AE" title="SUBMIT" style onPress={() => this.onPressSubmit()} />
+                                            <Button color="#2855AE" title="SUBMIT" style onPress={() => this.onSubmitAssignment()} />
                                             <Button color="#2855AE" title="CANCEL" onPress={() => this.toggleModalVisibility()} />
                                         </View>
                                     </View>
                                 </View>
                             </Modal>
+                            <Spinner
+                                visible={this.state.spinner}
+                                textStyle={{ color: '#2855AE' }}
+                            />
                         </View>
                     }
                 </View>
@@ -315,5 +457,5 @@ const styles = StyleSheet.create({
         borderColor: "rgba(0, 0, 0, 0.2)",
         borderWidth: 1,
         marginBottom: 8,
-    },
+    }
 });

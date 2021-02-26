@@ -3,6 +3,7 @@ import { View, StatusBar, SafeAreaView, Animated } from 'react-native';
 import { AUTHUSER, MAINSCREEN, LOGINSCREEN } from '../../Action/Type'
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission'
+import axiosConfig from '../../Helpers/axiosConfig';
 import * as STYLES from './Styles';
 
 function SplashScreen(props) {
@@ -10,7 +11,10 @@ function SplashScreen(props) {
   useEffect(() => {
     async function AuthController() {
       var getUser = await AsyncStorage.getItem(AUTHUSER)
-      var userData = JSON.parse(getUser)
+      var userData = JSON.parse(getUser);
+      //set header auth user key
+      let token = userData.addedby;
+      axiosConfig(token);
       if (userData) {
         return props.navigation.navigate(MAINSCREEN)
       } else {

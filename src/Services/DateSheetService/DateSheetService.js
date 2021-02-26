@@ -1,7 +1,6 @@
 import Axios from '../../Helpers/appConfig'
 
 const ExamDatesheet = (id) => {
-    console.log('id', id)
     const body =
     {
         "search": [{

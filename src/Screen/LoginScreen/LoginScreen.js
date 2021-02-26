@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import LoginService from '../../Services/LoginService/LoginService';
 import { MAINSCREEN, REGISTERSCREEN, AUTHUSER } from '../../Action/Type'
 import Loading from '../../Components/Loader/Loading';
+import axiosConfig from '../../Helpers/axiosConfig';
 import * as STYLES from './Styles';
 
 export default class LoginScreen extends Component {
@@ -76,6 +77,9 @@ export default class LoginScreen extends Component {
                     }
 
                     if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                        let token = response.data.user.addedby;
+                        //set header auth user key
+                        axiosConfig(token);
                         this.authenticateUser(response.data.user);
                         ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
                         this.setState({ loading: false })
