@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,6 +20,14 @@ class HomeScreen extends Component {
             loader: true,
             attendencePercent: null
         };
+        this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
+
+        this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton,
+            );
+        });
     }
 
     wait = (timeout) => {
@@ -63,6 +71,17 @@ class HomeScreen extends Component {
         AsyncStorage.removeItem(AUTHUSER);
         ToastAndroid.show("Log Out Success!", ToastAndroid.SHORT);
         this.props.navigation.replace(LOGINSCREEN);
+    }
+
+    componentWillUnmount() {
+        this._unsubscribeSiFocus();
+        this._unsubscribeSiBlur();
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        BackHandler.exitApp()
+        return true;
     }
 
     render() {

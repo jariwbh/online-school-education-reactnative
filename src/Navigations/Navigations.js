@@ -7,6 +7,7 @@ import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
 import FeesScreen from "../Screen/FeesScreen/FeesScreen";
 import PayonlineScreen from "../Screen/PayonlineScreen/PayonlineScreen";
 import AssignmentScreen from "../Screen/AssignmentScreen/AssignmentScreen"
+import ViewAssignmentScreen from "../Screen/AssignmentScreen/ViewAssignmentScreen"
 import Playquiz from "../Screen/Playquiz/Playquiz"
 import Myprofile from "../Screen/Myprofile/Myprofile";
 import DateSheetScreen from "../Screen/DateSheetScreen/DateSheetScreen"
@@ -25,7 +26,7 @@ import SplashScreen from '../Screen/SplashScreen/splashScreen';
 import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
 import Playquizstart from '../Screen/Playquiz/Playquizstart'
 import BackButton from '../Components/BackButton/BackButton';
-import { HOMESCREEN } from '../Action/Type';
+import { HOMESCREEN, ASSIGNMENTSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -70,6 +71,14 @@ function MainNavigation({ navigation }) {
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={AssignmentScreen} />
+
+            <HomeStack.Screen name="ViewAssignmentScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'View Assignment',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(ASSIGNMENTSCREEN)} />
+            }} component={ViewAssignmentScreen} />
 
             <HomeStack.Screen name="Playquiz" options={{
                 headerTintColor: '#FFFFFF', title: 'Play Quiz',
