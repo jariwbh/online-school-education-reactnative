@@ -23,7 +23,7 @@ class RegisterScreen extends Component {
         this.setMobileNumber = this.setMobileNumber.bind(this);
         this.onPressSubmit = this.onPressSubmit.bind(this);
         this.secondTextInputRef = React.createRef();
-        this.TeardTextInputRef = React.createRef();
+        this.ThirdTextInputRef = React.createRef();
     }
 
 
@@ -77,7 +77,6 @@ class RegisterScreen extends Component {
         try {
             await RegisterService(body).then(response => {
                 if (response.data.type && response.data.type == 'Error') {
-                    console.log('response', response.status)
                     this.setState({ loading: false })
                     ToastAndroid.show("SignUp Failed!", ToastAndroid.LONG);
                     return
@@ -150,7 +149,7 @@ class RegisterScreen extends Component {
                                         textContentType="emailAddress"
                                         keyboardType="email-address"
                                         blurOnSubmit={false}
-                                        onSubmitEditing={() => { this.TeardTextInputRef.current.focus() }}
+                                        onSubmitEditing={() => { this.ThirdTextInputRef.current.focus() }}
                                         ref={this.secondTextInputRef}
                                         onChangeText={(username) => this.setUserName(username)}
                                     />
@@ -169,7 +168,7 @@ class RegisterScreen extends Component {
                                         keyboardType="number-pad"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid={mobilenumberError == null ? "#A5A5A5" : "red"}
-                                        ref={this.TeardTextInputRef}
+                                        ref={this.ThirdTextInputRef}
                                         onSubmitEditing={() => this.onPressSubmit()}
                                         onChangeText={(mobilenumber) => this.setMobileNumber(mobilenumber)}
                                     />

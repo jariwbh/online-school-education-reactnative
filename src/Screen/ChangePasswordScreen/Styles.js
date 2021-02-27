@@ -34,7 +34,16 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: hp('2.5%'),
         fontWeight: 'bold',
-    }
+    },
+    cpBtnLoading: {
+        flexDirection: 'row',
+        width: wp('85%'),
+        backgroundColor: "#6789CA",
+        borderRadius: wp('2%'),
+        height: hp('8%'),
+        alignItems: "center",
+        justifyContent: "center",
+    },
 })
 
 export { styles };

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
+import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid, BackHandler } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import LoginService from '../../Services/LoginService/LoginService';
-import { MAINSCREEN, REGISTERSCREEN, AUTHUSER } from '../../Action/Type'
+import { MAINSCREEN, REGISTERSCREEN, AUTHUSER, AUTHUSERINFO } from '../../Action/Type'
 import Loading from '../../Components/Loader/Loading';
 import axiosConfig from '../../Helpers/axiosConfig';
 import * as STYLES from './Styles';
@@ -14,7 +14,7 @@ export default class LoginScreen extends Component {
         this.state = {
             username: 'MYISCH10001',
             usererror: null,
-            password: 'MYISCH10001',
+            password: '123456',
             passworderror: null,
             loading: false,
         };
@@ -22,6 +22,25 @@ export default class LoginScreen extends Component {
         this.setPassword = this.setPassword.bind(this);
         this.onPressSubmit = this.onPressSubmit.bind(this);
         this.secondTextInputRef = React.createRef();
+        this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+            BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+        });
+
+        this._unsubscribeSiBlur = this.props.navigation.addListener('blur', e => {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton,
+            );
+        });
+    }
+
+    componentWillUnmount() {
+        this._unsubscribeSiFocus();
+        this._unsubscribeSiBlur();
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    }
+
+    handleBackButton = () => {
+        BackHandler.exitApp()
+        return true;
     }
 
     setEmail(email) {
@@ -52,6 +71,10 @@ export default class LoginScreen extends Component {
         AsyncStorage.setItem(AUTHUSER, JSON.stringify(user))
     )
 
+    setUserLoginInfo = (user) => (
+        AsyncStorage.setItem(AUTHUSERINFO, JSON.stringify(user))
+    )
+
     //SIGN IN BUTTON ONPRESS TO PROCESS
     onPressSubmit = async () => {
         const { username, password } = this.state;
@@ -69,7 +92,6 @@ export default class LoginScreen extends Component {
             await LoginService(body)
                 .then(response => {
                     if (response.data.type && response.data.type == 'Error') {
-                        console.log('response', response.status)
                         this.setState({ loading: false })
                         ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
                         this.resetScreen();
@@ -81,6 +103,7 @@ export default class LoginScreen extends Component {
                         //set header auth user key
                         axiosConfig(token);
                         this.authenticateUser(response.data.user);
+                        this.setUserLoginInfo(body);
                         ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
                         this.setState({ loading: false })
                         this.props.navigation.navigate(MAINSCREEN)

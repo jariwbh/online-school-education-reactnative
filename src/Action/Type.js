@@ -1,5 +1,6 @@
 // AUHT USER ASYNC STROAGE KEY
 export const AUTHUSER = '@authuserstudent'
+export const AUTHUSERINFO = '@authuserstudentinfo'
 
 // SCREEN RENDER NAME
 export const MAINSCREEN = 'MainScreen'

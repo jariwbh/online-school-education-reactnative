@@ -12,10 +12,10 @@ function SplashScreen(props) {
     async function AuthController() {
       var getUser = await AsyncStorage.getItem(AUTHUSER)
       var userData = JSON.parse(getUser);
-      //set header auth user key
-      let token = userData.addedby;
-      axiosConfig(token);
       if (userData) {
+        //set header auth user key
+        let token = userData.addedby;
+        axiosConfig(token);
         return props.navigation.navigate(MAINSCREEN)
       } else {
         props.navigation.navigate(LOGINSCREEN)
