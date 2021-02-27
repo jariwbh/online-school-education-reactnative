@@ -49,7 +49,7 @@ function MainNavigation({ navigation }) {
             <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
 
             <HomeStack.Screen name="FeesScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Fess Due',
+                headerTintColor: '#FFFFFF', title: 'Fees Due',
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0

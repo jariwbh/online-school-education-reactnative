@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: hp('5%'),
         borderTopRightRadius: hp('5%'),
         marginTop: hp('4%'),
-
     },
     innercardview: {
         // flex: 1,

@@ -38,7 +38,7 @@ export default class DateSheetScreen extends Component {
     //get exam schedule api
     getexamSchedule(id) {
         ExamDatesheet(id).then(response => {
-            this.setState({ examSchedule: response.data[0].examschedule })
+            this.setState({ examSchedule: response.data[0] && response.data[0].examschedule })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
     }
