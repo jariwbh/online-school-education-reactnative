@@ -5,10 +5,33 @@ import { Picker } from '@react-native-picker/picker';
 import * as STYLES from './Styles';
 
 export default class AskDoubtsScreen extends Component {
+
+    // constructor(props) {
+    //     super();
+    //     this.state = {
+    //         visible: false
+
+    //     };
+    // }
+    // componentDidMount() {
+    //     var self = this;
+    //     setInterval(() => {
+    //         self.setState({
+    //             visible: !this.state.visible
+    //         });
+    //     }, 5000);
+    // }
+
     render() {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+                    {/* <View style={
+                        visible = this.state.visible,
+                        isModal = true,
+                        isHUD = true,
+                        hudColor = "#000000",
+                        color = "#FFFFFF"} > */}
                     <View style={STYLES.styles.cardview}>
                         <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
                             <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Select Teacher</Text>
@@ -76,8 +99,9 @@ export default class AskDoubtsScreen extends Component {
                             <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('22%'), marginTop: hp('4%') }} />
                         </View>
                     </View>
+                    {/* </View> */}
                 </ScrollView>
-            </SafeAreaView>
+            </SafeAreaView >
         )
     }
 }
