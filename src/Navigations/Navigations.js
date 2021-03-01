@@ -25,8 +25,9 @@ import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
 import SplashScreen from '../Screen/SplashScreen/splashScreen';
 import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
 import Playquizstart from '../Screen/Playquiz/Playquizstart'
+import PlayQuizList from '../Screen/Playquiz/PlayQuizList'
 import BackButton from '../Components/BackButton/BackButton';
-import { HOMESCREEN, ASSIGNMENTSCREEN } from '../Action/Type';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -85,15 +86,23 @@ function MainNavigation({ navigation }) {
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(PLAYQUIZSTARTSCREEN)} />
             }} component={Playquiz} />
 
-            <HomeStack.Screen name="Playquizstart" options={{
-                headerTintColor: '#FFFFFF', title: 'Play Quiz Start',
+            <HomeStack.Screen name="PlayQuizList" options={{
+                headerTintColor: '#FFFFFF', title: 'Play Quiz',
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={PlayQuizList} />
+
+            <HomeStack.Screen name="Playquizstart" options={{
+                headerTintColor: '#FFFFFF', title: 'Play Quiz',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(PLAYQUIZLISTSCREEN)} />
             }} component={Playquizstart} />
 
             <HomeStack.Screen name="Myprofile" options={{

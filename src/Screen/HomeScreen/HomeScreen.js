@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAnd
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
 import AsyncStorage from '@react-native-community/async-storage';
-import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
+import { AUTHUSER, LOGINSCREEN, PLAYQUIZLISTSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
 import moment from 'moment';
@@ -129,7 +129,7 @@ class HomeScreen extends Component {
                             </View>
 
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate('Playquizstart')}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate(PLAYQUIZLISTSCREEN)}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>

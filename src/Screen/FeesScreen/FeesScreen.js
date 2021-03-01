@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
+import moment from 'moment';
 
 export class FeesScreen extends Component {
     constructor(props) {
@@ -73,44 +74,81 @@ export class FeesScreen extends Component {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Receipt No.</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>#sadsd</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Period</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{item.paymentterms.period}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Month</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>October</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.scheduledate).format('MMMM')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Payment Date</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>10 oct 20</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.scheduledate).format('DD MMM YYYY')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
-
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Total Pending Amount</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>$999</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>₹{item.amount}</Text>
                 </View>
-
                 <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
-
                 <TouchableOpacity style={{ width: wp('89.5%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}
                     onPress={() => { }}>
                     <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>PAY NOW</Text>
                 </TouchableOpacity>
+            </View>
+        </View>
+    )
 
+    //render Paid Payment List using flatlist
+    renderPaidPaymentList = ({ item }) => (
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={STYLES.styles.innercardview}>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Receipt No.</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>#{item.receiptnumberprefix + '-' + item.receiptnumber}</Text>
+                </View>
+                <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Month</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.paymentdate).format('MMMM')}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Payment Date</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.paymentdate).format('DD MMM YYYY')}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Pay Mode</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), textTransform: 'capitalize' }}>{item.mode}</Text>
+                </View>
+                <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
+                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Total Paid Amount</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>₹{item.paidamount}</Text>
+                </View>
+                <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                </View>
+                <TouchableOpacity style={{ width: wp('89.5%'), backgroundColor: '#2855AE', height: hp('5.5%'), borderBottomLeftRadius: hp('1.5%'), borderBottomRightRadius: hp('1.5%'), }}
+                    onPress={() => { }}>
+                    <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', textAlign: 'center', marginTop: hp('1%') }}>DOWNLOAD NOW</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
 
     render() {
-        const { paymentScheduleList, loader, refreshing } = this.state
+        const { paymentList, paymentScheduleList, loader, refreshing } = this.state
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
@@ -125,6 +163,11 @@ export class FeesScreen extends Component {
                                 <FlatList
                                     data={paymentScheduleList}
                                     renderItem={this.renderPaymentSchedule}
+                                    keyExtractor={item => `${item._id}`}
+                                />
+                                <FlatList
+                                    data={paymentList}
+                                    renderItem={this.renderPaidPaymentList}
                                     keyExtractor={item => `${item._id}`}
                                 />
                                 <View style={{ marginBottom: hp('2%') }}></View>

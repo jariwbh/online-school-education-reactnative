@@ -90,7 +90,7 @@ export default class DateSheetScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(examSchedule == null) || (examSchedule && examSchedule.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('20%') }}>No Exam Schedule Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Exam Schedule Available</Text>
                             : <Loader />
                         )
                         :

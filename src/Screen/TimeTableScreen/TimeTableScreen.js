@@ -117,7 +117,7 @@ export default class TimeTableScreen extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
-                    <View style={STYLES.styles.listTab}>
+                    {/* <View style={STYLES.styles.listTab}>
                         {
                             this.state.listTab.map(e => (
                                 <TouchableOpacity
@@ -127,23 +127,34 @@ export default class TimeTableScreen extends Component {
                                 </TouchableOpacity>
                             ))
                         }
-                    </View>
+                    </View> */}
                     {(timeTable == null) || (timeTable && timeTable.length == 0) ?
                         (loader == false ?
                             <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Time Table Available</Text>
                             : <Loader />
                         )
                         :
-                        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
-                            <View>
+                        <View>
+                            <View style={STYLES.styles.listTab}>
+                                {
+                                    this.state.listTab.map(e => (
+                                        <TouchableOpacity
+                                            style={[STYLES.styles.btnTab, status == e.day && STYLES.styles.btnTabActive]} onPress={() => this.dayClick(e)}
+                                        >
+                                            <Text style={[STYLES.styles.textTab, status == e.day ? STYLES.styles.textTabActive : STYLES.styles.textTabInActive]}>{e.day}</Text>
+                                        </TouchableOpacity>
+                                    ))
+                                }
+                            </View>
+                            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <FlatList
                                     data={timeTable}
                                     renderItem={this.renderTimeTable}
                                     keyExtractor={item => `${item._id}`}
                                 />
-                            </View>
-                            <View style={{ marginBottom: hp('5%') }}></View>
-                        </ScrollView>
+                                <View style={{ marginBottom: hp('5%') }}></View>
+                            </ScrollView>
+                        </View>
                     }
                 </View>
             </SafeAreaView>
