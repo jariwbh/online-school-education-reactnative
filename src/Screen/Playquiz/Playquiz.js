@@ -1,54 +1,253 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ImageBackground, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
+import { addExamResultService } from '../../Services/PlayQuizService/PlayQuizService';
 import * as STYLES from './Styles';
+import HTML from 'react-native-render-html';
 
 export default class Playquiz extends Component {
+    answers = [];
+    examObject = {};
+    starttime = new Date();
+    IsTimerStart = true;
+    currentOptionId = null;
+
+    constructor(props) {
+        super(props);
+        this.currentQuestionId = null;
+        this.currentExamDetails = this.props.route.params.selectedExamDeatils;
+        this.state = {
+            currentExamData: [],
+            addedby: [],
+            property: [],
+            currentQuestionArray: null,
+            index: 0,
+            disabledNext: false,
+            disabledPrev: true,
+            minutes: 0,
+            seconds: 0,
+            questionanswers: [],
+            studentId: null,
+        };
+    }
+
+    //get local storage fetch infomation 
+    getStudentData = async () => {
+        var getUser = await AsyncStorage.getItem(AUTHUSER);
+        if (getUser == null) {
+            setTimeout(() => {
+                this.props.navigation.replace(LOGINSCREEN)
+            }, 3000);;
+        } else {
+            var userData = JSON.parse(getUser);
+            this.wait(1000).then(() => this.setState({ studentId: userData._id }));
+        }
+    }
+
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
+    get_Diff_minutes() {
+        let maintDate = new Date();
+        let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.time * 60000);
+        let dt2 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.minutes * 60000 + this.state.seconds * 1000);
+        let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
+        let resultInMinutes = Math.round(difference / 60000);
+        return resultInMinutes;
+    }
+
+    onSumbitClick() {
+        alert("Once Sumbit, you will not be able to recover this mock test!");
+        this.onPressSumbit();
+    }
+
+    onPressSumbit() {
+
+    }
+
+    addExamResult(data) {
+        addExamResultService(data).then(response => {
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error);
+        });
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            currentExamData: this.currentExamDetails,
+            addedby: this.currentExamDetails.addedby,
+            property: this.currentExamDetails.addedby.property,
+            currentQuestionArray: this.currentExamDetails.questions,
+            minutes: this.currentExamDetails.time
+        });
+
+        if (this.IsTimerStart) {
+            this.setState({
+                questionArray: this.currentExamDetails.questions,
+                minutes: this.currentExamDetails.time
+            });
+            if (this.currentExamDetails.questions.length == 1) {
+                this.setState({ disabledNext: true })
+            }
+            this.receivedData();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.IsTimerStart) {
+            clearInterval(this.receivedData)
+        }
+    }
+
+    examTimeOver() {
+        alert("Time is over!");
+        this.onPressSumbit();
+    }
+
+    startTimer() {
+        const { seconds, minutes } = this.state
+        if (seconds > 0) {
+            this.setState(({ seconds }) => ({
+                seconds: seconds - 1
+            }))
+        }
+        if (seconds === 0) {
+            if (minutes === 0) {
+                clearInterval(this.myInterval)
+                this.examTimeOver();
+            } else {
+                this.setState(({ minutes }) => ({
+                    minutes: minutes - 1,
+                    seconds: 59
+                }))
+            }
+        }
+    }
+
+    receivedData() {
+        this.myInterval = setInterval(() => {
+            if (this.IsTimerStart) {
+                this.startTimer()
+            }
+        }, 1000)
+    }
+
+    selectedqueation(val) {
+        this.currentOptionId = val._id;
+        let currentQuestionAnswerObj = {
+            questionId: this.currentQuestionId,
+            answerId: val._id
+        }
+        this.answers.push(currentQuestionAnswerObj)
+        console.log('this.answer', this.answers);
+    }
+
+    togglePrev() {
+        const index = this.state.index - 1;
+        this.setState({
+            index: index,
+            disabledPrev: false,
+            disabledNext: false,
+            SubmitbuttonVisible: !this.state.disabledNext
+        });
+
+    }
+
+    toggleNext() {
+        const index = this.state.index + 1;
+        const disabledNext = (index === (this.state.questionArray.length));
+        this.setState({
+            index: index,
+            disabledNext: disabledNext,
+            SubmitbuttonVisible: !this.state.disabledNext
+        });
+    }
+
     render() {
+        const { minutes, seconds, index, disabledNext, disabledPrev, currentQuestionArray } = this.state;
+        const currentQuestion = currentQuestionArray ? currentQuestionArray[index] : null;
+
+        var currentQuestionOptions;
+        if (currentQuestion) {
+            this.currentQuestionId = currentQuestion._id;
+            currentQuestion.itemindex = index;
+            currentQuestionOptions = currentQuestion.options;
+        }
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('1%') }}>
+                        {/* exam timer Compoment */}
                         <View style={{ width: wp('90%'), height: hp('7%'), borderRadius: hp('3%'), flexDirection: 'row', backgroundColor: '#05518B', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginLeft: hp('2%') }}>18 sec</Text>
-                            <TouchableOpacity>
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginLeft: hp('2%') }}>
+                                {minutes === 0 && seconds === 0
+                                    ? <Text>Busted!</Text>
+                                    : <>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</>
+                                }
+                            </Text>
+                            <View>
                                 <AntDesign name="clockcircleo" size={24} color="#FFFFFF" style={{ marginRight: hp('2%') }} />
-                            </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: hp('5%'), justifyContent: 'space-around' }}>
+                    <View style={{ flexDirection: 'row', marginTop: hp('3%'), justifyContent: 'space-around' }}>
                         <View style={{ marginLeft: hp('0%'), flexDirection: 'row' }}>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('4%'), }}>Question 1</Text>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginTop: hp('1%') }}> / 10 </Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('4%'), }}>Question {index + 1}</Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginTop: hp('1%') }}> / {this.currentExamDetails.questions.length} </Text>
                         </View>
-                        <TouchableOpacity style={{ width: hp('15%'), backgroundColor: "#2855AE", height: hp('5%'), borderRadius: hp('3%'), alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around' }}>
-                            <FontAwesome name="users" size={20} color="#FFFFFF" />
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), }}> 256 </Text>
+                        <TouchableOpacity style={{ width: hp('15%'), backgroundColor: "#2855AE", height: hp('5%'), borderRadius: hp('3%'), alignItems: 'center', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), }}> Mark </Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), }}> {currentQuestion && currentQuestion.mark} </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('3%'), }}>
-                        <View style={{ width: hp('50%'), backgroundColor: "#FFFFFF", height: hp('70%'), borderRadius: hp('3%'), alignItems: 'center', flex: 1 }}>
-                            <Text style={{ marginLeft: hp('2%'), marginTop: hp('3%'), marginRight: hp('3%'), fontSize: hp('3%'), fontWeight: "bold" }}>In 2017, which player became
-                            the leading run scorer of all tie in women's ODI cricket?</Text>
-                            <TouchableOpacity style={{ width: hp('45%'), borderRadius: hp('3%'), alignItems: 'center', height: hp('7%'), borderColor: '#bfbfbf', borderWidth: hp('0.2%'), margin: hp('2%'), flexDirection: 'row' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%') }}> A. Stefanie Taylor </Text>
-                                {/* <RadioButton /> */}
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ width: hp('45%'), borderRadius: hp('3%'), alignItems: 'center', height: hp('7%'), borderColor: '#6AC259', borderWidth: hp('0.2%'), margin: hp('2%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%'), color: '#6AC259' }}> B. Mithali Raj</Text>
-                                <AntDesign name="checkcircle" size={24} color="#6AC259" style={{ marginRight: hp('2%'), }} />
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('3%'), flex: 1 }}>
+                        <View style={{ width: hp('50%'), backgroundColor: "#FFFFFF", borderRadius: hp('3%'), alignItems: 'center', flex: 1 }}>
+                            <HTML baseFontStyle={{ fontSize: hp('2%'), textTransform: 'capitalize', fontWeight: 'bold' }}
+                                html={`<html>${currentQuestion && currentQuestion.question} </html>`} />
 
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ width: hp('45%'), borderRadius: hp('3%'), alignItems: 'center', height: hp('7%'), borderColor: '#E92E30', borderWidth: hp('0.2%'), margin: hp('2%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%'), color: '#E92E30' }}> C. Suzia Betes </Text>
-                                <AntDesign name="closecircle" size={24} color="#E92E30" style={{ marginRight: hp('2%'), }} />
+                            {currentQuestionOptions && currentQuestionOptions.map(val => (
+                                <TouchableOpacity onPress={() => this.selectedqueation(val)}
+                                    style={[STYLES.styles.optionbtn, val._id == this.currentOptionId && STYLES.styles.optionselectedbtn]}>
 
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ width: hp('45%'), borderRadius: hp('3%'), alignItems: 'center', height: hp('7%'), borderColor: '#bfbfbf', borderWidth: hp('0.2%'), margin: hp('2%'), flexDirection: 'row' }}>
-                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('1%') }}> D. Harmanpreet Kaur</Text>
-                            </TouchableOpacity>
+                                    <View style={{ flexDirection: 'row', marginLeft: wp('3%'), alignItems: 'center' }}>
+                                        <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize', }}
+                                            html={`<html>${val.option + '. '} </html>`} />
+                                        <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize' }}
+                                            html={`<html>${val.value} </html>`} />
+                                    </View>
+                                </TouchableOpacity>
+                            ))}
+
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    disabled={index == 0}
+                                    style={index == 0 ? STYLES.styles.prevButtonDisable : STYLES.styles.prevButton}
+                                    onPress={() => this.togglePrev()}>
+                                    <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>PREVIOUS</Text>
+                                </TouchableOpacity>
+                                {
+                                    (index + 1) === (this.currentExamDetails.questions.length) == true
+                                        ? <TouchableOpacity
+                                            style={STYLES.styles.nextButton}
+                                            onPress={() => this.onPressSumbit()}>
+                                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>SUBMIT</Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <TouchableOpacity
+                                            disabled={(index + 1) === (this.currentExamDetails.questions.length)}
+                                            style={STYLES.styles.nextButton}
+                                            onPress={() => this.toggleNext()}>
+                                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>NEXT</Text>
+                                        </TouchableOpacity>
+                                }
+                            </View>
                         </View>
                     </View>
                     <View style={{ marginBottom: hp('5%') }}></View>
@@ -57,4 +256,3 @@ export default class Playquiz extends Component {
         )
     }
 }
-
