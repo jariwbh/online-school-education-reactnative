@@ -13,16 +13,18 @@ export default class Playquiz extends Component {
     starttime = new Date();
     IsTimerStart = true;
     currentOptionId = null;
+    currentQuestionObject = {};
+    currentQuestionId = null;
+    counterTemp = 0;
 
     constructor(props) {
         super(props);
-        this.currentQuestionId = null;
         this.currentExamDetails = this.props.route.params.selectedExamDeatils;
         this.state = {
             currentExamData: [],
             addedby: [],
             property: [],
-            currentQuestionArray: null,
+            questionArray: [],
             index: 0,
             disabledNext: false,
             disabledPrev: true,
@@ -84,7 +86,7 @@ export default class Playquiz extends Component {
             currentExamData: this.currentExamDetails,
             addedby: this.currentExamDetails.addedby,
             property: this.currentExamDetails.addedby.property,
-            currentQuestionArray: this.currentExamDetails.questions,
+            questionArray: this.currentExamDetails.questions,
             minutes: this.currentExamDetails.time
         });
 
@@ -139,46 +141,83 @@ export default class Playquiz extends Component {
         }, 1000)
     }
 
-    selectedqueation(val) {
-        this.currentOptionId = val._id;
-        let currentQuestionAnswerObj = {
-            questionId: this.currentQuestionId,
-            answerId: val._id
+    //select option click to call and next ,prev to call
+    selectedQuestionOption(question, answer) {
+        if (this.answers && this.answers.length > 0) {
+            var checkAnswerObj = this.answers.find(x => x.questionId == question._id);
+            if (checkAnswerObj) {
+                // Changes Value if Record is Exists.
+                checkAnswerObj.answerId = answer._id;
+            } else {
+                // Add Record if Record is not exists.
+                let obj = {
+                    questionId: question._id,
+                    answerId: answer._id
+                }
+                this.answers.push(obj);
+            }
+        } else {
+            // Add Recored if Array is Empty
+            let obj = {
+                questionId: question._id,
+                answerId: answer._id
+            }
+            this.answers.push(obj);
+            this.checkAnswerColor(answer._id)
         }
-        this.answers.push(currentQuestionAnswerObj)
-        console.log('this.answer', this.answers);
     }
 
+    //select option to change color
+    checkAnswerColor(answerid) {
+        if (this.currentQuestionObject && this.currentQuestionObject._id && this.answers && this.answers.length > 0) {
+            var answerObj = this.answers.find(p => p.questionId == this.currentQuestionObject._id);
+            if (answerObj) {
+                if (answerObj.answerId == answerid) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    //prev btn click to call funtion
     togglePrev() {
         const index = this.state.index - 1;
-        this.setState({
-            index: index,
-            disabledPrev: false,
-            disabledNext: false,
-            SubmitbuttonVisible: !this.state.disabledNext
-        });
-
+        if (this.state.questionArray[index]) {
+            this.currentQuestionObject = this.state.questionArray[index]
+        }
+        //this.selectedQuestionOption();
+        this.setState({ index: index, disabledPrev: false, disabledNext: false });
     }
 
+    //next btn click to call funtion
     toggleNext() {
         const index = this.state.index + 1;
         const disabledNext = (index === (this.state.questionArray.length));
-        this.setState({
-            index: index,
-            disabledNext: disabledNext,
-            SubmitbuttonVisible: !this.state.disabledNext
-        });
+        if (this.state.questionArray[index]) {
+            this.currentQuestionObject = this.state.questionArray[index]
+        }
+        //this.selectedQuestionOption();
+        this.setState({ index: index, disabledNext: disabledNext });
     }
 
     render() {
-        const { minutes, seconds, index, disabledNext, disabledPrev, currentQuestionArray } = this.state;
-        const currentQuestion = currentQuestionArray ? currentQuestionArray[index] : null;
-
+        const { minutes, seconds, index, disabledNext, disabledPrev, questionArray } = this.state;
+        const currentQuestion = questionArray ? questionArray[index] : null;
         var currentQuestionOptions;
         if (currentQuestion) {
             this.currentQuestionId = currentQuestion._id;
             currentQuestion.itemindex = index;
             currentQuestionOptions = currentQuestion.options;
+        }
+        if (this.state.questionArray && this.state.questionArray.length > 0 && this.counterTemp == 0) {
+            this.currentQuestionObject = this.state.questionArray[0];
+            this.counterTemp++;
         }
         return (
             <SafeAreaView style={STYLES.styles.container}>
@@ -213,8 +252,8 @@ export default class Playquiz extends Component {
                                 html={`<html>${currentQuestion && currentQuestion.question} </html>`} />
 
                             {currentQuestionOptions && currentQuestionOptions.map(val => (
-                                <TouchableOpacity onPress={() => this.selectedqueation(val)}
-                                    style={[STYLES.styles.optionbtn, val._id == this.currentOptionId && STYLES.styles.optionselectedbtn]}>
+                                <TouchableOpacity onPress={() => this.selectedQuestionOption(currentQuestion, val)}
+                                    style={[STYLES.styles.optionbtn, this.checkAnswerColor(val._id) && STYLES.styles.optionselectedbtn]}>
 
                                     <View style={{ flexDirection: 'row', marginLeft: wp('3%'), alignItems: 'center' }}>
                                         <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize', }}
