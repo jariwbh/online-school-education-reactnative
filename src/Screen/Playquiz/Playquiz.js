@@ -64,6 +64,8 @@ export default class Playquiz extends Component {
         let dt2 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.minutes * 60000 + this.state.seconds * 1000);
         let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
         let resultInMinutes = Math.round(difference / 60000);
+        let resultInSeconds = Math.round(difference / 1000);
+        console.log('resultInSeconds', resultInSeconds);
         console.log('resultInMinutes', resultInMinutes);
         return resultInMinutes;
     }
@@ -151,72 +153,69 @@ export default class Playquiz extends Component {
         }, 1000)
     }
 
-    //prepare object to submit button click / time is over 
+    //prepare object to submit button click and time is over to call
     prepareResultObjectonSumbit() {
-        const { questionArray, studentId } = this.state;
-        this.IsTimerStart = false;
-        this.examObject.timetaken = this.get_Diff_minutes();
-        let endtime = new Date();
 
-        this.examObject.attemptedquestions = 0;
-        this.examObject.unattemptedquestions = this.state.questionArray.length - this.answers.length;
+        console.log("questionArray", this.state.questionArray)
+        console.log("answers", this.answers)
+
+        this.IsTimerStart = false;
 
         let correctanswers = 0;
-        let incorrectanswers = 0;
-        let totalpositivemarks = 0;
-        let totalnegativemarks = 0;
+        let markesobtained = 0;
         let totalmarks = 0;
 
-        questionArray.forEach(element => {
-            totalmarks += element.mark;
-        })
-        const tempAnswerobj = [...this.answers];
 
-        //console.log('questionArray', questionArray)
-        console.log('tempAnswerobj', tempAnswerobj)
-
-        tempAnswerobj.forEach(val => {
-            let examibjOption = questionArray.find(x => x._id == val.questionId);
-            //console.log('examibjOption', examibjOption)
-            if (examibjOption && examibjOption.options) {
-                if (examibjOption.questiontype == 'Multi Select') {
-
+        if (this.state.questionArray && this.state.questionArray.length > 0) {
+            this.state.questionArray.forEach(element => {
+                if (element.questiontype == 'Multi Select') {
                 }
                 else {
-                    let optionObj = examibjOption.options.find(x => x.iscorrect == true);
-                    // let matchdata = tempAnswerobj.find(x => x.answerId == optionObj.option._id);
-                    if (optionObj.option._id == val.answerId) {
-                        console.log('correct');
-                        correctanswers = correctanswers + 1;
-                        totalpositivemarks = totalpositivemarks + examibjOption.mark;
-                    }
-                    else {
-                        incorrectanswers = incorrectanswers + 1;
-                        totalnegativemarks = 0 //totalnegativemarks + examibjOption.negativemark;
+                    totalmarks = totalmarks + element.mark
+                    let answerObj = this.answers.find(p => p.questionId == element._id);
+                    if (answerObj) {
+                        if (element && element.options && element.options.length > 0) {
+                            let optionsObj = element.options.find(p => p.iscorrect == true);
+                            if (optionsObj) {
+                                if (optionsObj._id == answerObj.answerId) {
+                                    markesobtained = markesobtained + element.mark;
+                                    correctanswers = correctanswers + 1;
+                                }
+                            }
+                        }
                     }
                 }
-            }
+            });
+        }
 
-        });
+        // console.log("total question: ", this.state.questionArray)
+        // console.log("Attempt question: ", this.answers.length)
+        // console.log("correctanswers: ", correctanswers)
+        // console.log("incorrectanswers: ", this.answers.length - correctanswers)
+        // console.log("totalmarks: ", totalmarks)
+        // console.log("markesobtained: ", markesobtained)
+        // console.log("totalnegativemarks:  0")
 
-        this.examObject.answers = [];
+        this.examObject = {};
         if (this.answers) {
             this.examObject.attemptedquestions = this.answers.length;
             this.examObject.answers = this.answers;
         }
+        this.examObject.unattemptedquestions = this.state.questionArray.length - this.answers.length;
         this.examObject.examid = this.currentExamDetails._id;
-        this.examObject.studentid = studentId;
+        this.examObject.studentid = this.state.studentId;
         this.examObject.correctanswers = correctanswers;
-        this.examObject.incorrectanswers = incorrectanswers;
-        this.examObject.totalpositivemarks = totalpositivemarks;
-        this.examObject.totalnegativemarks = totalnegativemarks;
-        this.examObject.markesobtained = totalpositivemarks;
+        this.examObject.incorrectanswers = this.answers.length - correctanswers;
+        this.examObject.totalpositivemarks = markesobtained;
+        this.examObject.totalnegativemarks = 0;
+        this.examObject.markesobtained = markesobtained;
         this.examObject.totalmarks = totalmarks;
-        this.examObject.percentage = ((this.examObject.markesobtained * 100) / totalmarks).toFixed(2);
+        this.examObject.percentage = ((markesobtained * 100) / totalmarks).toFixed(2);
         this.examObject.starttime = this.starttime;
-        this.examObject.endtime = endtime;
+        this.examObject.endtime = new Date();
+        this.examObject.timetaken = this.get_Diff_minutes();
 
-        console.log('My JSON Object', this.examObject);
+        console.log("examObject", this.examObject);
     }
 
     //select option click to call and next ,prev to call
@@ -226,11 +225,13 @@ export default class Playquiz extends Component {
             if (checkAnswerObj) {
                 // Changes Value if Record is Exists.
                 checkAnswerObj.answerId = answer._id;
+                checkAnswerObj.option = answer.option;
             } else {
                 // Add Record if Record is not exists.
                 let obj = {
                     questionId: question._id,
-                    answerId: answer._id
+                    answerId: answer._id,
+                    option: answer.option
                 }
                 this.answers.push(obj);
             }
@@ -238,7 +239,8 @@ export default class Playquiz extends Component {
             // Add Recored if Array is Empty
             let obj = {
                 questionId: question._id,
-                answerId: answer._id
+                answerId: answer._id,
+                option: answer.option
             }
             this.answers.push(obj);
             this.checkAnswerColor(answer._id)
@@ -337,7 +339,7 @@ export default class Playquiz extends Component {
                                         <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize', }}
                                             html={`<html>${val.option + '. '} </html>`} />
                                         <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize' }}
-                                            html={`<html>${val.value} </html>`} />
+                                            html={`<html>${val.value}  </html>`} />
                                     </View>
                                 </TouchableOpacity>
                             ))}
