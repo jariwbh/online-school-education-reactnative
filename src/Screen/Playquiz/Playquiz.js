@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList, ToastAndroid } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
+import { AUTHUSER, LOGINSCREEN, HOMESCREEN } from '../../Action/Type';
 import { addExamResultService } from '../../Services/PlayQuizService/PlayQuizService';
 import * as STYLES from './Styles';
 import HTML from 'react-native-render-html';
+import AsyncStorage from '@react-native-community/async-storage';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class Playquiz extends Component {
     answers = [];
@@ -32,6 +34,7 @@ export default class Playquiz extends Component {
             seconds: 0,
             questionanswers: [],
             studentId: null,
+            spinner: false
         };
     }
 
@@ -54,27 +57,30 @@ export default class Playquiz extends Component {
         });
     }
 
+    //get calculate Minutes
     get_Diff_minutes() {
         let maintDate = new Date();
         let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.time * 60000);
         let dt2 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.minutes * 60000 + this.state.seconds * 1000);
         let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
         let resultInMinutes = Math.round(difference / 60000);
+        console.log('resultInMinutes', resultInMinutes);
         return resultInMinutes;
     }
 
-    onSumbitClick() {
-        alert("Once Sumbit, you will not be able to recover this mock test!");
-        this.onPressSumbit();
-    }
-
+    //button click to submit details
     onPressSumbit() {
-
+        this.prepareResultObjectonSumbit();
     }
 
+    // call api add exam Result
     addExamResult(data) {
+        this.setState({ spinner: true });
         addExamResultService(data).then(response => {
             console.log(response.data);
+            this.setState({ spinner: false });
+            ToastAndroid.show('Your Exam Submitted', ToastAndroid.SHORT);
+            this.props.navigation.replace(HOMESCREEN);
         }).catch(error => {
             console.log(error);
         });
@@ -82,6 +88,7 @@ export default class Playquiz extends Component {
     }
 
     componentDidMount() {
+        this.getStudentData();
         this.setState({
             currentExamData: this.currentExamDetails,
             addedby: this.currentExamDetails.addedby,
@@ -108,11 +115,13 @@ export default class Playquiz extends Component {
         }
     }
 
+    // exam over function
     examTimeOver() {
         alert("Time is over!");
-        this.onPressSumbit();
+        this.prepareResultObjectonSumbit();
     }
 
+    //time set and start exam to count time
     startTimer() {
         const { seconds, minutes } = this.state
         if (seconds > 0) {
@@ -133,12 +142,81 @@ export default class Playquiz extends Component {
         }
     }
 
+    //miliseconde to count and refresh time secode
     receivedData() {
         this.myInterval = setInterval(() => {
             if (this.IsTimerStart) {
                 this.startTimer()
             }
         }, 1000)
+    }
+
+    //prepare object to submit button click / time is over 
+    prepareResultObjectonSumbit() {
+        const { questionArray, studentId } = this.state;
+        this.IsTimerStart = false;
+        this.examObject.timetaken = this.get_Diff_minutes();
+        let endtime = new Date();
+
+        this.examObject.attemptedquestions = 0;
+        this.examObject.unattemptedquestions = this.state.questionArray.length - this.answers.length;
+
+        let correctanswers = 0;
+        let incorrectanswers = 0;
+        let totalpositivemarks = 0;
+        let totalnegativemarks = 0;
+        let totalmarks = 0;
+
+        questionArray.forEach(element => {
+            totalmarks += element.mark;
+        })
+        const tempAnswerobj = [...this.answers];
+
+        //console.log('questionArray', questionArray)
+        console.log('tempAnswerobj', tempAnswerobj)
+
+        tempAnswerobj.forEach(val => {
+            let examibjOption = questionArray.find(x => x._id == val.questionId);
+            //console.log('examibjOption', examibjOption)
+            if (examibjOption && examibjOption.options) {
+                if (examibjOption.questiontype == 'Multi Select') {
+
+                }
+                else {
+                    let optionObj = examibjOption.options.find(x => x.iscorrect == true);
+                    // let matchdata = tempAnswerobj.find(x => x.answerId == optionObj.option._id);
+                    if (optionObj.option._id == val.answerId) {
+                        console.log('correct');
+                        correctanswers = correctanswers + 1;
+                        totalpositivemarks = totalpositivemarks + examibjOption.mark;
+                    }
+                    else {
+                        incorrectanswers = incorrectanswers + 1;
+                        totalnegativemarks = 0 //totalnegativemarks + examibjOption.negativemark;
+                    }
+                }
+            }
+
+        });
+
+        this.examObject.answers = [];
+        if (this.answers) {
+            this.examObject.attemptedquestions = this.answers.length;
+            this.examObject.answers = this.answers;
+        }
+        this.examObject.examid = this.currentExamDetails._id;
+        this.examObject.studentid = studentId;
+        this.examObject.correctanswers = correctanswers;
+        this.examObject.incorrectanswers = incorrectanswers;
+        this.examObject.totalpositivemarks = totalpositivemarks;
+        this.examObject.totalnegativemarks = totalnegativemarks;
+        this.examObject.markesobtained = totalpositivemarks;
+        this.examObject.totalmarks = totalmarks;
+        this.examObject.percentage = ((this.examObject.markesobtained * 100) / totalmarks).toFixed(2);
+        this.examObject.starttime = this.starttime;
+        this.examObject.endtime = endtime;
+
+        console.log('My JSON Object', this.examObject);
     }
 
     //select option click to call and next ,prev to call
@@ -287,8 +365,13 @@ export default class Playquiz extends Component {
                                         </TouchableOpacity>
                                 }
                             </View>
+
                         </View>
                     </View>
+                    <Spinner
+                        visible={this.state.spinner}
+                        textStyle={{ color: '#2855AE' }}
+                    />
                     <View style={{ marginBottom: hp('5%') }}></View>
                 </ScrollView>
             </SafeAreaView>

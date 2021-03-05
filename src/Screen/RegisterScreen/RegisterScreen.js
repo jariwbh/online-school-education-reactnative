@@ -26,7 +26,7 @@ class RegisterScreen extends Component {
         this.ThirdTextInputRef = React.createRef();
     }
 
-
+    //check validation in fullname field
     setFullName(fullname) {
         if (!fullname || fullname.length <= 0) {
             return this.setState({ fullnameError: 'User Name cannot be empty' });
@@ -34,6 +34,7 @@ class RegisterScreen extends Component {
         return this.setState({ fullname: fullname, fullnameError: null })
     }
 
+    //check validation in username field
     setUserName(email) {
         const re = /\S+@\S+\.\S+/;
         if (!email || email.length <= 0) {
@@ -46,6 +47,7 @@ class RegisterScreen extends Component {
         return this.setState({ username: email, usernameError: null })
     }
 
+    //check validation in mobilenumber field
     setMobileNumber(mobilenumber) {
         const reg = /^[0]?[789]\d{9}$/;
         if (!mobilenumber || mobilenumber.length <= 0) {

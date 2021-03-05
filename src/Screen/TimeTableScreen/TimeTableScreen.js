@@ -117,17 +117,6 @@ export default class TimeTableScreen extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
-                    {/* <View style={STYLES.styles.listTab}>
-                        {
-                            this.state.listTab.map(e => (
-                                <TouchableOpacity
-                                    style={[STYLES.styles.btnTab, status == e.day && STYLES.styles.btnTabActive]} onPress={() => this.dayClick(e)}
-                                >
-                                    <Text style={[STYLES.styles.textTab, status == e.day ? STYLES.styles.textTabActive : STYLES.styles.textTabInActive]}>{e.day}</Text>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </View> */}
                     {(timeTable == null) || (timeTable && timeTable.length == 0) ?
                         (loader == false ?
                             <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Time Table Available</Text>

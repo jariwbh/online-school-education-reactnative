@@ -37,9 +37,10 @@ class HomeScreen extends Component {
     }
 
     componentDidMount() {
-        this.getdata();
+        this.getStudentData();
     }
 
+    //get student Attendence Calculate Service
     async getAttendenceCalculateService(id) {
         return AttendenceCalculateService(id).then(response => {
             var StudentDayIn = response.data.length
@@ -49,7 +50,8 @@ class HomeScreen extends Component {
         })
     }
 
-    getdata = async () => {
+    //get local storage fetch infomation 
+    getStudentData = async () => {
         var getUser = await AsyncStorage.getItem(AUTHUSER)
         if (getUser == null) {
             setTimeout(() => {
@@ -67,6 +69,7 @@ class HomeScreen extends Component {
         }
     }
 
+    //LogOut Button click to call 
     onPressLogout() {
         AsyncStorage.removeItem(AUTHUSER);
         ToastAndroid.show("Log Out Success!", ToastAndroid.SHORT);
@@ -79,6 +82,7 @@ class HomeScreen extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
+    //Mobile back press to call function
     handleBackButton = () => {
         BackHandler.exitApp()
         return true;
@@ -218,8 +222,6 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('MeetingScreen') }}>
-                                    {/* <Image source={require('../../assets/image/ic_gallery.png')} style={{ height: 45, width: 42, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    /> */}
                                     <MaterialCommunityIcons name="video-box" size={60} color="#3c62aa" style={{ marginLeft: hp('2%'), marginTop: hp('2%') }} />
                                     <View style={{ marginTop: hp('3%') }}>
                                         <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Meeting</Text>

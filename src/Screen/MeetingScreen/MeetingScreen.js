@@ -17,12 +17,12 @@ export default class MeetingScreen extends Component {
         };
     }
 
+    //call Meeting API
     getMeeting() {
         meetingService().then(response => {
             this.setState({ meetingList: response.data })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
-
     }
 
     componentDidMount() {

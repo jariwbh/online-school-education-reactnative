@@ -38,11 +38,13 @@ export default class LoginScreen extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
+    //mobile back press to call
     handleBackButton = () => {
         BackHandler.exitApp()
         return true;
     }
 
+    //check email validation
     setEmail(email) {
         if (!email || email <= 0) {
             return this.setState({ usererror: 'User Name cannot be empty' });
@@ -50,6 +52,7 @@ export default class LoginScreen extends Component {
         return this.setState({ username: email, usererror: null });
     }
 
+    //check password validation
     setPassword(password) {
         if (!password || password.length <= 0) {
             return this.setState({ passworderror: 'Password cannot be empty' });
@@ -57,6 +60,7 @@ export default class LoginScreen extends Component {
         return this.setState({ password: password, passworderror: null });
     }
 
+    //clear Field up data
     resetScreen() {
         this.setState({
             username: null,
@@ -67,10 +71,12 @@ export default class LoginScreen extends Component {
         });
     }
 
+    //add local storage Records
     authenticateUser = (user) => (
         AsyncStorage.setItem(AUTHUSER, JSON.stringify(user))
     )
 
+    //add local storage User and Password
     setUserLoginInfo = (user) => (
         AsyncStorage.setItem(AUTHUSERINFO, JSON.stringify(user))
     )
