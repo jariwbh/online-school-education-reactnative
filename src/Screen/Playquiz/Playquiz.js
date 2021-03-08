@@ -14,7 +14,6 @@ export default class Playquiz extends Component {
     examObject = {};
     starttime = new Date();
     IsTimerStart = true;
-    currentOptionId = null;
     currentQuestionObject = {};
     currentQuestionId = null;
     counterTemp = 0;
@@ -32,7 +31,6 @@ export default class Playquiz extends Component {
             disabledPrev: true,
             minutes: 0,
             seconds: 0,
-            questionanswers: [],
             studentId: null,
             spinner: false
         };
@@ -65,8 +63,6 @@ export default class Playquiz extends Component {
         let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
         let resultInMinutes = Math.round(difference / 60000);
         let resultInSeconds = Math.round(difference / 1000);
-        console.log('resultInSeconds', resultInSeconds);
-        console.log('resultInMinutes', resultInMinutes);
         return resultInMinutes;
     }
 
@@ -78,8 +74,9 @@ export default class Playquiz extends Component {
     // call api add exam Result
     addExamResult(data) {
         this.setState({ spinner: true });
+        console.log('data', data)
         addExamResultService(data).then(response => {
-            console.log(response.data);
+            console.log('response.data', response.data);
             this.setState({ spinner: false });
             ToastAndroid.show('Your Exam Submitted', ToastAndroid.SHORT);
             this.props.navigation.replace(HOMESCREEN);
@@ -155,16 +152,10 @@ export default class Playquiz extends Component {
 
     //prepare object to submit button click and time is over to call
     prepareResultObjectonSumbit() {
-
-        console.log("questionArray", this.state.questionArray)
-        console.log("answers", this.answers)
-
         this.IsTimerStart = false;
-
         let correctanswers = 0;
         let markesobtained = 0;
         let totalmarks = 0;
-
 
         if (this.state.questionArray && this.state.questionArray.length > 0) {
             this.state.questionArray.forEach(element => {
@@ -172,12 +163,12 @@ export default class Playquiz extends Component {
                 }
                 else {
                     totalmarks = totalmarks + element.mark
-                    let answerObj = this.answers.find(p => p.questionId == element._id);
+                    let answerObj = this.answers.find(p => p.questionid == element._id);
                     if (answerObj) {
                         if (element && element.options && element.options.length > 0) {
                             let optionsObj = element.options.find(p => p.iscorrect == true);
                             if (optionsObj) {
-                                if (optionsObj._id == answerObj.answerId) {
+                                if (optionsObj._id == answerObj.answerid) {
                                     markesobtained = markesobtained + element.mark;
                                     correctanswers = correctanswers + 1;
                                 }
@@ -188,18 +179,17 @@ export default class Playquiz extends Component {
             });
         }
 
-        // console.log("total question: ", this.state.questionArray)
-        // console.log("Attempt question: ", this.answers.length)
-        // console.log("correctanswers: ", correctanswers)
-        // console.log("incorrectanswers: ", this.answers.length - correctanswers)
-        // console.log("totalmarks: ", totalmarks)
-        // console.log("markesobtained: ", markesobtained)
-        // console.log("totalnegativemarks:  0")
-
         this.examObject = {};
         if (this.answers) {
+            let answersData = [];
             this.examObject.attemptedquestions = this.answers.length;
-            this.examObject.answers = this.answers;
+            this.answers.forEach(element => {
+                let obj = [];
+                obj.questionid = element.questionid,
+                    obj.answerid = [element.option]
+                answersData.push(obj);
+            });
+            this.examObject.answers = answersData;
         }
         this.examObject.unattemptedquestions = this.state.questionArray.length - this.answers.length;
         this.examObject.examid = this.currentExamDetails._id;
@@ -214,23 +204,23 @@ export default class Playquiz extends Component {
         this.examObject.starttime = this.starttime;
         this.examObject.endtime = new Date();
         this.examObject.timetaken = this.get_Diff_minutes();
-
+        this.addExamResult(this.examObject);
         console.log("examObject", this.examObject);
     }
 
     //select option click to call and next ,prev to call
     selectedQuestionOption(question, answer) {
         if (this.answers && this.answers.length > 0) {
-            var checkAnswerObj = this.answers.find(x => x.questionId == question._id);
+            var checkAnswerObj = this.answers.find(x => x.questionid == question._id);
             if (checkAnswerObj) {
                 // Changes Value if Record is Exists.
-                checkAnswerObj.answerId = answer._id;
+                checkAnswerObj.answerid = answer._id;
                 checkAnswerObj.option = answer.option;
             } else {
                 // Add Record if Record is not exists.
                 let obj = {
-                    questionId: question._id,
-                    answerId: answer._id,
+                    questionid: question._id,
+                    answerid: answer._id,
                     option: answer.option
                 }
                 this.answers.push(obj);
@@ -238,8 +228,8 @@ export default class Playquiz extends Component {
         } else {
             // Add Recored if Array is Empty
             let obj = {
-                questionId: question._id,
-                answerId: answer._id,
+                questionid: question._id,
+                answerid: answer._id,
                 option: answer.option
             }
             this.answers.push(obj);
@@ -250,9 +240,9 @@ export default class Playquiz extends Component {
     //select option to change color
     checkAnswerColor(answerid) {
         if (this.currentQuestionObject && this.currentQuestionObject._id && this.answers && this.answers.length > 0) {
-            var answerObj = this.answers.find(p => p.questionId == this.currentQuestionObject._id);
+            var answerObj = this.answers.find(p => p.questionid == this.currentQuestionObject._id);
             if (answerObj) {
-                if (answerObj.answerId == answerid) {
+                if (answerObj.answerid == answerid) {
                     return true;
                 } else {
                     return false;
