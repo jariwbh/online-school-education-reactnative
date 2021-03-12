@@ -74,12 +74,10 @@ export default class Playquiz extends Component {
     // call api add exam Result
     addExamResult(data) {
         this.setState({ spinner: true });
-        console.log('data', data)
         addExamResultService(data).then(response => {
-            console.log('response.data', response.data);
             this.setState({ spinner: false });
             ToastAndroid.show('Your Exam Submitted', ToastAndroid.SHORT);
-            this.props.navigation.replace(HOMESCREEN);
+            this.props.navigation.navigate(HOMESCREEN);
         }).catch(error => {
             console.log(error);
         });

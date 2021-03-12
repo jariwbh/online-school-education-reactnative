@@ -101,7 +101,7 @@ export default class AskDoubtsScreen extends Component {
                     </View>
                     {/* </View> */}
                 </ScrollView>
-            </SafeAreaView >
+            </SafeAreaView>
         )
     }
 }
