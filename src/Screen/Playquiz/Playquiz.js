@@ -182,9 +182,10 @@ export default class Playquiz extends Component {
             let answersData = [];
             this.examObject.attemptedquestions = this.answers.length;
             this.answers.forEach(element => {
-                let obj = [];
-                obj.questionid = element.questionid,
-                    obj.answerid = [element.option]
+                let obj = {
+                    questionid: element.questionid,
+                    answerid: [element.option]
+                };
                 answersData.push(obj);
             });
             this.examObject.answers = answersData;
@@ -203,7 +204,6 @@ export default class Playquiz extends Component {
         this.examObject.endtime = new Date();
         this.examObject.timetaken = this.get_Diff_minutes();
         this.addExamResult(this.examObject);
-        console.log("examObject", this.examObject);
     }
 
     //select option click to call and next ,prev to call
@@ -355,7 +355,6 @@ export default class Playquiz extends Component {
                                         </TouchableOpacity>
                                 }
                             </View>
-
                         </View>
                     </View>
                     <Spinner
