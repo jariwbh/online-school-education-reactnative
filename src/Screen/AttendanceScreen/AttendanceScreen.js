@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AttendenceService } from '../../Services/AttendenceService/AttendenceService';
 import { HodidayService } from '../../Services/HodidayService/HodidayService';
@@ -159,16 +159,15 @@ export default class AttendanceScreen extends Component {
     }
 
     //change month to call funation
-    async onChangeMonth(month) {
+    async onChangeMonth(val) {
         this.setState({ spinner: true });
-        this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
+        this.startDate = moment().year(val.year).month(val.month - 1, 'months').startOf('month').format('YYYY-MM-DD');
 
-        if (this.currentMonth == month) {
+        if (this.currentMonth == val.month && moment().format('YYYY') == val.year) {
             this.endDate = this.today;
         } else {
-            this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');
+            this.endDate = moment().year(val.year).month(val.month - 1, 'months').endOf('month').format('YYYY-MM-DD');
         }
-
         let data = {
             id: this.studentDetails._id,
             datRange: { "$gte": this.startDate, "$lte": this.endDate }
@@ -188,7 +187,7 @@ export default class AttendanceScreen extends Component {
                             <Calendar
                                 markedDates={this.state.renderList}
                                 markingType={'custom'}
-                                onMonthChange={(month) => this.onChangeMonth(month.month)}
+                                onMonthChange={(month) => this.onChangeMonth(month)}
                                 hideExtraDays={true}
                             />
                             <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%') }}>
