@@ -74,38 +74,3 @@ export default class QuizResultScreen extends Component {
     }
 }
 
-
-
-
-
-
-
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#5D81C6'
-//     },
-//     cardview: {
-//         flex: 1,
-//         backgroundColor: "#FFFFFF",
-//         borderTopLeftRadius: hp('5%'),
-//         borderTopRightRadius: hp('5%'),
-//         marginTop: hp('5%'),
-//     },
-//     innercardview: {
-//         flexDirection: 'column',
-//         backgroundColor: "#FFFFFF",
-//         borderRadius: hp('2%'),
-//         shadowOpacity: 0.5,
-//         shadowRadius: 3,
-//         shadowOffset: {
-//             height: 0,
-//             width: 0,
-//         },
-//         elevation: 5,
-//         width: wp('90%'),
-//         marginTop: hp('2%'),
-//         marginBottom: hp('2%')
-//     },
-// })
