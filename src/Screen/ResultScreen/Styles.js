@@ -86,6 +86,32 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
 
     },
+
+
+
+    // QuizResultScreen style
+    cardView: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: hp('5%'),
+        borderTopRightRadius: hp('5%'),
+        marginTop: hp('5%'),
+    },
+    innerCardview: {
+        flexDirection: 'column',
+        backgroundColor: "#FFFFFF",
+        borderRadius: hp('2%'),
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 5,
+        width: wp('90%'),
+        marginTop: hp('2%'),
+        marginBottom: hp('2%')
+    },
 })
 
 export { styles };
