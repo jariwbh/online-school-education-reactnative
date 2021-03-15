@@ -40,7 +40,7 @@ export default class SchoolGalleryScreen extends Component {
 
     componentDidMount() {
         this.getSchoolGalleryService();
-        this.wait(1000).then(() => this.setState({ loader: false }));
+        this.wait(3000).then(() => this.setState({ loader: false }));
     }
 
     render() {

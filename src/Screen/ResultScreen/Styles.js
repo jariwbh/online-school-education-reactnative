@@ -101,15 +101,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
         borderRadius: hp('2%'),
-        // borderColor: '#000000',
-        // borderWidth: hp('0.1%'),
+        borderColor: '#000000',
+        borderWidth: hp('0.1%'),
         shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
+        //shadowRadius: 3,
+        // shadowOffset: {
+        //     height: 0,
+        //     width: 0,
+        // },
+        // elevation: 2,
         width: wp('90%'),
         marginTop: hp('2%'),
         marginBottom: hp('2%')

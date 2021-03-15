@@ -27,4 +27,20 @@ const addExamResultService = (data) => {
     return Axios.post('examresults', body)
 }
 
-export { getAllPlayQuizService, getByIdPlayQuizService, addExamResultService };
+const getExamResult = (id) => {
+    const body = {
+        "search": [{
+            "searchfield": "status",
+            "searchvalue": "active",
+            "criteria": "eq",
+            "datatype": "text"
+        }, {
+            "searchfield": "studentid",
+            "searchvalue": id,
+            "criteria": "eq",
+            "datatype": "objectId"
+        }], "sort": { "createdAt": -1 }
+    }
+    return Axios.post('examresults/filter', body)
+}
+export { getAllPlayQuizService, getByIdPlayQuizService, addExamResultService, getExamResult };
