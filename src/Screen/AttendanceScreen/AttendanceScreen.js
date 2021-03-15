@@ -4,6 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-na
 import { AttendenceService } from '../../Services/AttendenceService/AttendenceService';
 import { HodidayService } from '../../Services/HodidayService/HodidayService';
 import AsyncStorage from '@react-native-community/async-storage';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader'
 import { Calendar } from 'react-native-calendars';
@@ -25,7 +26,8 @@ export default class AttendanceScreen extends Component {
             attendenceList: [],
             holidaysList: [],
             absentList: [],
-            renderList: {}
+            renderList: {},
+            spinner: false
         };
         this.onChangeMonth = this.onChangeMonth.bind(this);
     }
@@ -120,6 +122,7 @@ export default class AttendanceScreen extends Component {
                 this.dateConversion(moment(element.checkin).format('YYYY-MM-DD'), '#90EE90')
             }
         });
+        this.setState({ spinner: false });
         return;
     }
 
@@ -157,8 +160,7 @@ export default class AttendanceScreen extends Component {
 
     //change month to call funation
     async onChangeMonth(month) {
-        console.log("month", month)
-
+        this.setState({ spinner: true });
         this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
 
         if (this.currentMonth == month) {
@@ -203,6 +205,10 @@ export default class AttendanceScreen extends Component {
                                     </View>
                                 </View>
                             </View>
+                            <Spinner
+                                visible={this.state.spinner}
+                                textStyle={{ color: '#2855AE' }}
+                            />
                         </ScrollView>
                         : <Loader />
                     }

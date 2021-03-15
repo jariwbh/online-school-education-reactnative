@@ -23,8 +23,8 @@ export default class SupportScreen extends Component {
                         <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('0%'), marginRight: hp('0%') }}>  speak with us at below.</Text>
                     </View>
                     <View style={{ marginTop: hp('15%'), justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: '#313131', fontSize: hp('3%') }}>Call us - +91 7838XXXXXX</Text>
-                        <Text style={{ color: '#313131', fontSize: hp('3%') }}>Mail us - syalfreelance@gmail.com</Text>
+                        <Text style={{ color: '#313131', fontSize: hp('3%') }}>Call us - +91 77788-22666</Text>
+                        <Text style={{ color: '#313131', fontSize: hp('3%') }}>Mail us - info@krtya.com</Text>
                     </View>
                 </View>
             </SafeAreaView>

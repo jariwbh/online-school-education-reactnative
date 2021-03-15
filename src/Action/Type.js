@@ -13,6 +13,7 @@ export const VIEWASSIGNMENTSCREEN = 'ViewAssignmentScreen'
 export const PLAYQUIZLISTSCREEN = 'PlayQuizList'
 export const PLAYQUIZSTARTSCREEN = 'Playquizstart'
 export const PLAYQUIZRESULTSCREEN = 'PlayquizResult'
+export const EVENTSCREEN = 'EventsScreen'
 
 
 

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Image, ScrollView } from 'react-native'
+import { Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Loader from '../../Components/Loader/Loader'
+import { EVENTSCREEN } from '../../Action/Type';
 import HTML from 'react-native-render-html';
 import * as STYLES from './Styles';
 import moment from 'moment'
@@ -39,7 +40,9 @@ export default class FeedsDetailsScreen extends Component {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View>
                             <Image source={{ uri: eventImage }} resizeMode="stretch" style={{ height: hp('50%'), width: wp('100%') }} />
-                            <AntDesign name="left" size={30} color="#FFFFFF" style={{ position: 'absolute', marginTop: hp('5%'), marginLeft: hp('2%') }} />
+                            <TouchableOpacity style={{ position: 'absolute', marginTop: hp('5%'), marginLeft: hp('2%') }} onPress={() => this.props.navigation.navigate(EVENTSCREEN)}>
+                                <AntDesign name="left" size={30} color="#FFFFFF" />
+                            </TouchableOpacity>
                         </View>
                         <View style={{ marginLeft: hp('2%'), flexDirection: 'row', marginTop: hp('1%') }}>
                             <Fontisto name="clock" size={20} color="#6789CA" />

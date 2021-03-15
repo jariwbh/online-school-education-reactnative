@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid, BackHandler } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AsyncStorage from '@react-native-community/async-storage';
+import { MAINSCREEN, AUTHUSER, AUTHUSERINFO } from '../../Action/Type'
 import LoginService from '../../Services/LoginService/LoginService';
-import { MAINSCREEN, REGISTERSCREEN, AUTHUSER, AUTHUSERINFO } from '../../Action/Type'
+import AsyncStorage from '@react-native-community/async-storage';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Loading from '../../Components/Loader/Loading';
 import axiosConfig from '../../Helpers/axiosConfig';
 import * as STYLES from './Styles';
@@ -195,6 +196,10 @@ export default class LoginScreen extends Component {
                                 </TouchableOpacity>
                             </View> */}
                         </View>
+                        <Spinner
+                            visible={this.state.loading}
+                            textStyle={{ color: '#2855AE' }}
+                        />
                     </ScrollView>
                 </ImageBackground>
             </SafeAreaView>

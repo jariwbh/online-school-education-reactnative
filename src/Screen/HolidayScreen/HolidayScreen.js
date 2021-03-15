@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, SafeAreaView, FlatList, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { HodidayService } from '../../Services/HodidayService/HodidayService';
+import Spinner from 'react-native-loading-spinner-overlay';
 import Loader from '../../Components/Loader/Loader';
 import { Calendar } from 'react-native-calendars';
 import * as STYLES from './Styles';
@@ -17,7 +18,8 @@ export default class HolidayScreen extends Component {
             holidaysList: [],
             renderList: null,
             loader: true,
-            currentMonthHolidays: []
+            currentMonthHolidays: [],
+            spinner: false
         };
         this.onChangeMonth = this.onChangeMonth.bind(this);
     }
@@ -78,11 +80,12 @@ export default class HolidayScreen extends Component {
             return dateArray.includes(moment(item.property.date).format('YYYY-MM-DD'))
         })
 
-        this.setState({ renderList: holidayDate, currentMonthHolidays: holidays });
+        this.setState({ renderList: holidayDate, currentMonthHolidays: holidays, spinner: false });
     }
 
     //change month to call funation
     async onChangeMonth(month) {
+        this.setState({ spinner: true });
         this.startDate = moment().month(month - 1, 'months').startOf('month').format('YYYY-MM-DD');
         this.endDate = moment().month(month - 1, 'months').endOf('month').format('YYYY-MM-DD');
         this.renderCalendarHolidays();
@@ -131,6 +134,10 @@ export default class HolidayScreen extends Component {
                                     keyExtractor={item => item._id}
                                 />
                                 <View style={{ marginBottom: hp('3%') }}></View>
+                                <Spinner
+                                    visible={this.state.spinner}
+                                    textStyle={{ color: '#2855AE' }}
+                                />
                             </ScrollView></>
                     }
                 </View>

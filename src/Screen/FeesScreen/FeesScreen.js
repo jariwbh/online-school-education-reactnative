@@ -154,7 +154,7 @@ export class FeesScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(paymentScheduleList == null) || (paymentScheduleList && paymentScheduleList.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('20%') }}>No Exam Schedule Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('20%') }}> Data Not Available</Text>
                             : <Loader />
                         )
                         :

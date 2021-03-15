@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAnd
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AUTHUSER, LOGINSCREEN, PLAYQUIZLISTSCREEN } from '../../Action/Type';
+import { AUTHUSER, EVENTSCREEN, LOGINSCREEN, PLAYQUIZLISTSCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
@@ -229,7 +229,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate('EventsScreen') }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(EVENTSCREEN) }}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
                                     />
                                     <View style={{ marginTop: hp('3%') }}>

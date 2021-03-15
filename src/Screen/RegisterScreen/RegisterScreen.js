@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, SafeAreaView, Image, StyleSheet, TextInput, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import RegisterService from "../../Services/RegisterService/RegisterService";
+import Spinner from 'react-native-loading-spinner-overlay';
 import Loading from '../../Components/Loader/Loading';
 import { LOGINSCREEN } from '../../Action/Type'
 import * as STYLES from './Styles';
@@ -192,6 +193,10 @@ class RegisterScreen extends Component {
                             </View>
                             <View style={{ marginBottom: hp('5%') }}></View>
                         </View>
+                        <Spinner
+                            visible={this.state.loading}
+                            textStyle={{ color: '#2855AE' }}
+                        />
                     </ScrollView>
                 </ImageBackground>
             </SafeAreaView>
