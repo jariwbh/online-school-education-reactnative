@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from "../Screen/LoginScreen/LoginScreen";
 import HomeScreen from "../Screen/HomeScreen/HomeScreen";
-import RegisterScreen from "../Screen/RegisterScreen/RegisterScreen";
 import FeesScreen from "../Screen/FeesScreen/FeesScreen";
 import PayonlineScreen from "../Screen/PayonlineScreen/PayonlineScreen";
 import AssignmentScreen from "../Screen/AssignmentScreen/AssignmentScreen"
@@ -28,7 +27,7 @@ import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
 import Playquizstart from '../Screen/Playquiz/Playquizstart'
 import PlayQuizList from '../Screen/Playquiz/PlayQuizList'
 import BackButton from '../Components/BackButton/BackButton';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, PLAYQUIZRESULTSCREEN } from '../Action/Type';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -37,7 +36,6 @@ export default NavigationsApp = () => {
             <Stack.Navigator headerMode='none' initialRouteName='SplashScreen'>
                 <Stack.Screen name="SplashScreen" component={SplashScreen} />
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
-                <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
                 <Stack.Screen name="MainScreen" component={MainNavigation} />
             </Stack.Navigator>
         </NavigationContainer>

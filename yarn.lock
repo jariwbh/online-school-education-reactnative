@@ -5670,14 +5670,6 @@ react-native-calendars@^1.1249.0:
     react-native-swipe-gestures "^1.0.5"
     xdate "^0.8.0"
 
-react-native-dash@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/react-native-dash/-/react-native-dash-0.0.11.tgz#cf1b0108e4660217cf0300b872231a5cadb9c4a8"
-  integrity sha512-edgspmVtGVYxOhGs8STCj7+VyQYUR1RkiGHkWDGwiQkEEIFrxWLa3D9ZIrLsm3LKU4XGQ2iEqCv9fJQSeTyAJA==
-  dependencies:
-    prop-types "^15.5.10"
-    react-native-measureme "0.0.2"
-
 react-native-document-picker@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-5.0.0.tgz#15c2557edd6c3ebc129b529e52556ec378c99853"
@@ -5706,11 +5698,6 @@ react-native-loading-spinner-overlay@^2.0.0:
   integrity sha512-V38M+N1Wk9GlpbfrD6znsJA1K2+09b3naxq3UjDjqNTA3MOBfj4W87alKSI3P+4ZawczQASTv2fTzhEQ7Z+SVA==
   dependencies:
     prop-types "^15.6.2"
-
-react-native-measureme@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-measureme/-/react-native-measureme-0.0.2.tgz#7f54eeb0813d461ef6c49d921e42e253d649c47a"
-  integrity sha512-m7Td7w1pVdIf7a3ejN7K/67AU+TtkZqTt9/ieKamirLRI3fjLToupmOKDtIOU3Y56oKojzTKz1lBbYSPN28HWA==
 
 react-native-permissions@^3.0.0:
   version "3.0.0"
