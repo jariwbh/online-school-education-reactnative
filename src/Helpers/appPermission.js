@@ -18,13 +18,12 @@ class PermissionController {
                                 requestMultiple([
                                     PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
                                     PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
-                                    PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
-                                    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+                                    PERMISSIONS.ANDROID.CAMERA
                                 ])
                                     .then((results) => {
                                         // console.log(results);
                                         if (
-                                            results[PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION] ===
+                                            results[PERMISSIONS.ANDROID.CAMERA] ===
                                             RESULTS.GRANTED
                                         ) {
                                             resolve(true);
@@ -35,7 +34,6 @@ class PermissionController {
                                     })
                                     .catch((err) => {
                                         console.log('CATCH, Requesting Permission STORAGE');
-
                                         reject('Operation failed');
                                     });
                             } else {
@@ -61,18 +59,15 @@ class PermissionController {
                                             resolve(true);
                                         } else {
                                             // console.log("Permission Denied")
-
                                             reject('Permission Denied');
                                         }
                                     })
                                     .catch((err) => {
                                         console.log('Permission Failed');
-
                                         reject('Operation failed');
                                     });
                             } else {
                                 console.log('Permission Already Granted');
-
                                 resolve(true);
                             }
                         })

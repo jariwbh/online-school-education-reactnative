@@ -5,10 +5,11 @@ import {
 } from 'react-native'
 import { assignmentListService, submitAssignmentListService, uploadAssignmentService } from '../../Services/AssignmentService/AssignmentService'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWASSIGNMENTSCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWASSIGNMENTSCREEN } from '../../Action/Type';
+import Spinner from 'react-native-loading-spinner-overlay';
 import DocumentPicker from 'react-native-document-picker';
 import axiosConfig from "../../Helpers/axiosConfig";
 import Loader from '../../Components/Loader/Loader'
@@ -17,7 +18,6 @@ import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
 import moment from 'moment'
 const { width } = Dimensions.get("window");
-import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class AssignmentScreen extends Component {
     constructor(props) {

@@ -103,7 +103,7 @@ class HomeScreen extends Component {
                                     <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE, { StudentData }) }}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
                                 <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: 90, width: 90, borderRadius: hp('10%') }}
                                 />
                             </TouchableOpacity>

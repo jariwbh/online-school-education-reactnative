@@ -13,9 +13,9 @@ export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'MYISCH10001',
+            username: null,
             usererror: null,
-            password: '123456',
+            password: null,
             passworderror: null,
             loading: false,
         };
@@ -189,12 +189,6 @@ export default class LoginScreen extends Component {
                                     {loading == true ? <Loading /> : <Text style={STYLES.styles.loginText}>SIGN IN </Text>}
                                 </TouchableOpacity>
                             </View>
-                            {/* <View style={{ marginTop: hp('2%'), justifyContent: 'center', flexDirection: 'row' }} >
-                                <Text style={STYLES.styles.innerText}> Don't have an account? </Text>
-                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(REGISTERSCREEN), this.resetScreen() }}>
-                                    <Text style={STYLES.styles.baseText}>Create</Text>
-                                </TouchableOpacity>
-                            </View> */}
                         </View>
                         <Spinner
                             visible={this.state.loading}
