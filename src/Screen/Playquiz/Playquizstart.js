@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { PLAYQUIZSCREEN } from '../../Action/Type';
+import { PLAYQUIZ } from '../../Action/Type';
 import * as STYLES from './Styles';
 import moment from 'moment'
 
@@ -33,7 +33,7 @@ export default function Playquizstart(props) {
                     <View style={{ marginTop: hp('2%'), alignItems: 'center', marginLeft: hp('3%'), marginRight: hp('3%') }}>
                         <Text>( 1 ) All school rules must be observed throughout the entire test. </Text>
                     </View>
-                    <View style={{ marginTop: hp('2%'), alignItems: 'center', marginLeft: hp('-0.1%'), marginRight: hp('3%') }}>
+                    <View style={{ marginTop: hp('2%'), alignItems: 'center', marginLeft: hp('3%'), marginRight: hp('3%') }}>
                         <Text>( 2 ) Normal lessons will resume after the Common Test.</Text>
                     </View>
                     <View style={{ marginTop: hp('2%'), alignItems: 'center', marginLeft: hp('3%'), marginRight: hp('3%') }}>
@@ -47,7 +47,7 @@ export default function Playquizstart(props) {
                     </View>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: hp('5%') }}>
                         <TouchableOpacity style={{ width: wp('80%'), backgroundColor: '#2855AE', alignItems: 'center', height: hp('5.5%'), borderRadius: hp('2%') }}
-                            onPress={() => props.navigation.navigate(PLAYQUIZSCREEN, { selectedExamDeatils })}>
+                            onPress={() => props.navigation.navigate(PLAYQUIZ, { selectedExamDeatils })}>
                             <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>START NOW</Text>
                         </TouchableOpacity>
                     </View>

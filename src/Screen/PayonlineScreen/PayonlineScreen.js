@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, ScrollView, SafeAreaView, TextInput, TouchableOpacity, Image } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import * as STYLES from './Styles';
 

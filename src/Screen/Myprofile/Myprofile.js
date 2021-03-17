@@ -101,8 +101,9 @@ export default class Myprofile extends Component {
         }
         try {
             await UpdateStudentService(profileObj).then(response => {
-                if (response != null) {
-                    this.authenticateUser(response.data);
+                if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                    this.state.studentInfo.profilepic = this.state.newProfilePath;
+                    this.authenticateUser(this.state.studentInfo);
                     ToastAndroid.show("Your Profile Update!", ToastAndroid.CENTER);
                     this.props.navigation.replace(HOMESCREEN);
                 }
