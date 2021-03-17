@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList, ToastAndroid } from 'react-native'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { AUTHUSER, LOGINSCREEN, HOMESCREEN } from '../../Action/Type';
 import { addExamResultService } from '../../Services/PlayQuizService/PlayQuizService';
-import * as STYLES from './Styles';
-import HTML from 'react-native-render-html';
+import { AUTHUSER, LOGINSCREEN, HOMESCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Spinner from 'react-native-loading-spinner-overlay';
+import HTML from 'react-native-render-html';
+import * as STYLES from './Styles';
 
 export default class Playquiz extends Component {
     answers = [];
@@ -152,28 +152,49 @@ export default class Playquiz extends Component {
     prepareResultObjectonSumbit() {
         this.IsTimerStart = false;
         let correctanswers = 0;
+        let incorrectanswers = 0;
         let markesobtained = 0;
         let totalmarks = 0;
 
         if (this.state.questionArray && this.state.questionArray.length > 0) {
             this.state.questionArray.forEach(element => {
-                if (element.questiontype == 'Multi Select') {
-                }
-                else {
-                    totalmarks = totalmarks + element.mark
-                    let answerObj = this.answers.find(p => p.questionid == element._id);
-                    if (answerObj) {
-                        if (element && element.options && element.options.length > 0) {
-                            let optionsObj = element.options.find(p => p.iscorrect == true);
-                            if (optionsObj) {
-                                if (optionsObj._id == answerObj.answerid) {
-                                    markesobtained = markesobtained + element.mark;
-                                    correctanswers = correctanswers + 1;
+
+                totalmarks = totalmarks + element.mark
+                let answerObj = this.answers.find(p => p.questionid == element._id);
+                if (answerObj) {
+                    if (element && element.options && element.options.length > 0) {
+
+                        if (element.questiontype == 'Multi Select') {
+                            let CorrectOptions = [];
+                            element.options.forEach(x => { if (x.iscorrect == true) CorrectOptions.push(x) });
+                            let isValidTotal = 0;
+                            answerObj.answerid.forEach(Optionval => {
+                                let isCorrectOpt = CorrectOptions.find(x => x._id == Optionval);
+                                if (isCorrectOpt) {
+                                    isValidTotal += 1;
                                 }
+                            });
+
+                            if ((answerObj.answerid.length == CorrectOptions.length) && (isValidTotal == CorrectOptions.length)) {
+                                markesobtained = markesobtained + element.mark;
+                                correctanswers = correctanswers + 1;
+                            } else {
+                                incorrectanswers = incorrectanswers + 1;
+                            }
+
+                        } else {
+                            var optionObj = element.options.find(x => x.iscorrect == true);
+
+                            if (optionObj._id == answerObj.answerid[0]) {
+                                markesobtained = markesobtained + element.mark;
+                                correctanswers = correctanswers + 1;
+                            } else {
+                                incorrectanswers = incorrectanswers + 1;
                             }
                         }
                     }
                 }
+
             });
         }
 
@@ -184,7 +205,7 @@ export default class Playquiz extends Component {
             this.answers.forEach(element => {
                 let obj = {
                     questionid: element.questionid,
-                    answerid: [element.option]
+                    answerid: element.option
                 };
                 answersData.push(obj);
             });
@@ -194,7 +215,7 @@ export default class Playquiz extends Component {
         this.examObject.examid = this.currentExamDetails._id;
         this.examObject.studentid = this.state.studentId;
         this.examObject.correctanswers = correctanswers;
-        this.examObject.incorrectanswers = this.answers.length - correctanswers;
+        this.examObject.incorrectanswers = incorrectanswers;
         this.examObject.totalpositivemarks = markesobtained;
         this.examObject.totalnegativemarks = 0;
         this.examObject.markesobtained = markesobtained;
@@ -211,27 +232,62 @@ export default class Playquiz extends Component {
         if (this.answers && this.answers.length > 0) {
             var checkAnswerObj = this.answers.find(x => x.questionid == question._id);
             if (checkAnswerObj) {
-                // Changes Value if Record is Exists.
-                checkAnswerObj.answerid = answer._id;
-                checkAnswerObj.option = answer.option;
+
+                if (checkAnswerObj && checkAnswerObj.answerid && checkAnswerObj.answerid.length > 0) {
+                    var answerObj = checkAnswerObj.answerid.find(p => p == answer._id);
+                    if (question.questiontype && question.questiontype == "Multi Select") {
+                        if (answerObj) {
+                            this.remove(answer._id, checkAnswerObj.answerid);
+                            this.remove(answer.option, checkAnswerObj.option);
+                        } else {
+                            checkAnswerObj.answerid.push(answer._id);
+                            checkAnswerObj.option.push(answer.option);
+                        }
+                    } else {
+
+                        checkAnswerObj.answerid = [];
+                        checkAnswerObj.option = [];
+
+                        if (!answerObj) {
+                            checkAnswerObj.answerid.push(answer._id);
+                            checkAnswerObj.option.push(answer.option);
+                        }
+                    }
+
+                } else {
+
+                    checkAnswerObj.answerid = [];
+                    checkAnswerObj.option = [];
+
+                    checkAnswerObj.answerid.push(answer._id);
+                    checkAnswerObj.option.push(answer.option);
+
+                }
             } else {
-                // Add Record if Record is not exists.
                 let obj = {
                     questionid: question._id,
-                    answerid: answer._id,
-                    option: answer.option
+                    answerid: [answer._id],
+                    option: [answer.option]
                 }
                 this.answers.push(obj);
             }
         } else {
-            // Add Recored if Array is Empty
             let obj = {
                 questionid: question._id,
-                answerid: answer._id,
-                option: answer.option
+                answerid: [answer._id],
+                option: [answer.option]
             }
             this.answers.push(obj);
             this.checkAnswerColor(answer._id)
+        }
+    }
+
+    //check question and remove answerid
+    remove(id, array) {
+        for (const i in array) {
+            if (array[i] == id) {
+                array.splice(i, 1);
+            }
         }
     }
 
@@ -239,8 +295,8 @@ export default class Playquiz extends Component {
     checkAnswerColor(answerid) {
         if (this.currentQuestionObject && this.currentQuestionObject._id && this.answers && this.answers.length > 0) {
             var answerObj = this.answers.find(p => p.questionid == this.currentQuestionObject._id);
-            if (answerObj) {
-                if (answerObj.answerid == answerid) {
+            if (answerObj && answerObj.answerid && answerObj.answerid.length > 0) {
+                if (answerObj.answerid.includes(answerid)) {
                     return true;
                 } else {
                     return false;
