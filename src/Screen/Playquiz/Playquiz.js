@@ -382,7 +382,7 @@ export default class Playquiz extends Component {
                                     <View style={{ flexDirection: 'row', marginLeft: wp('3%'), alignItems: 'center' }}>
                                         <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize', }}
                                             html={`<html>${val.option + '. '} </html>`} />
-                                        <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize' }}
+                                        <HTML baseFontStyle={{ fontSize: hp('2%'), textTransform: 'capitalize' }}
                                             html={`<html>${val.value}  </html>`} />
                                     </View>
                                 </TouchableOpacity>

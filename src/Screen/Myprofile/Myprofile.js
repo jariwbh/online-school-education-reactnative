@@ -187,55 +187,78 @@ export default class Myprofile extends Component {
                                 </View>
                             </View>
                             <View>
-                                <View style={{ marginTop: hp('4%'), marginLeft: hp('0%'), justifyContent: 'flex-start', alignItems: 'flex-start', flexDirection: 'row' }}>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('3%') }}>Admission Class</Text>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('12%') }}>Academic Year</Text>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Academic Year</Text>
                                 </View>
-                                <View pointerEvents="none" style={{ marginTop: hp('0%'), marginLeft: hp('0%'), justifyContent: 'space-around', flexDirection: 'row' }}>
-                                    <TextInput
-                                        defaultValue={studentInfo.membershipid.membershipname}
-                                        style={STYLES.styles.TextInput}
-                                        placeholder="--"
-                                        placeholderTextColor="#323643"
-                                        underlineColorAndroid="#A5A5A5"
-                                    />
+                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
                                     <TextInput
                                         defaultValue={moment(studentInfo.membershipstart).format('YYYY') + '-' + moment(studentInfo.membershipend).format('YYYY')}
-                                        style={STYLES.styles.TextInput}
-                                        placeholder="--"
-                                        placeholderTextColor="#323643"
-                                        underlineColorAndroid="#A5A5A5"
-                                    />
-                                </View>
-                            </View>
-                            <View >
-                                <View style={{ marginTop: hp('2%'), marginLeft: hp('0%'), justifyContent: 'flex-start', alignItems: 'flex-start', flexDirection: 'row' }}>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('3%') }}>Date of Addmission</Text>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%'), marginLeft: hp('8%') }}>Date of Birth</Text>
-                                </View>
-                                <View pointerEvents="none" style={{ marginTop: hp('0%'), marginLeft: hp('2%'), justifyContent: 'space-around', flexDirection: 'row' }}>
-                                    <TextInput
-                                        defaultValue={moment(studentInfo.membershipstart).format('DD MMM YYYY')}
-                                        style={STYLES.styles.TextInput}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="--"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-5%'), marginTop: hp('1%') }} />
+                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
                                         </TouchableOpacity>
                                     </View>
+                                </View>
+                            </View>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Admission Class</Text>
+                                </View>
+                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        defaultValue={moment(studentInfo.property.dob).format('DD MMM YYYY')}
-                                        style={STYLES.styles.TextInput}
+                                        defaultValue={studentInfo.membershipid.membershipname}
+                                        style={STYLES.styles.TextInput1}
                                         placeholder="--"
                                         placeholderTextColor="#323643"
                                         underlineColorAndroid="#A5A5A5"
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-5%'), marginTop: hp('1%') }} />
+                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Date of Addmission</Text>
+                                </View>
+                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        defaultValue={moment(studentInfo.membershipstart).format('DD MMM YYYY')}
+                                        style={STYLES.styles.TextInput1}
+                                        placeholder="--"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            <View>
+                                <View style={{ marginTop: hp('2%'), marginLeft: hp('3%') }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Date of Birth</Text>
+                                </View>
+                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        defaultValue={moment(studentInfo.property.dob).format('DD MMM YYYY')}
+                                        style={STYLES.styles.TextInput1}
+                                        placeholder="--"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: hp('-4%'), marginTop: hp('1%') }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         borderColor: '#bfbfbf',
         borderWidth: hp('0.2%'),
         margin: hp('2%'),
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     optionselectedbtn: {
         width: wp('75%'),
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#82a2e3',
         borderWidth: hp('0.2%'),
         margin: hp('2%'),
-        flexDirection: 'row'
+        flexDirection: 'row',
+
     }
 })
 

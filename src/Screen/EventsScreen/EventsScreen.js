@@ -54,8 +54,8 @@ export default class EventsScreen extends Component {
                 <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }} >
                     <Image source={{ uri: item.gallery ? item.gallery : Eventicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
                     />
-                    <View style={{ marginLeft: hp('2%'), flexDirection: 'column', marginBottom: hp('0%') }}>
-                        <View style={{ marginLeft: hp('2%'), flexDirection: 'row' }}>
+                    <View style={{ marginLeft: wp('1.5%'), flexDirection: 'column', marginBottom: hp('0%') }}>
+                        <View style={{ flexDirection: 'row' }}>
                             <Fontisto name="clock" size={20} color="#6789CA" />
                             <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#6789CA' }}>{moment(item.startdate).format('LLL')}</Text>
                         </View>

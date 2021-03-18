@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
     TextInput: {
         width: wp('40%'),
         height: hp('8%'),
-        fontSize: hp('3%'),
+        fontSize: hp('2.5%'),
         marginLeft: hp('0%'),
         marginTop: hp('-1%'),
     },
     TextInput1: {
         width: wp('90%'),
         height: hp('8%'),
-        fontSize: hp('3%'),
+        fontSize: hp('2.5%'),
         marginLeft: hp('3%'),
         marginTop: hp('-1%'),
     }
