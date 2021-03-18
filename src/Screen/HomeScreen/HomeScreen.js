@@ -246,7 +246,7 @@ class HomeScreen extends Component {
                             </View>
                         </View>
                     </ScrollView>
-                    : <Loader />}
+                    : <View style={STYLES.styles.loaderView}><Loader /></View>}
             </SafeAreaView>
         );
     }

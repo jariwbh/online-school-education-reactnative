@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: hp('5%'),
         marginTop: hp('10%')
     },
+    loaderView: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: hp('5%'),
+        borderTopRightRadius: hp('5%'),
+        marginTop: hp('30%')
+    },
     cardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",

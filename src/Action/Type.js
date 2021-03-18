@@ -29,6 +29,8 @@ export const LEAVEAPPLICATIONSCREEN = 'LeaveApplicationScreen'
 export const ATTENDANCESCREEN = 'AttendanceScreen'
 export const HOLIDAYSCREEN = 'HolidayScreen'
 export const TIMETABLESCREEN = 'TimeTableScreen'
+export const VIEWFULLPICTURESCREEN = 'ViewFullPicture'
+
 
 
 

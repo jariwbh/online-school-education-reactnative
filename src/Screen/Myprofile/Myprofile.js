@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView, Image, ToastAndroid } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { UpdateStudentService } from '../../Services/StudentService/StudentService'
-import { AUTHUSER, HOMESCREEN, LOGINSCREEN } from '../../Action/Type';
+import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWFULLPICTURESCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -85,7 +85,6 @@ export default class Myprofile extends Component {
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
             } else {
-                console.log(`response photo`, response);
                 this.setState({ spinner: true });
                 this.onPressUploadFile(response);
 
@@ -141,6 +140,18 @@ export default class Myprofile extends Component {
         this.handlePicker();
     }
 
+    onTouchViewProfile() {
+        const { studentProfile } = this.state;
+        let studentProfileImage
+        if (studentProfile) {
+            studentProfileImage = studentProfile;
+            this.props.navigation.navigate(VIEWFULLPICTURESCREEN, { studentProfileImage });
+        } else {
+            studentProfileImage = ProfileURL;
+            this.props.navigation.navigate(VIEWFULLPICTURESCREEN, { studentProfileImage });
+        }
+    }
+
     render() {
         const { studentInfo, studentProfile, loader } = this.state;
         return (
@@ -158,9 +169,13 @@ export default class Myprofile extends Component {
                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('2%') }}>
                                         <View style={{ marginLeft: hp('1%'), flexDirection: 'row' }}>
                                             <View>
-                                                <TouchableOpacity onPress={() => this.onChangeProfilePic()}>
+                                                <TouchableOpacity onPress={() => this.onTouchViewProfile()}>
                                                     <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: hp('12%'), width: wp('20%'), borderRadius: hp('2%') }} />
-                                                    <FontAwesome name="camera" size={20} color="#000000" style={{ marginLeft: hp('9%'), marginTop: hp('10%'), position: 'absolute' }} />
+                                                </TouchableOpacity>
+                                            </View>
+                                            <View>
+                                                <TouchableOpacity onPress={() => this.onChangeProfilePic()} style={{ marginLeft: hp('-2%'), marginTop: hp('10%'), position: 'absolute' }}>
+                                                    <FontAwesome name="camera" size={20} color="#000000" />
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={{ marginTop: hp('1.5%') }}>

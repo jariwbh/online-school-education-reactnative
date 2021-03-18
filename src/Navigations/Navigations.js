@@ -27,7 +27,8 @@ import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
 import Playquizstart from '../Screen/Playquiz/Playquizstart'
 import PlayQuizList from '../Screen/Playquiz/PlayQuizList'
 import BackButton from '../Components/BackButton/BackButton';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN } from '../Action/Type';
+import ViewFullPicture from '../Screen/Myprofile/ViewFullPicture';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -212,6 +213,14 @@ function MainNavigation({ navigation }) {
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={TimeTableScreen} />
+
+            <HomeStack.Screen name="ViewFullPicture" options={{
+                headerTintColor: '#FFFFFF', title: 'Profile Photo',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(MYPROFILE)} />
+            }} component={ViewFullPicture} />
 
         </HomeStack.Navigator>
     );
