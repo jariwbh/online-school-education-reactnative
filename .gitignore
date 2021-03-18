@@ -11,3 +11,4 @@ web-build/
 android/app/build/**/*
 # macOS
 .DS_Store
+node_modules

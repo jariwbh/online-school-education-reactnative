@@ -1,0 +1,6 @@
+module Pods_schooleducationapp_schooleducationappTests {
+  umbrella header "Pods-schooleducationapp-schooleducationappTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
