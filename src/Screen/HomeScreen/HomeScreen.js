@@ -98,7 +98,7 @@ class HomeScreen extends Component {
                             <View >
                                 <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize' }}>{StudentData.property.fullname} </Text>
                                 <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>
-                                    {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.streetnumber} </Text>
+                                    {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
                                 <TouchableOpacity style={{ width: wp('35%'), height: hp('4.5%'), alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
                                     <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                 </TouchableOpacity>

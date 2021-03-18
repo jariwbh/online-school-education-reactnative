@@ -180,7 +180,7 @@ export default class Myprofile extends Component {
                                             </View>
                                             <View style={{ marginTop: hp('1.5%') }}>
                                                 <Text style={{ fontSize: hp('3%'), marginLeft: hp('2%'), fontWeight: 'bold', textTransform: 'capitalize' }}>{studentInfo.property.fullname}</Text>
-                                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#777777', marginTop: hp('1%') }}>{studentInfo.membershipid.membershipname}  |  Roll no: {studentInfo.property.streetnumber}</Text>
+                                                <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#777777', marginTop: hp('1%') }}>{studentInfo.membershipid.membershipname}  |  Roll no: {studentInfo.property.roll_number}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -215,7 +215,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View pointerEvents="none" style={{ marginTop: hp('0%'), marginLeft: hp('2%'), justifyContent: 'space-around', flexDirection: 'row' }}>
                                     <TextInput
-                                        defaultValue={moment(studentInfo.property.dob).format('DD MMM YYYY')}
+                                        defaultValue={moment(studentInfo.membershipstart).format('DD MMM YYYY')}
                                         style={STYLES.styles.TextInput}
                                         placeholder="--"
                                         placeholderTextColor="#323643"
