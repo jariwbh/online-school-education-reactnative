@@ -27,6 +27,7 @@ export default class ViewAssignmentScreen extends Component {
         this.wait(1000).then(() => this.setState({ loader: false }));
     }
 
+    //Download file function
     onPressDownloadFile(assignment) {
         const REMOTE_IMAGE_PATH = `${assignment.objectid.attachmenturl[0]}`;
         // To add the time suffix in filename
@@ -123,13 +124,13 @@ export default class ViewAssignmentScreen extends Component {
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                             <TouchableOpacity style={STYLES.styles.downloadButton}
                                                 onPress={() => this.onPressDownloadFile(assignment)}>
-                                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>DONWLOAD ASSIGNMENT</Text>
+                                                <Text style={{ fontSize: hp('2.3%'), color: '#FFFFFF', marginTop: hp('1%') }}>DONWLOAD ASSIGNMENT</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
                                 </View>
                                 <View style={{ marginBottom: hp('5%') }}></View>
-                            </ScrollView>{/** This button is responsible to open the modal */}
+                            </ScrollView>
                         </View>
                     }
                 </View>

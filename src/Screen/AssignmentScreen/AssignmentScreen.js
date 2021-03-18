@@ -326,11 +326,11 @@ export default class AssignmentScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Assign Date </Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.createdAt).format('LL')}</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.createdAt).format('MMM DD, YYYY')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('0%') }}>
                     <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.duedate).format('LL')}</Text>
+                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.duedate).format('MMM DD, YYYY')}</Text>
                 </View>
                 {item.viewResult == false &&
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>

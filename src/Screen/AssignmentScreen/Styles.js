@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         borderRadius: hp('2%'),
         borderColor: '#000000',
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowOpacity: 0.1,
+        shadowRadius: 1,
         shadowOffset: {
             height: 0,
             width: 0,
