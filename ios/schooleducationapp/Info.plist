@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>schooleducationapp</string>
+	<string>School Educationa App</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,13 +38,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>permission camera</string>
+	<string>camera use to profile picture change</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>permission photolibrary</string>
+	<string>photolibrary to profile picture update </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>permission photolibrary</string>
+	<string>photolibrary to profile picture update </string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
