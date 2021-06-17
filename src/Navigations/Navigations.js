@@ -4,31 +4,29 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from "../Screen/LoginScreen/LoginScreen";
 import HomeScreen from "../Screen/HomeScreen/HomeScreen";
 import FeesScreen from "../Screen/FeesScreen/FeesScreen";
-import PayonlineScreen from "../Screen/PayonlineScreen/PayonlineScreen";
-import AssignmentScreen from "../Screen/AssignmentScreen/AssignmentScreen"
-import ViewAssignmentScreen from "../Screen/AssignmentScreen/ViewAssignmentScreen"
-import Playquiz from "../Screen/Playquiz/Playquiz"
-import QuizResultScreen from "../Screen/ResultScreen/QuizResultScreen"
+import AssignmentScreen from "../Screen/AssignmentScreen/AssignmentScreen";
+import ViewAssignmentScreen from "../Screen/AssignmentScreen/ViewAssignmentScreen";
+import Playquiz from "../Screen/Playquiz/Playquiz";
+import QuizResultScreen from "../Screen/ResultScreen/QuizResultScreen";
 import Myprofile from "../Screen/Myprofile/Myprofile";
-import DateSheetScreen from "../Screen/DateSheetScreen/DateSheetScreen"
-import AskDoubtsScreen from "../Screen/AskDoubtsScreen/AskDoubtsScreen"
-import ChangePasswordScreen from "../Screen/ChangePasswordScreen/ChangePasswordScreen"
-import EventsScreen from "../Screen/EventsScreen/EventsScreen"
-import FeedsDetailsScreen from "../Screen/FeedsDetailsScreen/FeedsDetailsScreen"
-import SupportScreen from "../Screen/SupportScreen/SupportScreen"
-import SchoolGalleryScreen from "../Screen/SchoolGalleryScreen/SchoolGalleryScreen"
-import ResultScreen from "../Screen/ResultScreen/ResultScreen"
-import LeaveApplicationScreen from "../Screen/LeaveApplicationScreen/LeaveApplicationScreen"
-import AttendanceScreen from "../Screen/AttendanceScreen/AttendanceScreen"
-import HolidayScreen from "../Screen/HolidayScreen/HolidayScreen"
-import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen"
+import DateSheetScreen from "../Screen/DateSheetScreen/DateSheetScreen";
+import ChangePasswordScreen from "../Screen/ChangePasswordScreen/ChangePasswordScreen";
+import EventsScreen from "../Screen/EventsScreen/EventsScreen";
+import FeedsDetailsScreen from "../Screen/FeedsDetailsScreen/FeedsDetailsScreen";
+import SupportScreen from "../Screen/SupportScreen/SupportScreen";
+import SchoolGalleryScreen from "../Screen/SchoolGalleryScreen/SchoolGalleryScreen";
+import ResultScreen from "../Screen/ResultScreen/ResultScreen";
+import AttendanceScreen from "../Screen/AttendanceScreen/AttendanceScreen";
+import HolidayScreen from "../Screen/HolidayScreen/HolidayScreen";
+import TimeTableScreen from "../Screen/TimeTableScreen/TimeTableScreen";
 import SplashScreen from '../Screen/SplashScreen/splashScreen';
 import MeetingScreen from '../Screen/MeetingScreen/MeetingScreen';
-import Playquizstart from '../Screen/Playquiz/Playquizstart'
-import PlayQuizList from '../Screen/Playquiz/PlayQuizList'
+import Playquizstart from '../Screen/Playquiz/Playquizstart';
+import PlayQuizList from '../Screen/Playquiz/PlayQuizList';
 import BackButton from '../Components/BackButton/BackButton';
 import ViewFullPicture from '../Screen/Myprofile/ViewFullPicture';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE } from '../Action/Type';
+import ViewImage from '../Screen/SchoolGalleryScreen/ViewImage';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -57,13 +55,13 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={FeesScreen} />
 
-            <HomeStack.Screen name="PayonlineScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Pay Online',
+            <HomeStack.Screen name="ViewImage" options={{
+                headerTintColor: '#FFFFFF', title: 'School Gallery',
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
-            }} component={PayonlineScreen} />
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(SCHOOLGALLERYSCREEN)} />
+            }} component={ViewImage} />
 
             <HomeStack.Screen name="AssignmentScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Assignment',
@@ -130,14 +128,6 @@ function MainNavigation({ navigation }) {
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={DateSheetScreen} />
 
-            <HomeStack.Screen name="AskDoubtsScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Ask Doubt',
-                headerStyle: {
-                    backgroundColor: '#5D81C6', elevation: 0,
-                    shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
-            }} component={AskDoubtsScreen} />
-
             <HomeStack.Screen name="ChangePasswordScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Change Password',
                 headerStyle: {
@@ -181,14 +171,6 @@ function MainNavigation({ navigation }) {
             }} component={SchoolGalleryScreen} />
 
             <HomeStack.Screen name="ResultScreen" options={{ title: '', headerShown: false }} component={ResultScreen} />
-
-            <HomeStack.Screen name="LeaveApplicationScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Ask Doubt',
-                headerStyle: {
-                    backgroundColor: '#5D81C6', elevation: 0,
-                    shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
-            }} component={LeaveApplicationScreen} />
 
             <HomeStack.Screen name="AttendanceScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Attendance',

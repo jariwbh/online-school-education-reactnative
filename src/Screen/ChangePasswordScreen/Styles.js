@@ -1,6 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet, Dimensions } from 'react-native'
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -10,37 +10,37 @@ const styles = StyleSheet.create({
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('4%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 20,
     },
     TextInput: {
-        width: wp('80%'),
-        height: hp('8%'),
-        fontSize: hp('3%'),
-        marginLeft: hp('5%'),
-        marginTop: hp('-1%'),
+        width: WIDTH - 60,
+        height: 40,
+        fontSize: 14,
+        marginLeft: 25,
+        marginTop: -5,
     },
     cpBtn: {
         flexDirection: 'row',
-        width: wp('85%'),
+        width: WIDTH - 60,
         backgroundColor: "#2855AE",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
+        borderRadius: 10,
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
     },
     cpText: {
         color: '#FFFFFF',
-        fontSize: hp('2.5%'),
+        fontSize: 14,
         fontWeight: 'bold',
     },
     cpBtnLoading: {
         flexDirection: 'row',
-        width: wp('85%'),
+        width: WIDTH - 60,
         backgroundColor: "#6789CA",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
+        borderRadius: 10,
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
     },

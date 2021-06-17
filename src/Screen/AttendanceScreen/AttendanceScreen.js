@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, ScrollView } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { AttendenceService } from '../../Services/AttendenceService/AttendenceService';
 import { HodidayService } from '../../Services/HodidayService/HodidayService';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -162,7 +161,6 @@ export default class AttendanceScreen extends Component {
     async onChangeMonth(val) {
         this.setState({ spinner: true });
         this.startDate = moment().year(val.year).month(val.month - 1, 'months').startOf('month').format('YYYY-MM-DD');
-
         if (this.currentMonth == val.month && moment().format('YYYY') == val.year) {
             this.endDate = this.today;
         } else {
@@ -174,7 +172,11 @@ export default class AttendanceScreen extends Component {
         }
         await this.getAttendenceService(data);
         await this.getHolidayService();
-        await this.renderCalendar();
+        if (moment(this.studentDetails.membershipstart).format('YYYY-MM') <= moment(this.startDate).format('YYYY-MM')) {
+            await this.renderCalendar();
+        } else {
+            this.setState({ spinner: false });
+        }
     }
 
     render() {
@@ -183,27 +185,33 @@ export default class AttendanceScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {this.state.loader == false ?
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={{ marginTop: hp('5%') }} />
+                            <View style={{ marginTop: 25 }} />
                             <Calendar
                                 markedDates={this.state.renderList}
                                 markingType={'custom'}
                                 onMonthChange={(month) => this.onChangeMonth(month)}
                                 hideExtraDays={true}
                             />
-                            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('2%') }}>
-                                <View style={STYLES.styles.cardViewAbsent}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('2%'), marginBottom: hp('2%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>Absent</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#313131' }}>{this.state.absentList.length > 0 ? this.state.absentList.length : 0}</Text>
+                            {
+                                moment(this.studentDetails.membershipstart).format('YYYY-MM') <= moment(this.startDate).format('YYYY-MM')
+                                    ?
+                                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 15 }}>
+                                        <View style={STYLES.styles.cardViewAbsent}>
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 15 }}>
+                                                <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131' }}>Absent</Text>
+                                                <Text style={{ fontSize: 14, marginRight: 15, color: '#313131' }}>{this.state.absentList.length > 0 ? this.state.absentList.length : 0}</Text>
+                                            </View>
+                                        </View>
+                                        <View style={STYLES.styles.cardViewAttendDays}>
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 15, marginBottom: 15 }}>
+                                                <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131' }}>Present</Text>
+                                                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{this.state.attendenceList.length > 0 ? this.state.attendenceList.length : 0}</Text>
+                                            </View>
+                                        </View>
                                     </View>
-                                </View>
-                                <View style={STYLES.styles.cardViewAttendDays}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('2%'), marginBottom: hp('2%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>Present</Text>
-                                        <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#000000' }}>{this.state.attendenceList.length > 0 ? this.state.attendenceList.length : 0}</Text>
-                                    </View>
-                                </View>
-                            </View>
+                                    :
+                                    null
+                            }
                             <Spinner
                                 visible={this.state.spinner}
                                 textStyle={{ color: '#2855AE' }}

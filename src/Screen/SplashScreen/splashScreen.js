@@ -37,7 +37,7 @@ function SplashScreen(props) {
 
   return (
     <SafeAreaView style={{ flex: 1 }} >
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
       <View style={{ flex: 1 }}>
         <Animated.Image style={STYLES.styles.imageStyle} source={require('../../assets/splash.png')} />
       </View>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView, TouchableOpacity, ToastAndroid, BackHandler } from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import {
+    View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView,
+    TouchableOpacity, ToastAndroid, BackHandler, Dimensions, Keyboard, StatusBar, Platform
+} from 'react-native';
 import { MAINSCREEN, AUTHUSER, AUTHUSERINFO } from '../../Action/Type'
 import LoginService from '../../Services/LoginService/LoginService';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -8,6 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import Loading from '../../Components/Loader/Loading';
 import axiosConfig from '../../Helpers/axiosConfig';
 import * as STYLES from './Styles';
+const WIDTH = Dimensions.get('window').width;
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -100,7 +103,11 @@ export default class LoginScreen extends Component {
                 .then(response => {
                     if (response.data.type && response.data.type == 'Error') {
                         this.setState({ loading: false })
-                        ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+                        if (Platform.OS === 'android') {
+                            ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+                        } else {
+                            alert("Username and Password Invalid!");
+                        }
                         this.resetScreen();
                         return
                     }
@@ -111,7 +118,11 @@ export default class LoginScreen extends Component {
                         axiosConfig(token);
                         this.authenticateUser(response.data.user);
                         this.setUserLoginInfo(body);
-                        ToastAndroid.show("SignIn Success!", ToastAndroid.LONG);
+                        if (Platform.OS === 'android') {
+                            ToastAndroid.show("SignIn Success", ToastAndroid.LONG);
+                        } else {
+                            alert("SignIn Success!");
+                        }
                         this.setState({ loading: false })
                         this.props.navigation.navigate(MAINSCREEN)
                         //this.resetScreen();
@@ -122,7 +133,11 @@ export default class LoginScreen extends Component {
         catch (error) {
             console.log('error', error)
             this.setState({ loading: false })
-            ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG)
+            if (Platform.OS === 'android') {
+                ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
+            } else {
+                alert("Username and Password Invalid!");
+            }
         };
     }
 
@@ -130,23 +145,24 @@ export default class LoginScreen extends Component {
         const { usererror, passworderror, loading } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
+                <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-                        <View style={{ marginTop: hp('10%'), justifyContent: 'center', alignItems: 'center', }}>
-                            <Image source={require('../../assets/image/vector.png')} style={{ height: hp('20%'), width: wp('75%') }} />
+                        <View style={{ marginTop: 60, justifyContent: 'center', alignItems: 'center', }}>
+                            <Image source={require('../../assets/image/vector.png')} style={{ height: 140, width: WIDTH - 100 }} />
                         </View>
-                        <View style={{ marginLeft: hp('4%') }}>
-                            <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold' }}>Hi Student </Text>
+                        <View style={{ marginLeft: 30 }}>
+                            <Text style={{ fontSize: 26, color: '#FFFFFF', fontWeight: 'bold' }}>Hi Student </Text>
                         </View>
-                        <View style={{ marginLeft: hp('4%') }}>
-                            <Text style={{ fontSize: hp('3%'), color: '#FFFFFF', }}>Sign in to continue</Text>
+                        <View style={{ marginLeft: 30 }}>
+                            <Text style={{ fontSize: 18, color: '#FFFFFF', }}>Sign in to continue</Text>
                         </View>
                         <View style={STYLES.styles.inputView}>
                             <View>
-                                <View style={{ marginTop: hp('7%'), marginLeft: hp('5.5%') }}>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>User Name</Text>
+                                <View style={{ marginTop: 30, marginLeft: 35 }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: 16 }}>User Name</Text>
                                 </View>
-                                <View >
+                                <View>
                                     <TextInput
                                         style={STYLES.styles.TextInput}
                                         placeholder="Enter User Name"
@@ -162,8 +178,8 @@ export default class LoginScreen extends Component {
                                 </View>
                             </View>
                             <View>
-                                <View style={{ marginTop: hp('3%'), marginLeft: hp('5.5%') }}>
-                                    <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Password</Text>
+                                <View style={{ marginTop: 30, marginLeft: 35 }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: 16 }}>Password</Text>
                                 </View>
                                 <View >
                                     <TextInput
@@ -176,12 +192,12 @@ export default class LoginScreen extends Component {
                                         secureTextEntry={true}
                                         returnKeyType="done"
                                         ref={this.secondTextInputRef}
-                                        onSubmitEditing={() => this.onPressSubmit()}
+                                        onSubmitEditing={() => Keyboard.dismiss()}
                                         onChangeText={(password) => this.setPassword(password)}
                                     />
                                 </View>
                             </View>
-                            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%'), }}>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
                                 <TouchableOpacity
                                     style={loading == true ? STYLES.styles.loginBtnLoading : STYLES.styles.loginBtn}
                                     onPress={() => this.onPressSubmit()}

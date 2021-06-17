@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, SafeAreaView, View, FlatList, RefreshControl, TouchableOpacity, Image, ScrollView } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { EventListService } from '../../Services/EventsService/EventsService'
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { FEEDSDETAILSSCREEN } from '../../Action/Type';
@@ -48,19 +47,18 @@ export default class EventsScreen extends Component {
     renderEventListService = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate(FEEDSDETAILSSCREEN, { item })}>
-                <View style={{ flexDirection: 'column', marginTop: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>{item.eventname}</Text>
+                <View style={{ flexDirection: 'column', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131' }}>{item.eventname}</Text>
                 </View>
-                <View style={{ marginLeft: hp('3%'), flexDirection: 'row', marginTop: hp('2%') }} >
-                    <Image source={{ uri: item.gallery ? item.gallery : Eventicon }} style={{ height: hp('15%'), width: wp('25%'), borderRadius: hp('2%') }}
-                    />
-                    <View style={{ marginLeft: wp('1.5%'), flexDirection: 'column', marginBottom: hp('0%') }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Fontisto name="clock" size={20} color="#6789CA" />
-                            <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#6789CA' }}>{moment(item.startdate).format('LLL')}</Text>
+                <View style={{ marginLeft: 20, flexDirection: 'row', marginTop: 15 }} >
+                    <Image source={{ uri: item.gallery ? item.gallery : Eventicon }} style={{ height: 100, width: 100, borderRadius: 10 }} />
+                    <View style={{ marginLeft: 7, flexDirection: 'column' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Fontisto name="clock" size={15} color="#6789CA" />
+                            <Text style={{ fontSize: 12, marginLeft: 5, color: '#6789CA' }}>{moment(item.startdate).format('LLL')}</Text>
                         </View>
-                        <View style={{ marginRight: hp('20%'), }}>
-                            <HTML baseFontStyle={{ fontSize: hp('2%'), textTransform: 'capitalize' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
+                        <View style={{ marginRight: 100 }}>
+                            <HTML baseFontStyle={{ fontSize: 12, textTransform: 'capitalize', color: '#555555' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
                         </View>
                     </View>
                 </View>
@@ -75,11 +73,11 @@ export default class EventsScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(EventList == null) || (EventList && EventList.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Events & Programs Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Events & Programs Available</Text>
                             : <Loader />
                         )
                         :
-                        <View style={{ marginTop: hp('1%') }}>
+                        <View style={{ marginTop: 5 }}>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <View>
                                     <FlatList

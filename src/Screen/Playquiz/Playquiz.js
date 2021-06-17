@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList, ToastAndroid } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, ToastAndroid, Platform, Dimensions } from 'react-native'
 import { addExamResultService } from '../../Services/PlayQuizService/PlayQuizService';
 import { AUTHUSER, LOGINSCREEN, HOMESCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -8,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Spinner from 'react-native-loading-spinner-overlay';
 import HTML from 'react-native-render-html';
 import * as STYLES from './Styles';
+const WIDTH = Dimensions.get('window').width;
 
 export default class Playquiz extends Component {
     answers = [];
@@ -76,7 +76,11 @@ export default class Playquiz extends Component {
         this.setState({ spinner: true });
         addExamResultService(data).then(response => {
             this.setState({ spinner: false });
-            ToastAndroid.show('Your Exam Submitted', ToastAndroid.SHORT);
+            if (Platform.OS === 'ios') {
+                alert("Your Exam Submitted");
+            } else {
+                ToastAndroid.show('Your Exam Submitted', ToastAndroid.LONG);
+            }
             this.props.navigation.navigate(HOMESCREEN);
         }).catch(error => {
             console.log(error);
@@ -346,43 +350,43 @@ export default class Playquiz extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('1%') }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
                         {/* exam timer Compoment */}
-                        <View style={{ width: wp('90%'), height: hp('7%'), borderRadius: hp('3%'), flexDirection: 'row', backgroundColor: '#05518B', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginLeft: hp('2%') }}>
+                        <View style={{ width: WIDTH - 30, height: 40, borderRadius: 100, flexDirection: 'row', backgroundColor: '#05518B', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={{ color: '#FFFFFF', fontSize: 18, marginLeft: 15 }}>
                                 {minutes === 0 && seconds === 0
                                     ? <Text>Busted!</Text>
                                     : <>{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}</>
                                 }
                             </Text>
                             <View>
-                                <AntDesign name="clockcircleo" size={24} color="#FFFFFF" style={{ marginRight: hp('2%') }} />
+                                <AntDesign name="clockcircleo" size={24} color="#FFFFFF" style={{ marginRight: 15 }} />
                             </View>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', marginTop: hp('3%'), justifyContent: 'space-around' }}>
-                        <View style={{ marginLeft: hp('0%'), flexDirection: 'row' }}>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('4%'), }}>Question {index + 1}</Text>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), marginTop: hp('1%') }}> / {this.currentExamDetails.questions.length} </Text>
+                    <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-around' }}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ color: '#FFFFFF', fontSize: 22, }}>Question {index + 1}</Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: 18, marginTop: 5 }}> / {this.currentExamDetails.questions.length} </Text>
                         </View>
-                        <TouchableOpacity style={{ width: hp('15%'), backgroundColor: "#2855AE", height: hp('5%'), borderRadius: hp('3%'), alignItems: 'center', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), }}> Mark </Text>
-                            <Text style={{ color: '#FFFFFF', fontSize: hp('3%'), }}> {currentQuestion && currentQuestion.mark} </Text>
+                        <TouchableOpacity style={{ width: 100, backgroundColor: "#2855AE", height: 30, borderRadius: 100, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                            <Text style={{ color: '#FFFFFF', fontSize: 18 }}> Mark </Text>
+                            <Text style={{ color: '#FFFFFF', fontSize: 18 }}> {currentQuestion && currentQuestion.mark} </Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('3%'), flex: 1 }}>
-                        <View style={{ width: hp('50%'), backgroundColor: "#FFFFFF", borderRadius: hp('3%'), alignItems: 'center', flex: 1 }}>
-                            <HTML baseFontStyle={{ fontSize: hp('2%'), textTransform: 'capitalize', fontWeight: 'bold' }}
+                    <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, flex: 1 }}>
+                        <View style={{ width: WIDTH - 60, backgroundColor: "#FFFFFF", borderRadius: 20, alignItems: 'center', flex: 1 }}>
+                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold' }}
                                 html={`<html>${currentQuestion && currentQuestion.question} </html>`} />
 
                             {currentQuestionOptions && currentQuestionOptions.map(val => (
                                 <TouchableOpacity onPress={() => this.selectedQuestionOption(currentQuestion, val)}
                                     style={[STYLES.styles.optionbtn, this.checkAnswerColor(val._id) && STYLES.styles.optionselectedbtn]}>
 
-                                    <View style={{ flexDirection: 'row', marginLeft: wp('3%'), alignItems: 'center' }}>
-                                        <HTML baseFontStyle={{ fontSize: hp('3%'), textTransform: 'capitalize', }}
+                                    <View style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>
+                                        <HTML baseFontStyle={{ fontSize: 16, textTransform: 'capitalize' }}
                                             html={`<html>${val.option + '. '} </html>`} />
-                                        <HTML baseFontStyle={{ fontSize: hp('2%'), textTransform: 'capitalize' }}
+                                        <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize' }}
                                             html={`<html>${val.value}  </html>`} />
                                     </View>
                                 </TouchableOpacity>
@@ -393,21 +397,21 @@ export default class Playquiz extends Component {
                                     disabled={index == 0}
                                     style={index == 0 ? STYLES.styles.prevButtonDisable : STYLES.styles.prevButton}
                                     onPress={() => this.togglePrev()}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>PREVIOUS</Text>
+                                    <Text style={{ fontSize: 14, color: '#FFFFFF' }}>PREVIOUS</Text>
                                 </TouchableOpacity>
                                 {
                                     (index + 1) === (this.currentExamDetails.questions.length) == true
                                         ? <TouchableOpacity
                                             style={STYLES.styles.nextButton}
                                             onPress={() => this.onPressSumbit()}>
-                                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>SUBMIT</Text>
+                                            <Text style={{ fontSize: 14, color: '#FFFFFF' }}>SUBMIT</Text>
                                         </TouchableOpacity>
                                         :
                                         <TouchableOpacity
                                             disabled={(index + 1) === (this.currentExamDetails.questions.length)}
                                             style={STYLES.styles.nextButton}
                                             onPress={() => this.toggleNext()}>
-                                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF' }}>NEXT</Text>
+                                            <Text style={{ fontSize: 14, color: '#FFFFFF' }}>NEXT</Text>
                                         </TouchableOpacity>
                                 }
                             </View>
@@ -417,7 +421,7 @@ export default class Playquiz extends Component {
                         visible={this.state.spinner}
                         textStyle={{ color: '#2855AE' }}
                     />
-                    <View style={{ marginBottom: hp('5%') }}></View>
+                    <View style={{ marginBottom: 25 }}></View>
                 </ScrollView>
             </SafeAreaView>
         )

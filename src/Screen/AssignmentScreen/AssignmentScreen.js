@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import {
     Text, View, SafeAreaView, ToastAndroid, RefreshControl, FlatList, ScrollView,
-    TouchableOpacity, Button, StyleSheet, Modal, TextInput, Dimensions
+    TouchableOpacity, Button, StyleSheet, Modal, TextInput, Dimensions, Platform
 } from 'react-native'
 import { assignmentListService, submitAssignmentListService, uploadAssignmentService } from '../../Services/AssignmentService/AssignmentService'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWASSIGNMENTSCREEN } from '../../Action/Type';
+import { AUTHUSER, LOGINSCREEN, VIEWASSIGNMENTSCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -161,7 +160,11 @@ export default class AssignmentScreen extends Component {
             .then(res => {
                 // Showing alert after successful downloading
                 console.log('res -> ', JSON.stringify(res));
-                ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
+                if (Platform.OS === 'ios') {
+                    alert("File Downloaded");
+                } else {
+                    ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
+                }
             });
     }
 
@@ -191,6 +194,7 @@ export default class AssignmentScreen extends Component {
             }
             // Setting the state to show single file attributes
         } catch (err) {
+            console.log(`err`, err);
             // Handling any exception (If any)
             this.setState({ spinner: true });
             if (DocumentPicker.isCancel(err)) {
@@ -211,10 +215,15 @@ export default class AssignmentScreen extends Component {
                 .then(data => {
                     this.wait(3000).then(() => { this.setState({ spinner: false }) });
                     if (data && data.url) {
-                        ToastAndroid.show("Uploading File Success", ToastAndroid.CENTER);
+                        if (Platform.OS === 'ios') {
+                            alert("Uploading File Success");
+                        } else {
+                            ToastAndroid.show("Uploading File Success", ToastAndroid.LONG);
+                        }
                         this.setState({ fileURL: data.url });
                     }
                 }).catch(error => {
+                    console.log(`error`, error);
                     alert("Uploading Failed!");
                 })
         } else {
@@ -260,7 +269,11 @@ export default class AssignmentScreen extends Component {
                 //Upload Assignment Service
                 await uploadAssignmentService(body).then(response => {
                     if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                        ToastAndroid.show("Assignment Sumitted", ToastAndroid.LONG);
+                        if (Platform.OS === 'ios') {
+                            alert("Assignment Sumitted");
+                        } else {
+                            ToastAndroid.show("Assignment Sumitted", ToastAndroid.LONG);
+                        }
                         let token = studentInfo.addedby;
                         axiosConfig(token);
                         this.toggleModalVisibility();
@@ -271,7 +284,11 @@ export default class AssignmentScreen extends Component {
         }
         catch (error) {
             this.props.navigation.replace(LOGINSCREEN);
-            ToastAndroid.show("User Invalid!", ToastAndroid.LONG)
+            if (Platform.OS === 'ios') {
+                alert("User Invalid!");
+            } else {
+                ToastAndroid.show("User Invalid!", ToastAndroid.LONG)
+            }
         };
     }
 
@@ -283,6 +300,7 @@ export default class AssignmentScreen extends Component {
             fileURL: null,
         })
     }
+
     //student input type comment set data
     assignmentRemarks(value) {
         this.setState({ assignmentRemarks: value });
@@ -307,7 +325,11 @@ export default class AssignmentScreen extends Component {
         if (assignmentView) {
             this.props.navigation.replace(VIEWASSIGNMENTSCREEN, { assignmentView });
         } else {
-            ToastAndroid.show("View Assignment Problem", ToastAndroid.SHORT);
+            if (Platform.OS === 'ios') {
+                alert("View Assignment Problem");
+            } else {
+                ToastAndroid.show("View Assignment Problem", ToastAndroid.LONG);
+            }
         }
     }
 
@@ -315,29 +337,29 @@ export default class AssignmentScreen extends Component {
     renderAssignmentList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ marginTop: hp('1%'), flex: 1, width: wp('35%'), height: hp('4%'), backgroundColor: '#E6EFFF', marginLeft: hp('2%'), borderRadius: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2%'), flex: 1, marginLeft: hp('2%'), color: '#6789CA', }}>{item.membershipid.membershipname}</Text>
+                <View style={{ marginTop: 5, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
+                    <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA', }}>{item.membershipid.membershipname}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: hp('2%'), marginTop: hp('1%'), }}>
-                    <HTML baseFontStyle={{ fontSize: hp('2.5%'), textTransform: 'capitalize', fontWeight: 'bold' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5, }}>
+                    <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
                     <TouchableOpacity onPress={() => this.onPressDownloadFile(item)}>
-                        <FontAwesome name="file-pdf-o" size={20} color="#6789CA" style={{ marginRight: hp('2%') }} />
+                        <FontAwesome name="file-pdf-o" size={20} color="#6789CA" style={{ marginRight: 15 }} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Assign Date </Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.createdAt).format('MMM DD, YYYY')}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#000000' }}>Assign Date </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.createdAt).format('MMM DD, YYYY')}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('0%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%') }}>Last Submission Date </Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%') }}>{moment(item.duedate).format('MMM DD, YYYY')}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#000000' }}>Last Submission Date </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.duedate).format('MMM DD, YYYY')}</Text>
                 </View>
                 {item.viewResult == false &&
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? true : false}
                             style={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
                             onPress={() => this.UploadFileController(item)}>
-                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>TO BE SUBMITTED</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>TO BE SUBMITTED</Text>
                         </TouchableOpacity>
                     </View>
                 }
@@ -346,7 +368,7 @@ export default class AssignmentScreen extends Component {
                         <TouchableOpacity
                             style={STYLES.styles.submitButton}
                             onPress={() => this.viewAssignment(item)}>
-                            <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>VIEW ASSIGNMENT</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>VIEW ASSIGNMENT</Text>
                         </TouchableOpacity>
                     </View>
                 }
@@ -361,18 +383,18 @@ export default class AssignmentScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(assignmentList == null) || (assignmentList && assignmentList.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Assignment Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 100 }}>No Assignment Available</Text>
                             : <Loader />
                         )
                         :
-                        <View style={{ marginTop: hp('2%') }}>
+                        <View style={{ marginTop: 15 }}>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <FlatList
                                     data={assignmentList}
                                     renderItem={this.renderAssignmentList}
                                     keyExtractor={item => `${item._id}`}
                                 />
-                                <View style={{ marginBottom: hp('5%') }}></View>
+                                <View style={{ marginBottom: 25 }}></View>
                             </ScrollView>
                             {/** This button is responsible to open the modal */}
                             <Modal animationType="fade"
@@ -382,20 +404,20 @@ export default class AssignmentScreen extends Component {
                                 <View style={styles.viewWrapper}>
                                     <View style={styles.modalView}>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ fontSize: hp('2.5%'), marginTop: hp('1%') }}>Submit Assignment</Text>
+                                            <Text style={{ fontSize: 14, marginTop: 5, color: '#000000' }}>Submit Assignment</Text>
                                         </View>
-                                        <View style={{ marginTop: hp('2%'), flexDirection: 'row' }}>
+                                        <View style={{ marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: 'rgba(0, 0, 0, 0.2)' }}></View>
                                         </View>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                             <TouchableOpacity disabled={singleFile == null ? false : true}
                                                 style={singleFile == null ? STYLES.styles.selectFilebtn : STYLES.styles.selectFilebtnDisable}
                                                 onPress={() => { this.selectFile() }}>
-                                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>Select Document</Text>
+                                                <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>Select Document</Text>
                                             </TouchableOpacity>
                                         </View>
-                                        <View style={{ marginLeft: wp('7%') }}>
-                                            <Text style={{ fontSize: hp('2.5%'), marginBottom: hp('1%') }}>Remarks :</Text>
+                                        <View style={{ marginLeft: 30 }}>
+                                            <Text style={{ fontSize: 14, marginBottom: 5, color: '#000000' }}>Remarks :</Text>
                                         </View>
                                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                             <TextInput

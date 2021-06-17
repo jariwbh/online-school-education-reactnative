@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, FlatList, RefreshControl, Image } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { Text, View, SafeAreaView, FlatList, RefreshControl, Image, Dimensions } from 'react-native'
 import { ExamDatesheet } from '../../Services/DateSheetService/DateSheetService'
 import AsyncStorage from '@react-native-community/async-storage';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -9,6 +8,7 @@ import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
 import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 import moment from 'moment'
+const WIDTH = Dimensions.get('window').width;
 
 export default class DateSheetScreen extends Component {
     constructor(props) {
@@ -63,21 +63,21 @@ export default class DateSheetScreen extends Component {
     //render exam schedule using flatlist
     renderexamSchedule = ({ item }) => (
         <View>
-            <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row', marginLeft: hp('12%'), marginRight: hp('3%') }}>
+            <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
                 <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
             </View>
-            <View style={{ alignItems: 'center', marginTop: hp('2%'), marginLeft: hp('0%'), marginRight: hp('0%'), flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ marginLeft: hp('2%'), }}>
-                    <Text style={{ fontSize: hp('3.5%'), marginLeft: hp('2%'), color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
-                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
+            <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={{ marginLeft: 15, }}>
+                    <Text style={{ fontSize: 20, marginLeft: 15, color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
                 </View>
-                <View style={{ marginLeft: hp('0%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), fontWeight: 'bold' }}>{item.subjectid.title}</Text>
-                    <Text style={{ fontSize: hp('2%'), color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
+                <View >
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#000000' }}>{item.subjectid.title}</Text>
+                    <Text style={{ fontSize: 16, color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
                 </View>
-                <View style={{ marginLeft: hp('0%'), marginRight: hp('2%'), flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <View style={{ marginRight: 15, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Fontisto name="clock" size={20} color="#A5A5A5" />
-                    <Text style={{ fontSize: hp('2%'), marginLeft: hp('1%'), color: '#A5A5A5' }}>{moment(item.starttime).format('LT')}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 5, color: '#A5A5A5' }}>{moment(item.starttime).format('LT')}</Text>
                 </View>
             </View>
         </View>
@@ -90,7 +90,7 @@ export default class DateSheetScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(examSchedule == null) || (examSchedule && examSchedule.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Exam Schedule Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Exam Schedule Available</Text>
                             : <Loader />
                         )
                         :
@@ -100,15 +100,12 @@ export default class DateSheetScreen extends Component {
                                 renderItem={this.renderexamSchedule}
                                 keyExtractor={item => `${item._id}`}
                             />
-                            <View style={{ marginBottom: hp('20%') }}></View>
+                            <View style={{ marginBottom: 50 }}></View>
                         </ScrollView>
                     }
                     <View style={{ position: 'absolute', bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
                         <Image source={require('../../assets/image/1.png')}
-                            style={{
-                                width: wp('100%'),
-                                height: hp('20%'),
-                            }} />
+                            style={{ width: WIDTH, height: 100 }} />
                     </View>
                 </View>
             </SafeAreaView>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, FlatList, ScrollView } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { HodidayService } from '../../Services/HodidayService/HodidayService';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Loader from '../../Components/Loader/Loader';
@@ -95,12 +94,12 @@ export default class HolidayScreen extends Component {
     renderHolidaysList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ flexDirection: 'row', marginTop: hp('2%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131', textTransform: 'capitalize' }}>{item.property.title}</Text>
+                <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131', textTransform: 'capitalize' }}>{item.property.title}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('2%'), marginBottom: hp('2%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#313131' }}>{moment(item.property.date).format('Do MMMM')}</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#313131' }}>{moment(item.property.date).format('dddd')}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 10 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131' }}>{moment(item.property.date).format('Do MMMM')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#313131' }}>{moment(item.property.date).format('dddd')}</Text>
                 </View>
             </View>
         </View>
@@ -112,12 +111,12 @@ export default class HolidayScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(this.state.holidaysList == null) || (this.state.holidaysList && this.state.holidaysList.length == 0) ?
                         (this.state.loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Holiday Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Holiday Available</Text>
                             : <Loader />
                         )
                         :
                         <>
-                            <View style={{ marginTop: hp('5%') }} />
+                            <View style={{ marginTop: 25 }} />
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 <Calendar
                                     markedDates={this.state.renderList}
@@ -126,14 +125,18 @@ export default class HolidayScreen extends Component {
                                     hideExtraDays={true}
                                 />
                                 <View>
-                                    <Text style={{ fontSize: hp('3%'), marginLeft: hp('3%'), color: '#313131', marginTop: hp('2%'), marginBottom: hp('1%') }}>List of Holiday</Text>
+                                    <Text style={{ fontSize: 18, marginLeft: 20, color: '#313131', marginTop: 15, marginBottom: 5 }}>List of Holiday</Text>
                                 </View>
-                                <FlatList
-                                    data={this.state.currentMonthHolidays}
-                                    renderItem={this.renderHolidaysList}
-                                    keyExtractor={item => item._id}
-                                />
-                                <View style={{ marginBottom: hp('3%') }}></View>
+                                {(this.state.currentMonthHolidays == null) || (this.state.currentMonthHolidays && this.state.currentMonthHolidays.length == 0) ?
+                                    <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 25 }}>No Holidays Current Month</Text>
+                                    :
+                                    <FlatList
+                                        data={this.state.currentMonthHolidays}
+                                        renderItem={this.renderHolidaysList}
+                                        keyExtractor={item => item._id}
+                                    />
+                                }
+                                <View style={{ marginBottom: 20 }}></View>
                                 <Spinner
                                     visible={this.state.spinner}
                                     textStyle={{ color: '#2855AE' }}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler } from 'react-native';
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, StatusBar, Platform } from 'react-native';
 import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AUTHUSER } from '../../Action/Type';
@@ -72,7 +71,11 @@ class HomeScreen extends Component {
     //LogOut Button click to call 
     onPressLogout() {
         AsyncStorage.removeItem(AUTHUSER);
-        ToastAndroid.show("Log Out Success!", ToastAndroid.SHORT);
+        if (Platform.OS === 'android') {
+            ToastAndroid.show("Log Out Success!", ToastAndroid.LONG);
+        } else {
+            alert("Log Out Success!");
+        }
         this.props.navigation.replace(SCREENNAME.LOGINSCREEN);
     }
 
@@ -92,161 +95,189 @@ class HomeScreen extends Component {
         const { StudentData, studentProfile, loader, attendencePercent } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
+                <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
                 {loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-                        <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: hp('4%') }}>
-                            <View >
-                                <Text style={{ fontSize: hp('4%'), color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize' }}>{StudentData.property.fullname} </Text>
-                                <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', fontWeight: 'bold', marginTop: hp('1%') }}>
+                        <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: 20 }}>
+                            <View style={{ width: '50%' }}>
+                                <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.property.fullname} </Text>
+                                <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
-                                <TouchableOpacity style={{ width: wp('35%'), height: hp('4.5%'), alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: hp('1%'), borderRadius: hp('2%') }}>
-                                    <Text style={{ fontSize: hp('2.5%'), color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
-                                </TouchableOpacity>
+                                <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
+                                    <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
+                                </View>
                             </View>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
-                                <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: 90, width: 90, borderRadius: hp('10%') }}
+                                <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: 90, width: 90, borderRadius: 100 }}
                                 />
                             </TouchableOpacity>
                         </View>
+
                         <View style={STYLES.styles.inputView}>
-                            <View style={{ marginTop: hp('-6%'), justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
+                            <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.ATTENDANCESCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_attendance_mzthkn.png' }} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_attendance_mzthkn.png' }}
+                                        style={{ height: 80, width: 80, borderRadius: 10, marginTop: 5 }}
                                     />
-                                    <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}>{attendencePercent} %</Text>
+                                    <View style={{ marginTop: 5 }}>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}>{attendencePercent} %</Text>
                                     </View>
-                                    <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%') }}>Attendance</Text>
+                                    <View style={{ marginTop: 5 }}>
+                                        <Text style={{ fontSize: 16, color: '#000000' }}>Attendance</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.FEESSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_fees_due_ksr4t7.png' }} style={{ height: 80, width: 80, borderRadius: hp('10%'), marginTop: hp('1%') }}
+                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_fees_due_ksr4t7.png' }}
+                                        style={{ height: 80, width: 80, borderRadius: 10, marginTop: 5 }}
                                     />
-                                    <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('3%'), fontWeight: 'bold' }}> ₹{StudentData.paymentterms[0].amount} </Text>
+                                    <View style={{ marginTop: 5 }}>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}> ₹{StudentData.paymentterms[0].amount} </Text>
                                     </View>
-                                    <View style={{ marginTop: hp('1%') }}>
-                                        <Text style={{ fontSize: hp('2.5%') }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>
+                                    <View style={{ marginTop: 5 }}>
+                                        <Text style={{ fontSize: 16, color: '#000000' }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate(SCREENNAME.PLAYQUIZLISTSCREEN)}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Play Quiz</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }}
+                                            style={{ height: 50, width: 50 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Play Quiz</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.ASSIGNMENTSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_assignment_izzt7a.png' }} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Assignment </Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_assignment_izzt7a.png' }}
+                                            style={{ height: 60, width: 40 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Assignment </Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.HOLIDAYSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_holiday_u8m9dr.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Holiday</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_holiday_u8m9dr.png' }}
+                                            style={{ height: 50, width: 80 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>School Holiday</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.TIMETABLESCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_calendra_nqdpkm.png' }} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Time Table </Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_calendra_nqdpkm.png' }}
+                                            style={{ height: 60, width: 54 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Time Table </Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row' }}>
+
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.QUIZRESULTSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_results_yiabkk.png' }} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Result</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_results_yiabkk.png' }}
+                                            style={{ height: 50, width: 42 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Result</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.DATESHEETSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_date_sheet_gg77cp.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Date Sheet </Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_date_sheet_gg77cp.png' }}
+                                            style={{ height: 50, width: 50 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Date Sheet </Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SCHOOLGALLERYSCREEN) }}>
-                                    <Image source={require('../../assets/image/ic_gallery.png')} style={{ height: 45, width: 42, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>School Gallery</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={require('../../assets/image/ic_gallery.png')}
+                                            style={{ height: 50, width: 50 }} />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>School Gallery</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.CHANGEPASSWORDSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451586/school%20Images/ic_password_dudhjb.png' }} style={{ height: 60, width: 40, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Change Password</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451586/school%20Images/ic_password_dudhjb.png' }}
+                                            style={{ height: 60, width: 40 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Change Password</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            {/* <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.LEAVEAPPLICATIONSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_gallery_jjdlhu.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Leave Application</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.ASKDOUBTSSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Ask Doubts</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View> */}
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SUPPORTSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Support</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }}
+                                            style={{ height: 50, width: 50 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Support</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.MEETINGSCREEN) }}>
-                                    <MaterialCommunityIcons name="video-box" size={60} color="#3c62aa" style={{ marginLeft: hp('2%'), marginTop: hp('2%') }} />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Meeting</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <MaterialCommunityIcons name="video-box" size={60} color="#3c62aa" />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Meeting</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: hp('3%'), justifyContent: 'space-around', flexDirection: 'row', marginBottom: hp('3%') }}>
+
+                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EVENTSCREEN) }}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }} style={{ height: 50, width: 50, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Events</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }}
+                                            style={{ height: 50, width: 50 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Events</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.onPressLogout()}>
-                                    <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_logout_imrsqf.png' }} style={{ height: 50, width: 45, marginTop: hp('2%'), marginLeft: hp('2.5%') }}
-                                    />
-                                    <View style={{ marginTop: hp('3%') }}>
-                                        <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2.5%') }}>Logout</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_logout_imrsqf.png' }}
+                                            style={{ height: 50, width: 45 }}
+                                        />
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Logout</Text>
+                                        </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
+                            <View style={{ marginTop: 20 }} />
                         </View>
                     </ScrollView>
-                    : <View style={STYLES.styles.loaderView}><Loader /></View>}
+                    : <View style={STYLES.styles.loaderView}><Loader /></View>
+                }
             </SafeAreaView>
         );
     }

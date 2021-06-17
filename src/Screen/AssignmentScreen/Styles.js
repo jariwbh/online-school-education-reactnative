@@ -1,5 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -9,14 +10,14 @@ const styles = StyleSheet.create({
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('5%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 20
     },
     innercardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderRadius: hp('2%'),
+        borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -24,56 +25,58 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('90%'),
-        marginTop: hp('2%')
+        width: WIDTH - 30,
+        marginTop: 5,
+        marginBottom: 10
     },
     selectFilebtn: {
-        width: wp('60%'),
+        width: WIDTH / 2 + 40,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 20,
+        height: 35,
+        marginBottom: 25,
+        borderRadius: 10
     },
     selectFilebtnDisable: {
-        width: wp('60%'),
+        width: WIDTH / 2 + 40,
         backgroundColor: '#6789CA',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 20,
+        height: 35,
+        marginBottom: 25,
+        borderRadius: 10
     },
     submitButton: {
-        width: wp('60%'),
+        width: WIDTH - 60,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 20,
+        height: 35,
+        marginBottom: 25,
+        borderRadius: 10
     },
     downloadButton: {
-        width: wp('60%'),
+        width: WIDTH - 60,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 20,
+        height: 35,
+        marginBottom: 25,
+        borderRadius: 10
     },
     submitButtonDisable: {
-        width: wp('60%'),
+        width: WIDTH - 60,
         backgroundColor: '#6789CA',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
-    }, AssignmentCardview: {
+        marginTop: 20,
+        height: 35,
+        marginBottom: 25,
+        borderRadius: 10
+    },
+    AssignmentCardview: {
         flexDirection: 'column',
-        borderRadius: hp('2%'),
+        borderRadius: 10,
         borderColor: '#000000',
         shadowOpacity: 0.1,
         shadowRadius: 1,
@@ -82,8 +85,8 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('90%'),
-        marginTop: hp('2%')
+        width: WIDTH - 30,
+        marginTop: 10
     },
 })
 

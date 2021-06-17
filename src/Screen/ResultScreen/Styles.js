@@ -1,7 +1,6 @@
-
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet, Dimensions } from 'react-native';
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -11,18 +10,18 @@ const styles = StyleSheet.create({
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('-5.5%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: -30,
     },
     innercardview1: {
         //  flex: 1,
         // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
+        // borderWidth: 0.5,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('2%'),
-        borderBottomLeftRadius: hp('2%'),
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -30,89 +29,85 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('50%'),
-        marginTop: hp('2%'),
-        //  height: hp('10%')
+        width: WIDTH / 2,
+        marginTop: 15,
+        //  height: 100
     },
     innercardview2: {
         //  flex: 1,
         // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
+        // borderWidth: 0.5,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        // borderRadius: hp('2%'),
+        // borderRadius: 10,
         shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowRadius: 1,
         shadowOffset: {
             height: 0,
             width: 0,
         },
         elevation: 2,
-        width: wp('20%'),
-        marginTop: hp('2%'),
-        // height: hp('10%')
+        width: WIDTH / 3,
+        marginTop: 15,
+        // height: 100
     },
     innercardview3: {
         //  flex: 1,
         // borderColor: '#2855AE',
-        // borderWidth: hp('0.2%'),
+        // borderWidth: 0.5,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderTopRightRadius: hp('2%'),
-        borderBottomRightRadius: hp('2%'),
+        borderTopRightRadius: 15,
+        borderBottomRightRadius: 15,
         shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowRadius: 1,
         shadowOffset: {
             height: 0,
             width: 0,
         },
         elevation: 2,
-        width: wp('20%'),
-        marginTop: hp('2%'),
-        //  height: hp('10%')
+        width: WIDTH / 3,
+        marginTop: 15,
+        // height: 100
     },
     pdfBtn: {
         flexDirection: 'row',
-        width: wp('85%'),
+        width: WIDTH / 2 + 50,
         backgroundColor: "#2855AE",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
+        borderRadius: 15,
+        height: 50,
         alignItems: "center",
         justifyContent: "center",
     },
     pdfText: {
         color: '#FFFFFF',
-        fontSize: hp('2.5%'),
+        fontSize: 14,
         fontWeight: 'bold',
-
     },
-
-
-
     // QuizResultScreen style
     cardView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('5%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 10,
     },
     innerCardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderRadius: hp('2%'),
+        borderRadius: 10,
         borderColor: '#000000',
-        borderWidth: hp('0.1%'),
+        borderWidth: 0.5,
         shadowOpacity: 0.5,
-        //shadowRadius: 3,
-        // shadowOffset: {
-        //     height: 0,
-        //     width: 0,
-        // },
-        // elevation: 2,
-        width: wp('90%'),
-        marginTop: hp('2%'),
-        marginBottom: hp('2%')
+        shadowRadius: 1,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
+        width: WIDTH - 30,
+        marginTop: 10,
+        marginBottom: 10
     },
 })
 

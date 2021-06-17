@@ -1,5 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native';
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -9,17 +10,16 @@ const styles = StyleSheet.create({
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('4%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 20,
     },
     innercardview: {
-        // flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
         borderColor: '#2855AE',
-        borderWidth: hp('0.2%'),
-        borderRadius: hp('2%'),
+        borderWidth: 0.5,
+        borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -27,10 +27,9 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('90%'),
-        //height: hp('30%'),
-        marginTop: hp('2%')
-    },
+        width: WIDTH - 30,
+        marginTop: 15
+    }
 })
 
 export { styles };

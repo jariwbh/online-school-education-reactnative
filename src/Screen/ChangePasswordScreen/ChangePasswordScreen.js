@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, ScrollView, ToastAndroid } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
+import { Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, ScrollView, ToastAndroid, Platform, Dimensions } from 'react-native'
 import { ChangePasswordService } from '../../Services/PasswordService/PasswordService'
 import { AUTHUSER, AUTHUSERINFO, LOGINSCREEN } from '../../Action/Type'
 import AsyncStorage from '@react-native-community/async-storage';
 import Loading from '../../Components/Loader/Loading';
 import * as STYLES from './Styles';
+const WIDTH = Dimensions.get('window').width;
 
 export default class ChangePasswordScreen extends Component {
     constructor(props) {
@@ -134,23 +134,41 @@ export default class ChangePasswordScreen extends Component {
             return;
         }
 
+        if (newPassword != retypePassword) {
+            if (Platform.OS === 'ios') {
+                alert("New Password Not Match");
+            } else {
+                ToastAndroid.show("New Password Not Match", ToastAndroid.LONG);
+            }
+            return;
+        }
+
         const body = {
             username: studentNumber,
             newpassword: newPassword
         }
+
         this.setState({ loading: true });
         try {
             await ChangePasswordService(body).then(response => {  //ChangePasswordService call api
                 if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                    ToastAndroid.show("Change Password Success!", ToastAndroid.LONG);
+                    if (Platform.OS === 'ios') {
+                        alert("Change Password Success!");
+                    } else {
+                        ToastAndroid.show("Change Password Success!", ToastAndroid.LONG);
+                    }
                     this.resetScreen();
-                    return
+                    return;
                 }
             })
         }
         catch (error) {
             this.setState({ loading: false });
-            ToastAndroid.show("Your Password Not Change!", ToastAndroid.LONG);
+            if (Platform.OS === 'ios') {
+                alert("Your Password Not Change!");
+            } else {
+                ToastAndroid.show("Your Password Not Change!", ToastAndroid.LONG);
+            }
         }
     }
 
@@ -161,8 +179,8 @@ export default class ChangePasswordScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={STYLES.styles.cardview}>
                         <View>
-                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
-                                <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Old Password</Text>
+                            <View style={{ marginTop: 25, marginLeft: 25 }}>
+                                <Text style={{ color: '#A5A5A5', fontSize: 14 }}>Old Password</Text>
                             </View>
                             <View >
                                 <TextInput
@@ -180,11 +198,11 @@ export default class ChangePasswordScreen extends Component {
                                     onChangeText={(oldpassword) => this.setoldPassword(oldpassword)}
                                 />
                             </View>
-                            <Text style={{ fontSize: hp('2%'), marginLeft: wp('10%'), textAlign: 'justify', color: '#ff0000' }}>{this.state.oldMatchPassword && this.state.oldMatchPassword}</Text>
+                            <Text style={{ fontSize: 12, marginLeft: 30, textAlign: 'justify', color: '#ff0000' }}>{this.state.oldMatchPassword && this.state.oldMatchPassword}</Text>
                         </View>
                         <View>
-                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
-                                <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>New Password</Text>
+                            <View style={{ marginTop: 5, marginLeft: 25 }}>
+                                <Text style={{ color: '#A5A5A5', fontSize: 14 }}>New Password</Text>
                             </View>
                             <View >
                                 <TextInput
@@ -205,8 +223,8 @@ export default class ChangePasswordScreen extends Component {
                             </View>
                         </View>
                         <View>
-                            <View style={{ marginTop: hp('5%'), marginLeft: hp('5%') }}>
-                                <Text style={{ color: '#A5A5A5', fontSize: hp('2.5%') }}>Retype Password</Text>
+                            <View style={{ marginTop: 25, marginLeft: 25 }}>
+                                <Text style={{ color: '#A5A5A5', fontSize: 14 }}>Retype Password</Text>
                             </View>
                             <View >
                                 <TextInput
@@ -225,8 +243,8 @@ export default class ChangePasswordScreen extends Component {
                                 />
                             </View>
                         </View>
-                        <Text style={{ fontSize: hp('2%'), marginLeft: wp('10%'), textAlign: 'justify', color: '#ff0000' }}>{this.state.matchPassword && this.state.matchPassword}</Text>
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: hp('5%') }}>
+                        <Text style={{ fontSize: 12, marginLeft: 50, textAlign: 'justify', color: '#ff0000' }}>{this.state.matchPassword && this.state.matchPassword}</Text>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
                             <TouchableOpacity
                                 style={loading == true ? STYLES.styles.cpBtnLoading : STYLES.styles.cpBtn}
                                 disabled={loading == true ? true : false}
@@ -235,7 +253,7 @@ export default class ChangePasswordScreen extends Component {
                             </TouchableOpacity>
                         </View>
                         <View>
-                            <Image source={require('../../assets/image/1.png')} style={{ width: wp('100%'), height: hp('22%'), marginTop: hp('4%') }} />
+                            <Image source={require('../../assets/image/1.png')} style={{ width: WIDTH, height: 150, marginTop: 50 }} />
                         </View>
                     </View>
                 </ScrollView>

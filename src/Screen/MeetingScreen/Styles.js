@@ -1,6 +1,5 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native'
-
+import { StyleSheet, Dimensions } from 'react-native'
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -10,43 +9,46 @@ const styles = StyleSheet.create({
     cardview: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('4%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 20,
     },
     innercardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderRadius: hp('2%'),
-        shadowOpacity: 2,
-        shadowRadius: 3,
+        borderRadius: 10,
         shadowOffset: {
             height: 0,
             width: 0,
         },
-        elevation: 5,
-        width: wp('90%'),
-        marginTop: hp('1%'),
-        marginBottom: hp('2%')
-    }, meetingbtn: {
-        width: wp('60%'),
+        elevation: 1,
+        width: WIDTH - 30,
+        marginTop: 5,
+        marginBottom: 10,
+        borderWidth: 0.5,
+        borderColor: '#999999'
+    },
+    meetingbtn: {
+        width: WIDTH / 2 + 50,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginLeft: hp('0%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 25,
+        height: 40,
+        marginBottom: 20,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     meetingErrorbtn: {
-        width: wp('60%'),
+        width: WIDTH / 2 + 50,
         backgroundColor: '#82a2e3',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginLeft: hp('0%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 25,
+        height: 40,
+        marginBottom: 20,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })
 

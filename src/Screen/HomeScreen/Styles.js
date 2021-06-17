@@ -1,5 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -9,27 +10,27 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
         resizeMode: "cover",
-        width: wp('100%'),
-        height: hp('100%'),
+        width: WIDTH,
+        height: HEIGHT,
     },
     inputView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('10%')
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 50
     },
     loaderView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('30%')
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 150
     },
     cardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderRadius: hp('2%'),
+        borderRadius: 15,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -37,14 +38,15 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('40%'),
-        height: hp('25%'),
-        alignItems: 'center'
+        width: 150,
+        height: 160,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     cardView: {
         flexDirection: 'column',
         backgroundColor: "#F5F6FC",
-        borderRadius: hp('2%'),
+        borderRadius: 15,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -52,10 +54,8 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('40%'),
-        height: hp('25%'),
-
-        //  alignItems: 'center'
+        width: 150,
+        height: 140,
     }
 })
 

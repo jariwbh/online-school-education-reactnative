@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, FlatList, RefreshControl } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { getAllPlayQuizService } from '../../Services/PlayQuizService/PlayQuizService';
 import { AUTHUSER, LOGINSCREEN, PLAYQUIZSTARTSCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -65,26 +64,26 @@ export default class PlayQuizList extends Component {
     renderPlayQuizList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: hp('2%'), marginTop: hp('1%'), }}>
-                    <Text style={{ fontSize: hp('2.5%'), flex: 1, color: '#000000', textTransform: 'capitalize' }}>{item.title}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, flex: 1, color: '#000000', textTransform: 'capitalize' }}>{item.title}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), padding: hp('0.8%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Exam Date</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#3A3A3A' }}>{moment(item.startdatetime).format('LL')}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Exam Date</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.startdatetime).format('LL')}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('0%'), padding: hp('0.8%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>End Date</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#3A3A3A' }}>{moment(item.enddatetime).format('LL')}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>End Date</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.enddatetime).format('LL')}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('0%'), padding: hp('0.8%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>Duration</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), color: '#3A3A3A' }}>{item.time + ' ' + 'Minutes'}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Duration</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.time + ' ' + 'Minutes'}</Text>
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <TouchableOpacity
                         style={STYLES.styles.viewButton}
                         onPress={() => { this.props.navigation.navigate(PLAYQUIZSTARTSCREEN, { item }) }}>
-                        <Text style={{ fontSize: hp('2.5%'), color: '#FFFFFF', marginTop: hp('1%') }}>VIEW DETAILS</Text>
+                        <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>VIEW DETAILS</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -98,18 +97,18 @@ export default class PlayQuizList extends Component {
                 <View style={STYLES.styles.inputView}>
                     {(playQuizList == null) || (playQuizList && playQuizList.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>Play Quiz Not Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>Play Quiz Not Available</Text>
                             : <Loader />
                         )
                         :
-                        <View style={{ marginTop: hp('3%') }}>
+                        <View style={{ marginTop: 25 }}>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <FlatList
                                     data={playQuizList}
                                     renderItem={this.renderPlayQuizList}
                                     keyExtractor={item => item._id}
                                 />
-                                <View style={{ marginBottom: hp('3%') }}></View>
+                                <View style={{ marginBottom: 25 }}></View>
                             </ScrollView>
                         </View>
                     }

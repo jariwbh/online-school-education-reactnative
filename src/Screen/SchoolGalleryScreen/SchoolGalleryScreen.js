@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import SchoolGalleryService from '../../Services/SchoolGalleryService/SchoolGalleryService';
-import { View, SafeAreaView, Image, FlatList, ScrollView, Text } from 'react-native'
+import { View, SafeAreaView, Image, FlatList, ScrollView, Text, Dimensions, TouchableOpacity } from 'react-native'
 import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
+import * as SCREEN from '../../Action/Type';
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 export default class SchoolGalleryScreen extends Component {
     constructor(props) {
@@ -16,10 +18,11 @@ export default class SchoolGalleryScreen extends Component {
 
     //Render SchoolGallery using FlatList
     renderSecondRoute = ({ item }) => (
-        <View style={{ marginTop: hp('2%'), justifyContent: "space-between", margin: 15 }}>
+        <TouchableOpacity onPress={() => this.viewImage(item)}
+            style={{ marginTop: 15, justifyContent: "space-between", margin: 15 }}>
             <Image source={{ uri: item.property.documents[0].attachment }}
-                style={{ height: hp('30%'), width: wp('40%'), borderRadius: hp('2%') }} />
-        </View>
+                style={{ height: HEIGHT / 3, width: WIDTH / 3 + 20, borderRadius: 10 }} />
+        </TouchableOpacity>
     )
 
     //SchoolGallery Service Api
@@ -30,6 +33,14 @@ export default class SchoolGalleryScreen extends Component {
                 this.wait(1000).then(() => this.setState({ loader: false }));
             }
         })
+    }
+
+    viewImage(val) {
+        let viewimage;
+        if (val.property.documents[0].attachment != null) {
+            viewimage = val.property.documents[0].attachment
+            this.props.navigation.navigate(SCREEN.VIEWIMAGE, { viewimage })
+        }
     }
 
     wait = (timeout) => {
@@ -49,12 +60,12 @@ export default class SchoolGalleryScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(this.state.SchoolGalleryList == null) || (this.state.SchoolGalleryList && this.state.SchoolGalleryList.length == 0) ?
                         (this.state.loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Data Found</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Data Found</Text>
                             : <Loader />
                         )
                         :
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={{ alignItems: 'center', marginBottom: hp('1%') }}>
+                            <View style={{ alignItems: 'center', marginBottom: 5 }}>
                                 <FlatList
                                     numColumns={2}
                                     data={this.state.SchoolGalleryList}

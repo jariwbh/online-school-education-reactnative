@@ -1,5 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -9,14 +10,14 @@ const styles = StyleSheet.create({
     inputView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('4%'),
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: 20
     },
     innercardview: {
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderRadius: hp('2%'),
+        borderRadius: 10,
         shadowOpacity: 0.5,
         shadowRadius: 3,
         shadowOffset: {
@@ -24,74 +25,75 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: wp('90%'),
-        marginBottom: hp('2%')
+        width: WIDTH - 30,
+        marginBottom: 10
     },
     viewButton: {
-        width: wp('60%'),
+        width: WIDTH / 2 + 50,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('5%'),
-        height: hp('6%'),
-        marginBottom: hp('3%'),
-        borderRadius: hp('2%')
+        marginTop: 25,
+        height: 40,
+        marginBottom: 20,
+        borderRadius: 10,
+        justifyContent: 'center'
     },
     nextButton: {
-        width: wp('30%'),
+        width: WIDTH / 3,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('1%'),
-        height: hp('7%'),
-        marginBottom: hp('3%'),
-        marginLeft: wp('5%'),
-        marginRight: wp('5%'),
-        borderRadius: hp('3%'),
+        marginTop: 5,
+        height: 40,
+        marginBottom: 5,
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 20,
         justifyContent: 'center'
     },
     prevButton: {
-        width: wp('30%'),
+        width: WIDTH / 3,
         backgroundColor: '#2855AE',
         alignItems: 'center',
-        marginTop: hp('1%'),
-        height: hp('7%'),
-        marginBottom: hp('3%'),
-        marginLeft: wp('5%'),
-        marginRight: wp('5%'),
-        borderRadius: hp('3%'),
+        marginTop: 5,
+        height: 40,
+        marginBottom: 5,
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 20,
         justifyContent: 'center'
     },
     prevButtonDisable: {
-        width: wp('30%'),
+        width: WIDTH / 3,
         backgroundColor: '#82a2e3',
         alignItems: 'center',
-        marginTop: hp('1%'),
-        height: hp('7%'),
-        marginBottom: hp('3%'),
-        marginLeft: wp('5%'),
-        marginRight: wp('5%'),
-        borderRadius: hp('3%'),
+        marginTop: 5,
+        height: 40,
+        marginBottom: 5,
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 20,
         justifyContent: 'center'
-    }, optionbtn: {
-        width: wp('75%'),
-        borderRadius: hp('3%'),
+    },
+    optionbtn: {
+        width: WIDTH - 90,
+        borderRadius: 100,
         alignItems: 'center',
-        height: hp('7%'),
+        height: 40,
         borderColor: '#bfbfbf',
-        borderWidth: hp('0.2%'),
-        margin: hp('2%'),
+        borderWidth: 1,
+        margin: 10,
         flexDirection: 'row',
     },
     optionselectedbtn: {
-        width: wp('75%'),
-        borderRadius: hp('3%'),
+        width: WIDTH - 90,
+        borderRadius: 100,
         alignItems: 'center',
-        height: hp('7%'),
+        height: 40,
         borderColor: '#82a2e3',
         backgroundColor: '#82a2e3',
-        borderWidth: hp('0.2%'),
-        margin: hp('2%'),
+        borderWidth: 1,
+        margin: 10,
         flexDirection: 'row',
-
     }
 })
 

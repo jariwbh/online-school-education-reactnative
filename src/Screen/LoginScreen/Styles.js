@@ -1,5 +1,6 @@
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -8,55 +9,54 @@ const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        width: wp('100%'),
-        height: hp('100%'),
+        width: WIDTH,
+        height: HEIGHT,
     },
     inputView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: hp('5%'),
-        borderTopRightRadius: hp('5%'),
-        marginTop: hp('1%'),
-        height: hp('70%')
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        marginTop: 10,
+        height: HEIGHT / 2 + 100
     },
     TextInput: {
-        width: wp('80%'),
-        height: hp('8%'),
-        fontSize: hp('2.5%'),
-        marginLeft: hp('5%'),
-        marginTop: hp('-1%'),
+        width: WIDTH - 60,
+        height: 50,
+        fontSize: 14,
+        marginLeft: 30
     },
     loginBtn: {
         flexDirection: 'row',
-        width: wp('85%'),
+        width: WIDTH - 60,
         backgroundColor: "#2855AE",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
+        borderRadius: 10,
+        height: 50,
         alignItems: "center",
         justifyContent: "center",
     },
     loginBtnLoading: {
         flexDirection: 'row',
-        width: wp('85%'),
+        width: WIDTH - 60,
         backgroundColor: "#6789CA",
-        borderRadius: wp('2%'),
-        height: hp('8%'),
+        borderRadius: 10,
+        height: 50,
         alignItems: "center",
         justifyContent: "center",
     },
     loginText: {
         color: '#FFFFFF',
-        fontSize: hp('2.5%'),
+        fontSize: 14,
         fontWeight: 'bold',
     },
     baseText: {
         fontWeight: 'normal',
         color: '#2855AE',
-        fontSize: hp('2%'),
+        fontSize: 12,
     },
     innerText: {
         color: '#737373',
-        fontSize: hp('2%'),
+        fontSize: 12,
     },
 })
 

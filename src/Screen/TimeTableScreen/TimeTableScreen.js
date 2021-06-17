@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
-import { heightPercentageToDP as hp, widthPercentageToDP as wp, } from 'react-native-responsive-screen'
 import { timeTableService } from '../../Services/TimeTableService/TimeTableService'
 import AsyncStorage from '@react-native-community/async-storage'
 import Loader from '../../Components/Loader/Loader'
@@ -96,22 +95,23 @@ export default class TimeTableScreen extends Component {
     renderTimeTable = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.lessonid.subjectid.title}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.lessonid.subjectid.title}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777' }}>{(item.starttime) + '-' + (item.endtime)}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{(item.starttime) + '-' + (item.endtime)}</Text>
                 </View>
-                <View style={{ alignItems: 'center', marginTop: hp('2%'), flexDirection: 'row' }}>
-                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
+                    <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE', }} />
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: hp('1%'), marginBottom: hp('1%') }}>
-                    <Text style={{ fontSize: hp('2.5%'), marginLeft: hp('2%'), color: '#777777', textTransform: 'capitalize' }}>{item.trainerid[0].property.fullname}</Text>
-                    <Text style={{ fontSize: hp('2.5%'), marginRight: hp('2%'), fontWeight: 'bold', textTransform: 'capitalize' }}>{item.lessonid.title}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5, marginBottom: 10 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777', textTransform: 'capitalize' }}>{item.trainerid[0].property.fullname}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{item.lessonid.title}</Text>
                 </View>
             </View>
         </View>
     )
+
     render() {
         const { timeTable, loader, refreshing, status } = this.state
         return (
@@ -119,7 +119,7 @@ export default class TimeTableScreen extends Component {
                 <View style={STYLES.styles.cardview}>
                     {(timeTable == null) || (timeTable && timeTable.length == 0) ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: hp('2.5%'), color: '#747474', marginTop: hp('10%') }}>No Time Table Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Time Table Available</Text>
                             : <Loader />
                         )
                         :
@@ -141,7 +141,7 @@ export default class TimeTableScreen extends Component {
                                     renderItem={this.renderTimeTable}
                                     keyExtractor={item => `${item._id}`}
                                 />
-                                <View style={{ marginBottom: hp('5%') }}></View>
+                                <View style={{ marginBottom: 50 }}></View>
                             </ScrollView>
                         </View>
                     }
