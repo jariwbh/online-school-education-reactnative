@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: 150,
-        height: 160,
+        width: 180,
+        height: 200,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: 150,
+        width: 180,
         height: 140,
     }
 })

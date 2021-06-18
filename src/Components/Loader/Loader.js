@@ -22,17 +22,17 @@ const styles = StyleSheet.create({
     modalBackground: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     activityIndicatorWrapper: {
         height: 100,
         width: 100,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     activityIndicator: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 80,
-    },
+        height: 80
+    }
 });
