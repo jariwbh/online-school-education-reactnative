@@ -16,9 +16,9 @@ export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
+            username: 'SCHOOL10001',
             usererror: null,
-            password: null,
+            password: 'SCHOOL10001',
             passworderror: null,
             loading: false,
         };
@@ -109,7 +109,7 @@ export default class LoginScreen extends Component {
                             alert("Username and Password Invalid!");
                         }
                         this.resetScreen();
-                        return
+                        return;
                     }
 
                     if (response.data != null && response.data != 'undefind' && response.status == 200) {
@@ -125,8 +125,7 @@ export default class LoginScreen extends Component {
                         }
                         this.setState({ loading: false })
                         this.props.navigation.navigate(MAINSCREEN)
-                        //this.resetScreen();
-                        return
+                        return;
                     }
                 })
         }

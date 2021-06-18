@@ -1,9 +1,16 @@
 import Axios from '../../Helpers/appConfig'
 
-const UpdateStudentService = (value) => {
-    let id = value._id
-    const body = JSON.stringify(value);
-    return Axios.put('members/updateprofilepic/' + id, body);
+const UpdateStudentService = (id, body) => {
+    return Axios.put('members/' + id, body);
 }
 
-export { UpdateStudentService };
+const UpdateStudentProfilePicService = (id, body) => {
+    return Axios.patch('members/' + id, body);
+}
+
+
+const getStudentService = (id) => {
+    return Axios.get(`members/${id}`);
+}
+
+export { UpdateStudentService, getStudentService, UpdateStudentProfilePicService };

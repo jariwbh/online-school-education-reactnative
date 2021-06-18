@@ -8,6 +8,7 @@ import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
 import moment from 'moment';
 import * as SCREENNAME from '../../Action/Type'
+import { getStudentService } from '../../Services/StudentService/StudentService';
 const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
 
 class HomeScreen extends Component {
@@ -49,6 +50,18 @@ class HomeScreen extends Component {
         })
     }
 
+    //add local storage Records
+    authenticateUser = (student) => (
+        AsyncStorage.setItem(AUTHUSER, JSON.stringify(student))
+    )
+
+    //get student Attendence Calculate Service
+    async getStudent(id) {
+        return getStudentService(id).then(response => {
+            this.authenticateUser(response.data);
+        })
+    }
+
     //get local storage fetch infomation 
     getStudentData = async () => {
         var getUser = await AsyncStorage.getItem(AUTHUSER)
@@ -58,8 +71,9 @@ class HomeScreen extends Component {
             }, 3000);
         } else {
             var userData;
-            userData = JSON.parse(getUser)
-            this.getAttendenceCalculateService(userData._id)
+            userData = JSON.parse(getUser);
+            this.getAttendenceCalculateService(userData._id);
+            this.getStudent(userData._id);
             this.wait(3000).then(() => this.setState({
                 loader: false,
                 StudentData: userData,
@@ -100,11 +114,12 @@ class HomeScreen extends Component {
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                         <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: 20 }}>
                             <View style={{ width: '50%' }}>
-                                <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.property.fullname} </Text>
+                                <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.fullname} </Text>
                                 <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
                                 <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
                                     <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
+                                    <MaterialCommunityIcons name="barcode-scan" size={25} color="#000000" />
                                 </View>
                             </View>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>

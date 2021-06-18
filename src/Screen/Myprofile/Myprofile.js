@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, SafeAreaView, TouchableOpacity, ScrollView, Image, ToastAndroid, Platform } from 'react-native';
-import { UpdateStudentService } from '../../Services/StudentService/StudentService'
+import { UpdateStudentProfilePicService } from '../../Services/StudentService/StudentService'
 import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWFULLPICTURESCREEN } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
@@ -96,19 +96,17 @@ export default class Myprofile extends Component {
 
     //UPDATE PROFILE PICTURE API CALL
     async UpdateStudentService() {
-        let profileObj = {
-            _id: this.state.studentId,
-            profilepic: this.state.newProfilePath
-        }
+        const { studentId, newProfilePath, studentInfo } = this.state;
+        let profileObj = studentInfo;
+        profileObj.profilepic = newProfilePath;
         try {
-            await UpdateStudentService(profileObj).then(response => {
+            await UpdateStudentProfilePicService(studentId, profileObj).then(response => {
                 if (response.data != null && response.data != 'undefind' && response.status == 200) {
-                    this.state.studentInfo.profilepic = this.state.newProfilePath;
-                    this.authenticateUser(this.state.studentInfo);
+                    this.authenticateUser(profileObj);
                     if (Platform.OS === 'ios') {
-                        alert("Your Profile Update!");
+                        alert("Your Profile Update");
                     } else {
-                        ToastAndroid.show("Your Profile Update!", ToastAndroid.LONG);
+                        ToastAndroid.show("Your Profile Update", ToastAndroid.LONG);
                     }
                     this.props.navigation.replace(HOMESCREEN);
                 }
@@ -121,7 +119,6 @@ export default class Myprofile extends Component {
             } else {
                 ToastAndroid.show("Your Profile Not Update!", ToastAndroid.LONG);
             }
-
         }
     }
 
@@ -192,7 +189,7 @@ export default class Myprofile extends Component {
                                                 </TouchableOpacity>
                                             </View>
                                             <View style={{ marginTop: 8, width: '65%' }}>
-                                                <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{studentInfo.property.fullname}</Text>
+                                                <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{studentInfo.fullname}</Text>
                                                 <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#777777', marginTop: 5 }}>{studentInfo.membershipid.membershipname}  |  Roll no: {studentInfo.property.roll_number}</Text>
                                             </View>
                                         </View>
@@ -299,7 +296,7 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View pointerEvents="none" style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        defaultValue={studentInfo.property.email}
+                                        defaultValue={studentInfo.property.primaryemail}
                                         style={STYLES.styles.TextInput1}
                                         placeholder="--"
                                         placeholderTextColor="#323643"
@@ -318,7 +315,26 @@ export default class Myprofile extends Component {
                                 </View>
                                 <View pointerEvents="none" style={{ flexDirection: 'row' }}>
                                     <TextInput
-                                        defaultValue={studentInfo.property.mobile_number}
+                                        defaultValue={studentInfo.property.mobile}
+                                        style={STYLES.styles.TextInput1}
+                                        placeholder="--"
+                                        placeholderTextColor="#323643"
+                                        underlineColorAndroid="#A5A5A5"
+                                    />
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            <View>
+                                <View style={{ marginTop: 15, marginLeft: 24 }}>
+                                    <Text style={{ color: '#A5A5A5', fontSize: 14 }}>Address</Text>
+                                </View>
+                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
+                                    <TextInput
+                                        defaultValue={studentInfo.property.address}
                                         style={STYLES.styles.TextInput1}
                                         placeholder="--"
                                         placeholderTextColor="#323643"
@@ -338,25 +354,6 @@ export default class Myprofile extends Component {
                                 <View pointerEvents="none" style={{ flexDirection: 'row' }}>
                                     <TextInput
                                         defaultValue={studentInfo.property.city}
-                                        style={STYLES.styles.TextInput1}
-                                        placeholder="--"
-                                        placeholderTextColor="#323643"
-                                        underlineColorAndroid="#A5A5A5"
-                                    />
-                                    <View>
-                                        <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </View>
-                            <View>
-                                <View style={{ marginTop: 15, marginLeft: 24 }}>
-                                    <Text style={{ color: '#A5A5A5', fontSize: 14 }}>State</Text>
-                                </View>
-                                <View pointerEvents="none" style={{ flexDirection: 'row' }}>
-                                    <TextInput
-                                        defaultValue={studentInfo.property.state}
                                         style={STYLES.styles.TextInput1}
                                         placeholder="--"
                                         placeholderTextColor="#323643"

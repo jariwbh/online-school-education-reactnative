@@ -112,7 +112,7 @@ export class FeesScreen extends Component {
             <View style={STYLES.styles.innercardview}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Receipt No.</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>#{item.receiptnumberprefix + '-' + item.receiptnumber}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>#{item.docnumber}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 10, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
