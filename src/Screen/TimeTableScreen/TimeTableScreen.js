@@ -46,8 +46,10 @@ export default class TimeTableScreen extends Component {
             }, 3000);
         } else {
             this.studentDetails = JSON.parse(getUser);
+
             let data = {
                 classid: this.studentDetails.classid,
+                // couresid: this.studentDetails.membershipid._id,
                 date: moment().format('YYYY-MM-DD')
             }
             await this.getTimeTable(data);
@@ -59,7 +61,7 @@ export default class TimeTableScreen extends Component {
     getTimeTable(data) {
         timeTableService(data).then(response => {
             this.setState({ timeTable: response.data });
-            this.wait(1000).then(() => this.setState({ loader: false }));
+            this.setState({ loader: false });
         });
     }
 

@@ -23,7 +23,7 @@ export default class SupportScreen extends Component {
         } else {
             var userData = JSON.parse(getUser);
             this.setState({
-                supportnumber: userData.branchid.supportnumber ? userData.branchid.supportnumber : null,
+                supportnumber: userData.branchid.companyphone ? userData.branchid.companyphone : null,
                 supportemail: userData.branchid.supportemail ? userData.branchid.supportemail : null
             });
         }

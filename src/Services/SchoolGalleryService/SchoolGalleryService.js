@@ -2,14 +2,12 @@ import Axios from '../../Helpers/appConfig'
 
 const body =
 {
-    "search": [{
-        "searchfield": "formid", "searchvalue": "5ced12b88f6dad23b892185d", "criteria": "eq", "datatype": "ObjectId"
-    },
-    { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }], "formname": "poscategory"
+    "search": [
+        { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }]
 }
 
 function SchoolGalleryService() {
-    return Axios.post('formdatas/filter', body);
+    return Axios.post('documents/filter', body);
 }
 
 export default SchoolGalleryService;

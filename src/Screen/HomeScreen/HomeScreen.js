@@ -117,9 +117,11 @@ class HomeScreen extends Component {
                                 <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.fullname} </Text>
                                 <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
-                                <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
-                                    <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
-                                    <MaterialCommunityIcons name="barcode-scan" size={25} color="#000000" />
+                                <View style={{ flexDirection: 'row' }}>
+                                    <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
+                                        <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
+                                    </View>
+                                    <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" style={{ marginTop: 5, marginLeft: 20 }} />
                                 </View>
                             </View>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>

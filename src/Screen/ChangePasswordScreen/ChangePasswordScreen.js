@@ -144,13 +144,15 @@ export default class ChangePasswordScreen extends Component {
         }
 
         const body = {
-            username: studentNumber,
-            newpassword: newPassword
+            "newpassword": newPassword,
+            "username": studentNumber
         }
+        console.log(`body`, body);
 
         this.setState({ loading: true });
         try {
             await ChangePasswordService(body).then(response => {  //ChangePasswordService call api
+                console.log(`response.data`, response.data);
                 if (response.data != null && response.data != 'undefind' && response.status == 200) {
                     if (Platform.OS === 'ios') {
                         alert("Change Password Success!");
@@ -163,6 +165,7 @@ export default class ChangePasswordScreen extends Component {
             })
         }
         catch (error) {
+            console.log(`error`, error);
             this.setState({ loading: false });
             if (Platform.OS === 'ios') {
                 alert("Your Password Not Change!");

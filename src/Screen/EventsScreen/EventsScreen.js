@@ -7,7 +7,6 @@ import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
 import * as STYLES from './Styles';
 import moment from 'moment'
-
 const Eventicon = 'https://res.cloudinary.com/dphukth24/image/upload/v1613462857/dp_bg_vsci5n.png'
 
 export default class EventsScreen extends Component {
@@ -23,7 +22,7 @@ export default class EventsScreen extends Component {
     getEventList() {
         EventListService().then(response => {
             this.setState({ EventList: response.data })
-            this.wait(1000).then(() => this.setState({ loader: false }));
+            this.setState({ loader: false });
         });
     }
 
@@ -48,17 +47,17 @@ export default class EventsScreen extends Component {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate(FEEDSDETAILSSCREEN, { item })}>
                 <View style={{ flexDirection: 'column', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#313131' }}>{item.eventname}</Text>
+                    <Text style={{ fontSize: 16, marginLeft: 15, color: '#313131', textTransform: 'capitalize' }}>{item.title}</Text>
                 </View>
                 <View style={{ marginLeft: 20, flexDirection: 'row', marginTop: 15 }} >
-                    <Image source={{ uri: item.gallery ? item.gallery : Eventicon }} style={{ height: 100, width: 100, borderRadius: 10 }} />
-                    <View style={{ marginLeft: 7, flexDirection: 'column' }}>
+                    <Image source={{ uri: item.property.gallery ? item.property.gallery : Eventicon }} style={{ height: 80, width: 80, borderRadius: 10 }} />
+                    <View style={{ marginLeft: 10, flexDirection: 'column' }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Fontisto name="clock" size={15} color="#6789CA" />
-                            <Text style={{ fontSize: 12, marginLeft: 5, color: '#6789CA' }}>{moment(item.startdate).format('LLL')}</Text>
+                            <Text style={{ fontSize: 12, marginLeft: 5, color: '#6789CA' }}>{moment(item.property.startdate).format('LLL')}</Text>
                         </View>
-                        <View style={{ marginRight: 100 }}>
-                            <HTML baseFontStyle={{ fontSize: 12, textTransform: 'capitalize', color: '#555555' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
+                        <View style={{ marginRight: 100, width: '70%', marginTop: 5 }}>
+                            <HTML baseFontStyle={{ fontSize: 12, textTransform: 'capitalize', color: '#555555' }} html={`<html> ${item.property.description.length < 100 ? `${item.property.description}` : `${item.property.description.substring(0, 100)}...`} </html>`} />
                         </View>
                     </View>
                 </View>

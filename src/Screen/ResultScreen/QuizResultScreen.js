@@ -64,11 +64,11 @@ export default class QuizResultScreen extends Component {
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Duration</Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.timetaken + ' ' + 'Minutes'}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.timetaken && item.timetaken + ' ' + 'Minutes'}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Total Marks </Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.totalpositivemarks + ' ' + 'Marks'}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.totalpositivemarks && item.totalpositivemarks + ' ' + 'Marks'}</Text>
             </View>
         </View>
     )

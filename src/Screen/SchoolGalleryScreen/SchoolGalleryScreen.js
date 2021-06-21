@@ -20,7 +20,7 @@ export default class SchoolGalleryScreen extends Component {
     renderSecondRoute = ({ item }) => (
         <TouchableOpacity onPress={() => this.viewImage(item)}
             style={{ marginTop: 15, justifyContent: "space-between", margin: 15 }}>
-            <Image source={{ uri: item.property.documents[0].attachment }}
+            <Image source={{ uri: item.path }}
                 style={{ height: HEIGHT / 3, width: WIDTH / 3 + 20, borderRadius: 10 }} />
         </TouchableOpacity>
     )
@@ -29,16 +29,15 @@ export default class SchoolGalleryScreen extends Component {
     getSchoolGalleryService() {
         SchoolGalleryService().then(response => {
             if (response.status == 200 && response.data != null) {
-                this.setState({ SchoolGalleryList: response.data })
-                this.wait(1000).then(() => this.setState({ loader: false }));
+                this.setState({ SchoolGalleryList: response.data, loader: false });
             }
         })
     }
 
     viewImage(val) {
         let viewimage;
-        if (val.property.documents[0].attachment != null) {
-            viewimage = val.property.documents[0].attachment
+        if (val.path != null) {
+            viewimage = val.path;
             this.props.navigation.navigate(SCREEN.VIEWIMAGE, { viewimage })
         }
     }

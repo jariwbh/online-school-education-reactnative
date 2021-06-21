@@ -34,11 +34,6 @@ const getExamResult = (id) => {
             "searchvalue": "active",
             "criteria": "eq",
             "datatype": "text"
-        }, {
-            "searchfield": "studentid",
-            "searchvalue": id,
-            "criteria": "eq",
-            "datatype": "objectId"
         }], "sort": { "createdAt": -1 }
     }
     return Axios.post('examresults/filter', body)
