@@ -26,7 +26,8 @@ import PlayQuizList from '../Screen/Playquiz/PlayQuizList';
 import BackButton from '../Components/BackButton/BackButton';
 import ViewFullPicture from '../Screen/Myprofile/ViewFullPicture';
 import ViewImage from '../Screen/SchoolGalleryScreen/ViewImage';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN } from '../Action/Type';
+import ScanScreen from '../Screen/HomeScreen/ScanScreen';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SCANSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -46,6 +47,8 @@ function MainNavigation({ navigation }) {
     return (
         <HomeStack.Navigator headerMode='screen' initialRouteName='HomeScreen'>
             <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
+
+            <HomeStack.Screen name="ScanScreen" options={{ title: "", headerShown: false }} component={ScanScreen} />
 
             <HomeStack.Screen name="FeesScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Fees Due',

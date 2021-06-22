@@ -42,7 +42,7 @@ export default class AttendanceScreen extends Component {
             this.studentDetails = JSON.parse(getUser);
             let data = {
                 id: this.studentDetails._id,
-                datRange: { "$gte": this.startDate, "$lte": this.today }
+                datRange: { gte: this.startDate, lte: this.today }
             }
             await this.getHolidayService();
             await this.getAttendenceService(data);
@@ -89,7 +89,6 @@ export default class AttendanceScreen extends Component {
                 combineArray.push(moment(element.property.date).format('YYYY-MM-DD'))
             }
         });
-
         await this.state.attendenceList.forEach(element => {
             if (element && element.checkin) combineArray.push(moment(element.checkin).format('YYYY-MM-DD'))
         });
@@ -168,7 +167,7 @@ export default class AttendanceScreen extends Component {
         }
         let data = {
             id: this.studentDetails._id,
-            datRange: { "$gte": this.startDate, "$lte": this.endDate }
+            datRange: { gte: this.startDate, lte: this.endDate }
         }
         await this.getAttendenceService(data);
         await this.getHolidayService();

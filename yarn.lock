@@ -931,6 +931,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@react-native-async-storage/async-storage@^1.13.4":
+  version "1.15.5"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.15.5.tgz#0d221a5ef1cd7a6494a42fcaad43136d68379afb"
+  integrity sha512-4AYehLH39B9a8UXCMf3ieOK+G61wGMP72ikx6/XSMA0DUnvx0PgaeaT2Wyt06kTrDTy8edewKnbrbeqwaM50TQ==
+  dependencies:
+    deep-assign "^3.0.0"
+
 "@react-native-community/async-storage@^1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"
@@ -5670,6 +5677,12 @@ react-native-calendars@^1.1249.0:
     react-native-swipe-gestures "^1.0.5"
     xdate "^0.8.0"
 
+"react-native-camera@git+https://git@github.com/react-native-community/react-native-camera.git":
+  version "3.44.1"
+  resolved "git+https://git@github.com/react-native-community/react-native-camera.git#5bd45a0f4007fbf39477540dbcc3a36d500a77d8"
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-document-picker@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-5.0.0.tgz#15c2557edd6c3ebc129b529e52556ec378c99853"
@@ -5704,10 +5717,24 @@ react-native-loading-spinner-overlay@^2.0.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-permissions@^2.0.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
+  integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
+
 react-native-permissions@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.0.tgz#d9d107700741d41f8392f202f35a61f481fb0e68"
   integrity sha512-zBvf+o3NhgKmBk1I06GzZXaDfc9SUyO4M5TMcaCF1pwG1h4sI+XAv3gWSbryl6WnaZQc1zA+g7SocSoYcpJN5g==
+
+react-native-qrcode-scanner@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/react-native-qrcode-scanner/-/react-native-qrcode-scanner-1.5.4.tgz#5e96189260942db3287739545eb3f6a16f7c0178"
+  integrity sha512-FqY6C+vi+1u7XUunCfCBoBGTjEhK9mIOhthOBgmCWH2xAXZkytrRV7ycCmnkTIFMqOIWzomlfSc7l+2vF01BzA==
+  dependencies:
+    "@react-native-async-storage/async-storage" "^1.13.4"
+    prop-types "^15.5.10"
+    react-native-permissions "^2.0.2"
 
 react-native-render-html@^5.1.0:
   version "5.1.0"

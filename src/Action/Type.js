@@ -28,6 +28,7 @@ export const HOLIDAYSCREEN = 'HolidayScreen'
 export const TIMETABLESCREEN = 'TimeTableScreen'
 export const VIEWFULLPICTURESCREEN = 'ViewFullPicture'
 export const VIEWIMAGE = 'ViewImage'
+export const SCANSCREEN = 'ScanScreen'
 
 
 

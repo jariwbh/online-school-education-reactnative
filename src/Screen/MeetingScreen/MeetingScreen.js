@@ -19,7 +19,6 @@ export default class MeetingScreen extends Component {
     //call Meeting API
     getMeeting() {
         meetingService().then(response => {
-            console.log(`response.data`, response.data);
             this.setState({ meetingList: response.data });
             this.setState({ loader: false });
         });
@@ -44,7 +43,7 @@ export default class MeetingScreen extends Component {
     renderMeeting = ({ item }) => (
         <View style={STYLES.styles.innercardview}>
             <View style={{ marginTop: 5, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
-                <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA' }}>{item.property.courseid}</Text>
+                <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA' }}>{item.property.course.membershipname}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5, }}>
                 <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.property.title}</Text>
@@ -70,6 +69,7 @@ export default class MeetingScreen extends Component {
             </View>
         </View>
     )
+
     render() {
         const { meetingList, loader, refreshing } = this.state
         return (

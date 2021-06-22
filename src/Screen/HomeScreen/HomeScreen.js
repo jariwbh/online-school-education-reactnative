@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, StatusBar, Platform } from 'react-native';
-import { AttendenceCalculateService } from '../../Services/AttendenceService/AttendenceService';
+import { AttendenceCalculateService, getTodayAttendenceService } from '../../Services/AttendenceService/AttendenceService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AUTHUSER } from '../../Action/Type';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -10,6 +10,7 @@ import moment from 'moment';
 import * as SCREENNAME from '../../Action/Type'
 import { getStudentService } from '../../Services/StudentService/StudentService';
 const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
+import axiosConfig from '../../Helpers/axiosConfig';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -18,7 +19,8 @@ class HomeScreen extends Component {
             StudentData: null,
             studentProfile: null,
             loader: true,
-            attendencePercent: null
+            attendencePercent: null,
+            checkin: false
         };
         this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -50,6 +52,19 @@ class HomeScreen extends Component {
         })
     }
 
+    //get student Attendence Calculate Service
+    async getTodayCheckinService(id) {
+        let data = {
+            id: id,
+            date: moment().format('YYYY-MM-DD')
+        }
+        getTodayAttendenceService(data).then(response => {
+            if (response.data[0] != null && response.status == 200) {
+                this.setState({ checkin: true });
+            }
+        });
+    }
+
     //add local storage Records
     authenticateUser = (student) => (
         AsyncStorage.setItem(AUTHUSER, JSON.stringify(student))
@@ -72,6 +87,8 @@ class HomeScreen extends Component {
         } else {
             var userData;
             userData = JSON.parse(getUser);
+            axiosConfig(userData._id);
+            this.getTodayCheckinService(userData._id);
             this.getAttendenceCalculateService(userData._id);
             this.getStudent(userData._id);
             this.wait(3000).then(() => this.setState({
@@ -105,8 +122,12 @@ class HomeScreen extends Component {
         return true;
     }
 
+    openBarcodeScaner() {
+        this.props.navigation.navigate(SCREENNAME.SCANSCREEN);
+    }
+
     render() {
-        const { StudentData, studentProfile, loader, attendencePercent } = this.state;
+        const { StudentData, studentProfile, loader, attendencePercent, checkin } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
@@ -121,7 +142,16 @@ class HomeScreen extends Component {
                                     <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
                                         <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                     </View>
-                                    <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" style={{ marginTop: 5, marginLeft: 20 }} />
+                                    {
+                                        checkin == true
+                                            ?
+                                            null
+                                            :
+                                            <TouchableOpacity onPress={() => this.openBarcodeScaner()}>
+                                                <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" style={{ marginTop: 5, marginLeft: 20 }} />
+                                            </TouchableOpacity>
+                                    }
+
                                 </View>
                             </View>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
@@ -129,7 +159,6 @@ class HomeScreen extends Component {
                                 />
                             </TouchableOpacity>
                         </View>
-
                         <View style={STYLES.styles.inputView}>
                             <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.ATTENDANCESCREEN) }}>

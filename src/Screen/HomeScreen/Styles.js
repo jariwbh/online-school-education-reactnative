@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: 180,
+        width: WIDTH / 3 + 40,
         height: 200,
         alignItems: 'center',
         justifyContent: 'center'
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
             width: 0,
         },
         elevation: 2,
-        width: 180,
+        width: WIDTH / 3 + 40,
         height: 140,
     }
 })

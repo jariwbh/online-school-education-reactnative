@@ -38,7 +38,6 @@ export default class DateSheetScreen extends Component {
     //get exam schedule api
     getexamSchedule(id) {
         ExamDatesheet(id).then(response => {
-            console.log(`response.data[0].examschedule`, response.data[0].examschedule);
             this.setState({ examSchedule: response.data[0] && response.data[0].examschedule })
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
@@ -70,7 +69,7 @@ export default class DateSheetScreen extends Component {
                     <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
                 </View>
                 <View >
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#000000' }}>{item.subjectid.title}</Text>
+                    <Text style={{ fontSize: 14, color: '#000000' }}>{item.subjectid.property.title}</Text>
                     <Text style={{ fontSize: 16, color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
                 </View>
                 <View style={{ marginRight: 20, flexDirection: 'row', justifyContent: 'flex-end' }}>
