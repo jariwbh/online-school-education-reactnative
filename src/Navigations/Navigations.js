@@ -27,7 +27,10 @@ import BackButton from '../Components/BackButton/BackButton';
 import ViewFullPicture from '../Screen/Myprofile/ViewFullPicture';
 import ViewImage from '../Screen/SchoolGalleryScreen/ViewImage';
 import ScanScreen from '../Screen/HomeScreen/ScanScreen';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SCANSCREEN } from '../Action/Type';
+import ForgetPasswordScreen from '../Screen/ForgetPasswordScreen/ForgetPasswordScreen';
+import NewPasswordScreen from '../Screen/ForgetPasswordScreen/NewPasswordScreen';
+
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -36,6 +39,8 @@ export default NavigationsApp = () => {
             <Stack.Navigator headerMode='none' initialRouteName='SplashScreen'>
                 <Stack.Screen name="SplashScreen" component={SplashScreen} />
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen} />
+                <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} />
                 <Stack.Screen name="MainScreen" component={MainNavigation} />
             </Stack.Navigator>
         </NavigationContainer>

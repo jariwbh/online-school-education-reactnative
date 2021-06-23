@@ -130,7 +130,6 @@ export default class LoginScreen extends Component {
                 })
         }
         catch (error) {
-            console.log('error', error)
             this.setState({ loading: false })
             if (Platform.OS === 'android') {
                 ToastAndroid.show("Username and Password Invalid!", ToastAndroid.LONG);
@@ -147,14 +146,14 @@ export default class LoginScreen extends Component {
                 <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
-                        <View style={{ marginTop: 60, justifyContent: 'center', alignItems: 'center', }}>
+                        <View style={{ marginTop: 60, justifyContent: 'center', alignItems: 'center' }}>
                             <Image source={require('../../assets/image/vector.png')} style={{ height: 140, width: WIDTH - 100 }} />
                         </View>
                         <View style={{ marginLeft: 30 }}>
                             <Text style={{ fontSize: 26, color: '#FFFFFF', fontWeight: 'bold' }}>Hi Student </Text>
                         </View>
                         <View style={{ marginLeft: 30 }}>
-                            <Text style={{ fontSize: 18, color: '#FFFFFF', }}>Sign in to continue</Text>
+                            <Text style={{ fontSize: 16, color: '#FFFFFF', }}>Sign in to continue</Text>
                         </View>
                         <View style={STYLES.styles.inputView}>
                             <View>
@@ -204,6 +203,10 @@ export default class LoginScreen extends Component {
                                     {loading == true ? <Loading /> : <Text style={STYLES.styles.loginText}>SIGN IN </Text>}
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgetPasswordScreen') }}
+                                style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: 30, marginTop: 15 }}>
+                                <Text style={{ color: '#555555', fontSize: 14 }}>Forgot Password?</Text>
+                            </TouchableOpacity>
                         </View>
                         <Spinner
                             visible={this.state.loading}

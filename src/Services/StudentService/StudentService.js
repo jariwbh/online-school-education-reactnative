@@ -8,9 +8,13 @@ const UpdateStudentProfilePicService = (id, body) => {
     return Axios.patch('members/' + id, body);
 }
 
-
 const getStudentService = (id) => {
     return Axios.get(`members/${id}`);
 }
 
-export { UpdateStudentService, getStudentService, UpdateStudentProfilePicService };
+const CheckUser = (body) => {
+    return Axios.post('public/checkmember', body);
+}
+
+
+export { UpdateStudentService, getStudentService, UpdateStudentProfilePicService, CheckUser };

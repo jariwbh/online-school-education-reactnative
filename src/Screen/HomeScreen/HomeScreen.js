@@ -11,6 +11,7 @@ import * as SCREENNAME from '../../Action/Type'
 import { getStudentService } from '../../Services/StudentService/StudentService';
 const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
 import axiosConfig from '../../Helpers/axiosConfig';
+import getCurrency from '../../Services/getCurrency/getCurrency';
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class HomeScreen extends Component {
             studentProfile: null,
             loader: true,
             attendencePercent: null,
-            checkin: false
+            checkin: false,
+            currencySymbol: null
         };
         this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -88,6 +90,8 @@ class HomeScreen extends Component {
             var userData;
             userData = JSON.parse(getUser);
             axiosConfig(userData._id);
+            const response = getCurrency(userData.branchid.currency)
+            this.setState({ currencySymbol: response });
             this.getTodayCheckinService(userData._id);
             this.getAttendenceCalculateService(userData._id);
             this.getStudent(userData._id);
@@ -177,7 +181,7 @@ class HomeScreen extends Component {
                                         style={{ height: 80, width: 80, borderRadius: 10, marginTop: 5 }}
                                     />
                                     <View style={{ marginTop: 5 }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}> ₹{StudentData.paymentterms[0].amount} </Text>
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}> {this.state.currencySymbol + StudentData.paymentterms[0].amount} </Text>
                                     </View>
                                     <View style={{ marginTop: 5 }}>
                                         <Text style={{ fontSize: 16, color: '#000000' }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>

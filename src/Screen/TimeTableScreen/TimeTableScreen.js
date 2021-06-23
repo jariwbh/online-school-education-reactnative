@@ -48,8 +48,8 @@ export default class TimeTableScreen extends Component {
             this.studentDetails = JSON.parse(getUser);
 
             let data = {
-                classid: this.studentDetails.classid,
-                // couresid: this.studentDetails.membershipid._id,
+                // classid: this.studentDetails.classid,
+                couresid: this.studentDetails.membershipid._id,
                 date: moment().format('YYYY-MM-DD')
             }
             await this.getTimeTable(data);
@@ -60,7 +60,8 @@ export default class TimeTableScreen extends Component {
     //Get Time Table Api
     getTimeTable(data) {
         timeTableService(data).then(response => {
-            this.setState({ timeTable: response.data });
+            console.log(` response.data`, response.data);
+            //this.setState({ timeTable: response.data,loader: false });
             this.setState({ loader: false });
         });
     }
@@ -101,7 +102,7 @@ export default class TimeTableScreen extends Component {
                     <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.lessonid.subjectid.title}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{(item.starttime) + '-' + (item.endtime)}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{moment(item.timeslot.starttime).format('LLL') + '-' + moment(item.timeslot.endtime).format('LLL')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE', }} />

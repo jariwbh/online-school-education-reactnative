@@ -18,7 +18,6 @@ const getTodayAttendenceService = (data) => {
             { "searchfield": "checkin", "searchvalue": data.date, "criteria": "fullday", "datatype": "Date" },
             { "searchfield": "membrozid", "searchvalue": data.id, "criteria": "eq", "datatype": "ObjectId" }]
     }
-    console.log(`body`, body);
     return Axios.post('attendances/filter', body)
 }
 

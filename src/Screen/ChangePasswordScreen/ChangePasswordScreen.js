@@ -6,11 +6,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Loading from '../../Components/Loader/Loading';
 import * as STYLES from './Styles';
 const WIDTH = Dimensions.get('window').width;
+import axiosConfig from '../../Helpers/axiosConfig';
 
 export default class ChangePasswordScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            studentID: null,
             studentNumber: null,
             getOldPassword: null,
             oldPassword: null,
@@ -107,7 +109,7 @@ export default class ChangePasswordScreen extends Component {
             }, 3000);;
         } else {
             var userData = JSON.parse(getUser);
-            await this.setState({ studentNumber: userData.membernumber });
+            await this.setState({ studentNumber: userData.membernumber, studentID: userData._id });
         }
 
         if (getLoginInfo == null) {
@@ -126,11 +128,12 @@ export default class ChangePasswordScreen extends Component {
 
     //change password button click to call funcation
     onPressSubmit = async () => {
-        const { studentNumber, oldPassword, newPassword, retypePassword } = this.state;
+        const { studentNumber, oldPassword, newPassword, retypePassword, studentID } = this.state;
         if (!oldPassword || !newPassword || !retypePassword) {
             this.setoldPassword(oldPassword);
             this.setnewPassword(newPassword);
             this.setretypePassword(retypePassword);
+            axiosConfig(studentID);
             return;
         }
 
@@ -147,13 +150,12 @@ export default class ChangePasswordScreen extends Component {
             "newpassword": newPassword,
             "username": studentNumber
         }
-        console.log(`body`, body);
-
         this.setState({ loading: true });
+        axiosConfig(null);
         try {
             await ChangePasswordService(body).then(response => {  //ChangePasswordService call api
-                console.log(`response.data`, response.data);
                 if (response.data != null && response.data != 'undefind' && response.status == 200) {
+                    axiosConfig(studentID);
                     if (Platform.OS === 'ios') {
                         alert("Change Password Success!");
                     } else {
@@ -165,7 +167,7 @@ export default class ChangePasswordScreen extends Component {
             })
         }
         catch (error) {
-            console.log(`error`, error);
+            axiosConfig(studentID);
             this.setState({ loading: false });
             if (Platform.OS === 'ios') {
                 alert("Your Password Not Change!");

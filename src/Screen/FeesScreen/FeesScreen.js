@@ -7,6 +7,7 @@ import Loader from '../../Components/Loader/Loader';
 import * as STYLES from './Styles';
 import moment from 'moment';
 const WIDTH = Dimensions.get('window').width;
+import getCurrency from '../../Services/getCurrency/getCurrency';
 
 export class FeesScreen extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ export class FeesScreen extends Component {
             paymentList: [],
             paymentScheduleList: [],
             loader: true,
-            refreshing: false
+            refreshing: false,
+            currencySymbol: null
         };
     }
 
@@ -29,6 +31,8 @@ export class FeesScreen extends Component {
             }, 3000);;
         } else {
             var userData = JSON.parse(getUser);
+            const response = getCurrency(userData.branchid.currency)
+            this.setState({ currencySymbol: response });
             await this.getPaymentSchedulesService(userData._id);
             await this.getPaymentService(userData._id);
             this.wait(1000).then(() => this.setState({ studentId: userData._id }));
@@ -86,14 +90,14 @@ export class FeesScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Payment Date</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#555555' }}>{moment(item.scheduledate).format('DD MMM YYYY')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.scheduledate).format('DD MMM YYYY')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Total Pending Amount</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>₹{item.amount}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{this.state.currencySymbol + item.amount}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
@@ -134,7 +138,7 @@ export class FeesScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Total Paid Amount</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>₹{item.paidamount}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{this.state.currencySymbol + item.paidamount}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
