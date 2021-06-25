@@ -29,8 +29,10 @@ import ViewImage from '../Screen/SchoolGalleryScreen/ViewImage';
 import ScanScreen from '../Screen/HomeScreen/ScanScreen';
 import ForgetPasswordScreen from '../Screen/ForgetPasswordScreen/ForgetPasswordScreen';
 import NewPasswordScreen from '../Screen/ForgetPasswordScreen/NewPasswordScreen';
+import SelectResult from '../Screen/ResultScreen/SelectResult';
+import OfflineResultListScreen from '../Screen/ResultScreen/OfflineResultListScreen';
 
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN } from '../Action/Type';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SELECTRESULT } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -54,6 +56,22 @@ function MainNavigation({ navigation }) {
             <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
 
             <HomeStack.Screen name="ScanScreen" options={{ title: "", headerShown: false }} component={ScanScreen} />
+
+            <HomeStack.Screen name="OfflineResultListScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Result',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(SELECTRESULT)} />
+            }} component={OfflineResultListScreen} />
+
+            <HomeStack.Screen name="SelectResult" options={{
+                headerTintColor: '#FFFFFF', title: 'Result',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={SelectResult} />
 
             <HomeStack.Screen name="FeesScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Fees Due',
@@ -96,13 +114,12 @@ function MainNavigation({ navigation }) {
             }} component={Playquiz} />
 
             <HomeStack.Screen name="QuizResultScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Play Quiz Result',
+                headerTintColor: '#FFFFFF', title: 'Result',
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(SELECTRESULT)} />
             }} component={QuizResultScreen} />
-
 
             <HomeStack.Screen name="PlayQuizList" options={{
                 headerTintColor: '#FFFFFF', title: 'Play Quiz',

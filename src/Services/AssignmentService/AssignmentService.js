@@ -19,7 +19,6 @@ function uploadAssignmentService(data) {
 }
 
 function submitAssignmentListService(id) {
-    console.log('id user', id);
     const body =
     {
         "search": [{

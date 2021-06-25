@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, FlatList, ScrollView, Dimensions } from 'react-native'
+import { Text, View, SafeAreaView, FlatList, ScrollView, Dimensions, RefreshControl } from 'react-native'
 import { getExamResult } from '../../Services/PlayQuizService/PlayQuizService';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
@@ -13,7 +13,9 @@ export default class QuizResultScreen extends Component {
         super(props);
         this.state = {
             quizResultList: [],
-            loader: true
+            loader: true,
+            studentId: null,
+            refreshing: false
         }
     }
 
@@ -26,6 +28,7 @@ export default class QuizResultScreen extends Component {
             }, 3000);;
         } else {
             var userData = JSON.parse(getUser);
+            this.setState({ studentId: userData._id });
             this.getExamResultService(userData._id);
         }
     }
@@ -41,34 +44,47 @@ export default class QuizResultScreen extends Component {
         this.getStudentData();
     }
 
+    wait = (timeout) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+
+    onRefresh = () => {
+        const { studentId } = this.state;
+        this.setState({ refreshing: true });
+        this.getExamResultService(studentId);
+        this.wait(3000).then(() => this.setState({ refreshing: false }));
+    }
+
     //get Exam Result Render method funcation
     renderExamResult = ({ item }) => (
         <View style={STYLES.styles.innerCardview}>
-            <View style={{ borderRadius: 100, marginLeft: WIDTH / 3 + 10, justifyContent: 'center', marginTop: 5, backgroundColor: '#2855AE', width: 70, height: 70, alignItems: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFFFFF' }}>{item.percentage}%</Text>
+            <View style={{ borderRadius: 100, marginLeft: WIDTH / 3 + 10, justifyContent: 'center', marginTop: 10, backgroundColor: item.markesobtained ? '#2855AE' : '#FF0000', width: 70, height: 70, alignItems: 'center' }}>
+                <Text style={{ fontSize: item.markesobtained ? 25 : 20, color: '#FFFFFF' }}>{item.markesobtained ? item.percentage + '%' : 'FAILED'}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 20, marginTop: 5 }}>
                 <Text style={{ fontSize: 14, flex: 1, color: '#000000', textTransform: 'capitalize' }}>{item.examid.title}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5, padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Exam Date</Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.starttime).format('LT')}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.starttime).format('l')}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Start Time</Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.starttime).format('LT')}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.starttime).format('LT')}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>End Time</Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.endtime).format('LT')}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.endtime).format('LT')}</Text>
             </View>
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Duration</Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.timetaken && item.timetaken + ' ' + 'Minutes'}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.timetaken && item.timetaken + ' ' + ' Minutes'}</Text>
             </View>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
+            <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5, marginBottom: 5 }}>
                 <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Total Marks </Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.totalpositivemarks && item.totalpositivemarks + ' ' + 'Marks'}</Text>
+                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.markesobtained && item.markesobtained ? item.markesobtained + ' ' + 'Marks' : '0 Marks'}</Text>
             </View>
         </View>
     )
@@ -84,7 +100,7 @@ export default class QuizResultScreen extends Component {
                         )
                         :
                         <View style={{ marginTop: 15 }}>
-                            <ScrollView showsVerticalScrollIndicator={false}>
+                            <ScrollView refreshControl={<RefreshControl refreshing={this.state.refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                     <FlatList
                                         data={this.state.quizResultList}

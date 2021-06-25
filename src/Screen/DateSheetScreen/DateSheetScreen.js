@@ -38,8 +38,7 @@ export default class DateSheetScreen extends Component {
     //get exam schedule api
     getexamSchedule(id) {
         ExamDatesheet(id).then(response => {
-            this.setState({ examSchedule: response.data[0] && response.data[0].examschedule })
-            this.wait(1000).then(() => this.setState({ loader: false }));
+            this.setState({ examSchedule: response.data[0] && response.data[0].examschedule, loader: false })
         });
     }
 
@@ -62,23 +61,27 @@ export default class DateSheetScreen extends Component {
 
     //render exam schedule using flatlist
     renderexamSchedule = ({ item }) => (
-        <View>
-            <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={{ marginLeft: 15 }}>
-                    <Text style={{ fontSize: 20, marginLeft: 15, color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
-                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
+        <View style={{ alignItems: 'flex-start', marginTop: 15 }}>
+            <View style={{ alignItems: 'flex-start', flexDirection: 'column', justifyContent: 'flex-start' }}>
+                <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={{ marginLeft: 15 }}>
+                        <Text style={{ fontSize: 20, marginLeft: 15, color: '#3A3A3A', fontWeight: 'bold' }}>{moment(item.date).format('DD')}</Text>
+                        <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', }}>{moment(item.date).format('MMM')}</Text>
+                    </View>
+                    <View style={{ marginLeft: 35 }}>
+                        <Text style={{ fontSize: 16, color: '#000000' }}>{item.subjectid.property.title}</Text>
+                        <Text style={{ fontSize: 14, color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
+                    </View>
                 </View>
-                <View >
-                    <Text style={{ fontSize: 14, color: '#000000' }}>{item.subjectid.property.title}</Text>
-                    <Text style={{ fontSize: 16, color: '#A5A5A5' }}>{moment(item.date).format('dddd')}</Text>
-                </View>
+            </View>
+            <View style={{ alignItems: 'flex-end', flexDirection: 'column', justifyContent: 'flex-end', marginTop: -30 }}>
                 <View style={{ marginRight: 20, flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Fontisto name="clock" size={20} color="#A5A5A5" />
                     <Text style={{ fontSize: 14, marginLeft: 5, color: '#A5A5A5' }}>{moment(item.starttime).format('LT')}</Text>
                 </View>
-            </View>
-            <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
-                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                <View style={{ alignItems: 'center', marginTop: 25, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                </View>
             </View>
         </View>
     )
@@ -95,6 +98,9 @@ export default class DateSheetScreen extends Component {
                         )
                         :
                         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
+                            <View style={{ alignItems: 'center', marginTop: 25, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
+                                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                            </View>
                             <FlatList
                                 data={examSchedule}
                                 renderItem={this.renderexamSchedule}

@@ -29,8 +29,11 @@ export const TIMETABLESCREEN = 'TimeTableScreen'
 export const VIEWFULLPICTURESCREEN = 'ViewFullPicture'
 export const VIEWIMAGE = 'ViewImage'
 export const SCANSCREEN = 'ScanScreen'
-export const ForgetPasswordScreen = 'ForgetPasswordScreen'
-export const NewPasswordScreen = 'NewPasswordScreen'
+export const FORGETPASSWORDSCREEN = 'ForgetPasswordScreen'
+export const NEWPASSWORDSCREEN = 'NewPasswordScreen'
+export const SELECTRESULT = 'SelectResult'
+export const OFFLINERESULTLISTSCREEN = 'OfflineResultListScreen'
+
 
 
 

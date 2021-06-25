@@ -10,6 +10,7 @@ const timeTableService = (data) => {
             { "searchfield": "courseid", "searchvalue": couresid, "criteria": "eq", "datatype": "objectid" },
             { "searchfield": "status", "searchvalue": "Confirmed", "criteria": "eq" }], "sort": { "startdate": -1 }
     }
+    console.log(`body`, body);
     return Axios.post('classschedules/filter', body)
 }
 

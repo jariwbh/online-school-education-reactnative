@@ -64,9 +64,7 @@ class ScanScreen extends Component {
                 membrozid: this.state.StudentID,
                 onModel: 'Member'
             }
-            console.log(`body`, body);
             const response = await addAttendenceService(body);
-            console.log(`response`, response);
             if (response.data != null && response.data != 'undefind' && response.status == 200) {
                 this.props.navigation.navigate(SCREENNAME.HOMESCREEN);
                 this.setState({ torchon: RNCamera.Constants.FlashMode.off });
@@ -75,7 +73,6 @@ class ScanScreen extends Component {
                 alert('OR-CODE Not Valid');
             }
         } catch (error) {
-            console.log(`error`, error);
             this.setState({ torchon: RNCamera.Constants.FlashMode.off });
             alert('OR-CODE Not Valid');
         }

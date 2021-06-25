@@ -26,7 +26,6 @@ export default class TimeTableScreen extends Component {
     getCurrentweekDays() {
         var curr = new Date; // get current date
         var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
-
         for (var i = 0; i <= 6; i++) {
             var last = first + i;
             var date = new Date(curr.setDate(last)).toUTCString();
@@ -46,9 +45,7 @@ export default class TimeTableScreen extends Component {
             }, 3000);
         } else {
             this.studentDetails = JSON.parse(getUser);
-
             let data = {
-                // classid: this.studentDetails.classid,
                 couresid: this.studentDetails.membershipid._id,
                 date: moment().format('YYYY-MM-DD')
             }
@@ -60,9 +57,7 @@ export default class TimeTableScreen extends Component {
     //Get Time Table Api
     getTimeTable(data) {
         timeTableService(data).then(response => {
-            console.log(` response.data`, response.data);
-            //this.setState({ timeTable: response.data,loader: false });
-            this.setState({ loader: false });
+            this.setState({ timeTable: response.data, loader: false });
         });
     }
 
@@ -70,7 +65,7 @@ export default class TimeTableScreen extends Component {
     dayClick(item) {
         this.setState({ loader: true, status: `${moment(item.date).format('ddd')}` })
         let data = {
-            classid: this.studentDetails.classid,
+            couresid: this.studentDetails.membershipid._id,
             date: moment(item.date).format('YYYY-MM-DD')
         }
         this.getTimeTable(data);
@@ -95,21 +90,21 @@ export default class TimeTableScreen extends Component {
     }
 
     //render TimeTable Using flatlist
-    renderTimeTable = ({ item }) => (
+    renderTimeTable = ({ item, index }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.lessonid.subjectid.title}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.property.subjectid}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{moment(item.timeslot.starttime).format('LLL') + '-' + moment(item.timeslot.endtime).format('LLL')}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{moment(item.timeslot.starttime).format('LT') + ' - ' + moment(item.timeslot.endtime).format('LT')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE', }} />
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5, marginBottom: 10 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777', textTransform: 'capitalize' }}>{item.trainerid[0].property.fullname}</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{item.lessonid.title}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777', textTransform: 'capitalize' }}>{item.staffid.property.fullname}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{'Period ' + (index + 1)}</Text>
                 </View>
             </View>
         </View>
@@ -120,6 +115,17 @@ export default class TimeTableScreen extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
+                    <View style={STYLES.styles.listTab}>
+                        {
+                            this.state.listTab.map(e => (
+                                <TouchableOpacity
+                                    style={[STYLES.styles.btnTab, status == e.day && STYLES.styles.btnTabActive]} onPress={() => this.dayClick(e)}
+                                >
+                                    <Text style={[STYLES.styles.textTab, status == e.day ? STYLES.styles.textTabActive : STYLES.styles.textTabInActive]}>{e.day}</Text>
+                                </TouchableOpacity>
+                            ))
+                        }
+                    </View>
                     {(timeTable == null) || (timeTable && timeTable.length == 0) ?
                         (loader == false ?
                             <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}>No Time Table Available</Text>
@@ -127,17 +133,6 @@ export default class TimeTableScreen extends Component {
                         )
                         :
                         <View>
-                            <View style={STYLES.styles.listTab}>
-                                {
-                                    this.state.listTab.map(e => (
-                                        <TouchableOpacity
-                                            style={[STYLES.styles.btnTab, status == e.day && STYLES.styles.btnTabActive]} onPress={() => this.dayClick(e)}
-                                        >
-                                            <Text style={[STYLES.styles.textTab, status == e.day ? STYLES.styles.textTabActive : STYLES.styles.textTabInActive]}>{e.day}</Text>
-                                        </TouchableOpacity>
-                                    ))
-                                }
-                            </View>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <FlatList
                                     data={timeTable}

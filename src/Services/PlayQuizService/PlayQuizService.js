@@ -5,11 +5,11 @@ const getAllPlayQuizService = (id) => {
     {
         "search": [{
             "searchfield": "status",
-            "searchvalue": "publish",
+            "searchvalue": "active",
             "criteria": "eq",
             "datatype": "text"
         }, {
-            "searchfield": "course",
+            "searchfield": "property.course",
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "text"
@@ -24,10 +24,10 @@ const getByIdPlayQuizService = (id) => {
 
 const addExamResultService = (data) => {
     const body = JSON.stringify(data)
-    return Axios.post('examresults', body)
+    return Axios.post('onlineexamresults', body);
 }
 
-const getExamResult = (id) => {
+const getExamResult = () => {
     const body = {
         "search": [{
             "searchfield": "status",
@@ -36,6 +36,26 @@ const getExamResult = (id) => {
             "datatype": "text"
         }], "sort": { "createdAt": -1 }
     }
-    return Axios.post('examresults/filter', body)
+    return Axios.post('onlineexamresults/filter', body);
 }
-export { getAllPlayQuizService, getByIdPlayQuizService, addExamResultService, getExamResult };
+
+const getOfflineExamResult = (id) => {
+    const body = {
+        "search": [{
+            "searchfield": "status",
+            "searchvalue": "active",
+            "criteria": "eq",
+            "datatype": "text"
+        },
+        {
+            "searchfield": "courseid",
+            "searchvalue": id,
+            "criteria": "eq",
+            "datatype": "ObjectId"
+        }
+        ], "sort": { "createdAt": -1 }
+    }
+    return Axios.post('examresults/filter', body);
+}
+
+export { getAllPlayQuizService, getByIdPlayQuizService, addExamResultService, getExamResult, getOfflineExamResult };

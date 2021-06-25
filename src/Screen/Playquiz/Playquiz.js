@@ -23,8 +23,6 @@ export default class Playquiz extends Component {
         this.currentExamDetails = this.props.route.params.selectedExamDeatils;
         this.state = {
             currentExamData: [],
-            addedby: [],
-            property: [],
             questionArray: [],
             index: 0,
             disabledNext: false,
@@ -58,7 +56,7 @@ export default class Playquiz extends Component {
     //get calculate Minutes
     get_Diff_minutes() {
         let maintDate = new Date();
-        let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.time * 60000);
+        let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.property.time * 60000);
         let dt2 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.minutes * 60000 + this.state.seconds * 1000);
         let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
         let resultInMinutes = Math.round(difference / 60000);
@@ -83,7 +81,8 @@ export default class Playquiz extends Component {
             }
             this.props.navigation.navigate(HOMESCREEN);
         }).catch(error => {
-            console.log(error);
+            this.setState({ spinner: false });
+            // console.log(error);
         });
 
     }
@@ -92,16 +91,14 @@ export default class Playquiz extends Component {
         this.getStudentData();
         this.setState({
             currentExamData: this.currentExamDetails,
-            addedby: this.currentExamDetails.addedby,
-            property: this.currentExamDetails.addedby.property,
             questionArray: this.currentExamDetails.questions,
-            minutes: this.currentExamDetails.time
+            minutes: this.currentExamDetails.property.time
         });
 
         if (this.IsTimerStart) {
             this.setState({
                 questionArray: this.currentExamDetails.questions,
-                minutes: this.currentExamDetails.time
+                minutes: this.currentExamDetails.property.time
             });
             if (this.currentExamDetails.questions.length == 1) {
                 this.setState({ disabledNext: true })
@@ -375,8 +372,8 @@ export default class Playquiz extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, flex: 1 }}>
-                        <View style={{ width: WIDTH - 60, backgroundColor: "#FFFFFF", borderRadius: 20, alignItems: 'center', flex: 1 }}>
-                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold' }}
+                        <View style={{ width: WIDTH - 50, backgroundColor: "#FFFFFF", borderRadius: 20, alignItems: 'center', flex: 1 }}>
+                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}
                                 html={`<html>${currentQuestion && currentQuestion.question} </html>`} />
 
                             {currentQuestionOptions && currentQuestionOptions.map(val => (
@@ -384,9 +381,9 @@ export default class Playquiz extends Component {
                                     style={[STYLES.styles.optionbtn, this.checkAnswerColor(val._id) && STYLES.styles.optionselectedbtn]}>
 
                                     <View style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>
-                                        <HTML baseFontStyle={{ fontSize: 16, textTransform: 'capitalize' }}
+                                        <HTML baseFontStyle={{ fontSize: 16, textTransform: 'capitalize', color: '#000000' }}
                                             html={`<html>${val.option + '. '} </html>`} />
-                                        <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize' }}
+                                        <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', color: '#000000' }}
                                             html={`<html>${val.value}  </html>`} />
                                     </View>
                                 </TouchableOpacity>

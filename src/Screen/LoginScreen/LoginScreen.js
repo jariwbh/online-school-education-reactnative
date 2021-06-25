@@ -3,7 +3,7 @@ import {
     View, Text, SafeAreaView, ImageBackground, Image, TextInput, ScrollView,
     TouchableOpacity, ToastAndroid, BackHandler, Dimensions, Keyboard, StatusBar, Platform
 } from 'react-native';
-import { MAINSCREEN, AUTHUSER, AUTHUSERINFO } from '../../Action/Type'
+import { MAINSCREEN, AUTHUSER, AUTHUSERINFO, FORGETPASSWORDSCREEN } from '../../Action/Type'
 import LoginService from '../../Services/LoginService/LoginService';
 import AsyncStorage from '@react-native-community/async-storage';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -143,7 +143,7 @@ export default class LoginScreen extends Component {
         const { usererror, passworderror, loading } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
+                <StatusBar barStyle="light-content" backgroundColor="#5D81C6" />
                 <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                         <View style={{ marginTop: 60, justifyContent: 'center', alignItems: 'center' }}>
@@ -203,7 +203,7 @@ export default class LoginScreen extends Component {
                                     {loading == true ? <Loading /> : <Text style={STYLES.styles.loginText}>SIGN IN </Text>}
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgetPasswordScreen') }}
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate(FORGETPASSWORDSCREEN)}
                                 style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: 30, marginTop: 15 }}>
                                 <Text style={{ color: '#555555', fontSize: 14 }}>Forgot Password?</Text>
                             </TouchableOpacity>

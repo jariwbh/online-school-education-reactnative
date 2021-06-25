@@ -69,15 +69,15 @@ export default class PlayQuizList extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Exam Date</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.startdatetime).format('LL')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.property.startdatetime).format('LL')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>End Date</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.enddatetime).format('LL')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{moment(item.property.enddatetime).format('LL')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>Duration</Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.time + ' ' + 'Minutes'}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#3A3A3A' }}>{item.property.time + ' ' + 'Minutes'}</Text>
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <TouchableOpacity

@@ -12,8 +12,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: 20,
-
+        marginTop: 20
     },
     listTab: {
         flexDirection: 'row',

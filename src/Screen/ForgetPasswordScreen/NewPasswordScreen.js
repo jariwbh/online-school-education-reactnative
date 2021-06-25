@@ -97,7 +97,7 @@ const NewPasswordScreen = (props) => {
 
     return (
         <SafeAreaView style={STYLES.styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
+            <StatusBar barStyle="light-content" backgroundColor="#5D81C6" />
             <ImageBackground source={require('../../assets/image/bg.png')} style={STYLES.styles.backgroundImage}>
                 <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
                     <View style={{ marginTop: 15, justifyContent: 'flex-start', alignItems: 'flex-start' }}>

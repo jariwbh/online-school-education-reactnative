@@ -12,63 +12,34 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: -30,
+        marginTop: 20
+    },
+    cardviewResult: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        marginTop: -45,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     innercardview1: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: 0.5,
+        flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: WIDTH / 2,
-        marginTop: 15,
-        //  height: 100
+        width: WIDTH / 3
     },
     innercardview2: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: 0.5,
+        flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        // borderRadius: 10,
-        shadowOpacity: 0.5,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: WIDTH / 3,
-        marginTop: 15,
-        // height: 100
+        width: WIDTH / 3
     },
     innercardview3: {
-        //  flex: 1,
-        // borderColor: '#2855AE',
-        // borderWidth: 0.5,
+        flex: 1,
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
-        borderTopRightRadius: 15,
-        borderBottomRightRadius: 15,
-        shadowOpacity: 0.5,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 0,
-            width: 0,
-        },
-        elevation: 2,
-        width: WIDTH / 3,
-        marginTop: 15,
-        // height: 100
+        width: WIDTH / 3
     },
     pdfBtn: {
         flexDirection: 'row',
@@ -109,6 +80,36 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10
     },
+    boxview: {
+        flexDirection: 'column',
+        backgroundColor: "#F5F6FC",
+        borderRadius: 15,
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
+        width: WIDTH / 3 + 40,
+        height: 140,
+    },
+    innercardview: {
+        flexDirection: 'column',
+        backgroundColor: "#FFFFFF",
+        borderColor: '#bfbfbf',
+        borderRadius: 10,
+        shadowOpacity: 0.5,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
+        width: WIDTH - 30,
+        marginTop: 10,
+        marginBottom: 5
+    }
 })
 
 export { styles };

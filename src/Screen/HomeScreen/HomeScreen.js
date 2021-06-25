@@ -90,12 +90,12 @@ class HomeScreen extends Component {
             var userData;
             userData = JSON.parse(getUser);
             axiosConfig(userData._id);
+            await this.getTodayCheckinService(userData._id);
+            await this.getAttendenceCalculateService(userData._id);
             const response = getCurrency(userData.branchid.currency)
-            this.setState({ currencySymbol: response });
-            this.getTodayCheckinService(userData._id);
-            this.getAttendenceCalculateService(userData._id);
             this.getStudent(userData._id);
             this.wait(3000).then(() => this.setState({
+                currencySymbol: response,
                 loader: false,
                 StudentData: userData,
                 studentProfile: userData.profilepic
@@ -134,7 +134,7 @@ class HomeScreen extends Component {
         const { StudentData, studentProfile, loader, attendencePercent, checkin } = this.state;
         return (
             <SafeAreaView style={STYLES.styles.container}>
-                <StatusBar barStyle="light-content" backgroundColor="#345FB4" />
+                <StatusBar barStyle="light-content" backgroundColor="#5D81C6" />
                 {loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                         <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: 20 }}>
@@ -236,7 +236,7 @@ class HomeScreen extends Component {
                             </View>
 
                             <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.QUIZRESULTSCREEN) }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SELECTRESULT) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_results_yiabkk.png' }}
                                             style={{ height: 50, width: 42 }}

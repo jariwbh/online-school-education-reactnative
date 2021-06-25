@@ -33,7 +33,7 @@ class PermissionController {
                                         }
                                     })
                                     .catch((err) => {
-                                        console.log('CATCH, Requesting Permission STORAGE');
+                                        //console.log('CATCH, Requesting Permission STORAGE');
                                         reject('Operation failed');
                                     });
                             } else {
@@ -42,7 +42,7 @@ class PermissionController {
                             }
                         })
                         .catch((err) => {
-                            console.log('CATCH, Checking Permission STORAGE');
+                            // console.log('CATCH, Checking Permission STORAGE');
                             reject('Operation failed');
                         });
                 } else {
@@ -63,7 +63,7 @@ class PermissionController {
                                         }
                                     })
                                     .catch((err) => {
-                                        console.log('Permission Failed');
+                                        //console.log('Permission Failed');
                                         reject('Operation failed');
                                     });
                             } else {
