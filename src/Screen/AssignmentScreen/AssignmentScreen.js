@@ -42,43 +42,55 @@ export default class AssignmentScreen extends Component {
     //get assignment list api
     async getAssignmentList() {
         const { studentId } = this.state;
-        await assignmentListService().then(response => {
+        let body = {
+            assingeestudents: studentId,
+            duedate: moment().format('YYYY-MM-DD')
+        }
+        await assignmentListService(body).then(response => {
             let newAssignment = []
-            if (response.data && response.data.length != 0) {
+            if (response.data && (response.data || response.data.length != 0)) {
+                console.log(`response.data`, response.data);
                 response.data.forEach(element => {
                     element.viewResult = false;
-                    if (element.memberids && element.memberids.length != 0) {
-                        var check = element.memberids.indexOf(studentId);
-                        if (check != -1) {
-                            this.submitAssignmentList.forEach(ele => {
-                                if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
-                                    element.viewResult = true;
-                                    element.viewResultID = ele._id;
-                                }
-                            });
-                            newAssignment.push(element);
-                        }
-                    } else {  // All Student of Particular Membership
-                        this.submitAssignmentList.forEach(ele => {
-                            if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
-                                element.viewResult = true;
-                                element.viewResultID = ele._id;
-                            }
-                        });
-                        newAssignment.push(element);
-                    }
+
+                    // if (element.assingeestudents && element.assingeestudents.length != 0) {
+                    //     console.log('call');
+                    //     var check = element.assingeestudents.indexOf(studentId);
+                    //     if (check != -1) {
+                    //         console.log('if call');
+                    //         //                 this.submitAssignmentList.forEach(ele => {
+                    //         //                     if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
+                    //         //                         element.viewResult = true;
+                    //         //                         element.viewResultID = ele._id;
+                    //         //                     }
+                    //         //                 });
+                    newAssignment.push(element);
+                    //     }
+                    // }
+                    // else {
+                    //     console.log('else call');
+                    //     // All Student of Particular Membership
+                    //     //             this.submitAssignmentList.forEach(ele => {
+                    //     //                 if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
+                    //     //                     element.viewResult = true;
+                    //     //                     element.viewResultID = ele._id;
+                    //     //                 }
+                    //     //             });
+                    //     //             newAssignment.push(element);
+                    // }
                 });
             }
+            console.log(`newAssignment`, newAssignment)
             this.setState({ assignmentList: newAssignment });
-            this.wait(1000).then(() => this.setState({ loader: false }));
+            this.setState({ loader: false });
         });
     }
 
     async getSubmitAssignmentList(studentId) {
-        await submitAssignmentListService(studentId).then(response => {
-            this.submitAssignmentList = response.data;
-            this.wait(1000).then(() => this.setState({ loader: false }));
-        });
+        // await submitAssignmentListService(studentId).then(response => {
+        //     this.submitAssignmentList = response.data;
+        //     this.wait(1000).then(() => this.setState({ loader: false }));
+        // });
     }
 
     //get student information api
@@ -128,7 +140,7 @@ export default class AssignmentScreen extends Component {
 
     //pdf image icon click to download file 
     onPressDownloadFile(item) {
-        const REMOTE_IMAGE_PATH = `${item.attachmenturl}`;
+        const REMOTE_IMAGE_PATH = `${item.templateid.property.attachment}`;
         // To add the time suffix in filename
         let date = new Date();
         // Image URL which we want to download
@@ -149,7 +161,7 @@ export default class AssignmentScreen extends Component {
                 notification: true,
                 path:
                     PictureDir +
-                    `/${item.title}_` +
+                    `/${item.templateid.title}_` +
                     Math.floor(date.getTime() + date.getSeconds() / 2) +
                     ext,
                 description: 'file',
@@ -337,27 +349,27 @@ export default class AssignmentScreen extends Component {
     renderAssignmentList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ marginTop: 5, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
-                    <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA', }}>{item.membershipid.membershipname}</Text>
+                <View style={{ marginTop: 10, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
+                    <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA', }}>{item.templateid.subjectid.property.title}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5, }}>
-                    <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }} html={`<html> ${item.description.length < 100 ? `${item.description}` : `${item.description.substring(0, 100)}...`} </html>`} />
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 10 }}>
+                    <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.templateid.title}</Text>
                     <TouchableOpacity onPress={() => this.onPressDownloadFile(item)}>
-                        <FontAwesome name="file-pdf-o" size={20} color="#6789CA" style={{ marginRight: 15 }} />
+                        <FontAwesome name="file-pdf-o" size={25} color="#6789CA" style={{ marginRight: 15 }} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#000000' }}>Assign Date </Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Assign Date </Text>
                     <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.createdAt).format('MMM DD, YYYY')}</Text>
                 </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#000000' }}>Last Submission Date </Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.duedate).format('MMM DD, YYYY')}</Text>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Last Submission Date </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.duedate).format('MMM DD, YYYY')}</Text>
                 </View>
                 {item.viewResult == false &&
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? true : false}
-                            style={moment().format('YYYY-MM-DD') >= moment(item.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
+                        <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? true : false}
+                            style={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
                             onPress={() => this.UploadFileController(item)}>
                             <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>TO BE SUBMITTED</Text>
                         </TouchableOpacity>

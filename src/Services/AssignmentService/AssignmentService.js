@@ -1,16 +1,16 @@
 import Axios from '../../Helpers/appConfig'
 
-const assignmentListService = () => {
+const assignmentListService = (data) => {
     const body =
     {
-        "search": [{
-            "searchfield": "status",
-            "searchvalue": "publish",
-            "criteria": "eq",
-            "datatype": "text"
-        }]
+        "search": [
+            { "searchfield": "assingeestudents", "searchvalue": data.assingeestudents, "criteria": "eq", "datatype": "ObjectId" },
+            { "searchfield": "status", "searchvalue": "publish", "criteria": "eq", "datatype": "text" },
+            { "searchfield": "property.duedate", "searchvalue": data.duedate, "criteria": "gte", "datatype": "Date" }
+        ],
+        "formname": "assignment"
     }
-    return Axios.post('membertasks/filter', body)
+    return Axios.post('assignments/filter', body)
 }
 
 function uploadAssignmentService(data) {
