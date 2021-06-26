@@ -62,7 +62,7 @@ export default class MeetingScreen extends Component {
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
-                    onPress={() => { Linking.openURL(item.property.url) }}
+                    onPress={() => this.props.navigation.navigate('MeetingWebViewScreen', { data: item.property.url })}
                     disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
                     <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold' }}>Join Meeting </Text>
                 </TouchableOpacity>

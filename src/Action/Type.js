@@ -33,6 +33,8 @@ export const FORGETPASSWORDSCREEN = 'ForgetPasswordScreen'
 export const NEWPASSWORDSCREEN = 'NewPasswordScreen'
 export const SELECTRESULT = 'SelectResult'
 export const OFFLINERESULTLISTSCREEN = 'OfflineResultListScreen'
+export const MEETINGWEBVIEWSCREEN = 'MeetingWebViewScreen'
+export const WEBVIEWSCREEN = 'WebViewScreen'
 
 
 

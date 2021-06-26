@@ -31,6 +31,8 @@ import ForgetPasswordScreen from '../Screen/ForgetPasswordScreen/ForgetPasswordS
 import NewPasswordScreen from '../Screen/ForgetPasswordScreen/NewPasswordScreen';
 import SelectResult from '../Screen/ResultScreen/SelectResult';
 import OfflineResultListScreen from '../Screen/ResultScreen/OfflineResultListScreen';
+import MeetingWebViewScreen from '../Screen/MeetingScreen/MeetingWebViewScreen';
+import WebViewScreen from '../Screen/WebViewScreen/WebViewScreen';
 
 import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SELECTRESULT } from '../Action/Type';
 
@@ -54,8 +56,9 @@ function MainNavigation({ navigation }) {
     return (
         <HomeStack.Navigator headerMode='screen' initialRouteName='HomeScreen'>
             <HomeStack.Screen name="HomeScreen" options={{ title: '', headerShown: false }} component={HomeScreen} />
-
             <HomeStack.Screen name="ScanScreen" options={{ title: "", headerShown: false }} component={ScanScreen} />
+            <HomeStack.Screen name="MeetingWebViewScreen" options={{ title: "", headerShown: false }} component={MeetingWebViewScreen} />
+            <HomeStack.Screen name="WebViewScreen" options={{ title: "", headerShown: false }} component={WebViewScreen} />
 
             <HomeStack.Screen name="OfflineResultListScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Result',

@@ -6,6 +6,7 @@ import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 import moment from 'moment';
 import { AUTHUSER, LOGINSCREEN } from "../../Action/Type";
+const WIDTH = Dimensions.get('window').width;
 
 export default class TimeTableScreen extends Component {
     constructor(props) {
@@ -57,6 +58,7 @@ export default class TimeTableScreen extends Component {
     //Get Time Table Api
     getTimeTable(data) {
         timeTableService(data).then(response => {
+            console.log(`response.data`, response.data);
             this.setState({ timeTable: response.data, loader: false });
         });
     }
@@ -93,14 +95,21 @@ export default class TimeTableScreen extends Component {
     renderTimeTable = ({ item, index }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.property.subjectid}</Text>
-                </View>
-                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777' }}>{moment(item.timeslot.starttime).format('LT') + ' - ' + moment(item.timeslot.endtime).format('LT')}</Text>
+                <View style={{ flexDirection: 'row', }}>
+                    <View style={{ justifyContent: 'flex-start', flexDirection: 'column', marginTop: 5 }}>
+                        <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.property.subjectid}</Text>
+                        <Text style={{ fontSize: 14, marginLeft: 15, marginTop: 5, color: '#777777' }}>{moment(item.timeslot.starttime).format('LT') + ' - ' + moment(item.timeslot.endtime).format('LT')}</Text>
+                    </View>
+                    {item.property.link &&
+                        <View style={{ flexDirection: 'column', marginTop: 25, marginLeft: (WIDTH - 30) / 4 + 10 }}>
+                            <TouchableOpacity style={{ backgroundColor: '#5D81C6', height: 30, width: 70, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.joinMeetingNow(item.property.link)}>
+                                <Text style={STYLES.styles.textTabActive}>{'Join Now'}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
-                    <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE', }} />
+                    <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE' }} />
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5, marginBottom: 10 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#777777', textTransform: 'capitalize' }}>{item.staffid.property.fullname}</Text>
@@ -109,6 +118,10 @@ export default class TimeTableScreen extends Component {
             </View>
         </View>
     )
+
+    joinMeetingNow = (data) => {
+        this.props.navigation.navigate('WebViewScreen', { data });
+    }
 
     render() {
         const { timeTable, loader, refreshing, status } = this.state
