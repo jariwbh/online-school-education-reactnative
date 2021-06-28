@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ToastAndroid, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ToastAndroid, ScrollView, TouchableOpacity, Image } from 'react-native'
 import Loader from '../../Components/Loader/Loader'
 import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
@@ -9,6 +9,7 @@ export default class ViewAssignmentScreen extends Component {
     constructor(props) {
         super(props);
         this.assignmentObject = this.props.route.params.assignmentView;
+        console.log(`this.assignmentObject`, this.assignmentObject)
         this.state = {
             assignment: this.assignmentObject,
             loader: true
@@ -16,14 +17,8 @@ export default class ViewAssignmentScreen extends Component {
         this.onPressDownloadFile = this.onPressDownloadFile.bind(this);
     }
 
-    wait = (timeout) => {
-        return new Promise(resolve => {
-            setTimeout(resolve, timeout);
-        });
-    }
-
     componentDidMount() {
-        this.wait(1000).then(() => this.setState({ loader: false }));
+        this.setState({ loader: false });
     }
 
     //Download file function
@@ -83,36 +78,31 @@ export default class ViewAssignmentScreen extends Component {
                     {this.state.loader == true ?
                         <Loader />
                         :
+                        this.assignmentObject &&
                         <View style={{ marginTop: 15 }}>
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                     <View style={STYLES.styles.AssignmentCardview}>
                                         <View style={{ justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', marginTop: 10 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>{assignment.objectid.title}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>{assignment._id}</Text>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: 10, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                         </View>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                                             <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Assign Date :</Text>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.objectid.createdAt).format('LL')}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.createdAt).format('LL')}</Text>
                                         </View>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Last Submission </Text>
-                                        </View>
-                                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Date :</Text>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.objectid.duedate).format('LL')}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Last Submission Date :</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.createdAt).format('LL')}</Text>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                         </View>
                                         <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                                             <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>My Submission </Text>
-                                        </View>
-                                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Date :</Text>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.property.submitteddate).format('LL')}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15 }}>{moment(assignment.createdAt).format('LL')}</Text>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
@@ -124,10 +114,11 @@ export default class ViewAssignmentScreen extends Component {
                                         <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                         </View>
-                                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                                             <TouchableOpacity style={STYLES.styles.downloadButton}
-                                                onPress={() => this.onPressDownloadFile(assignment)}>
-                                                <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>DONWLOAD ASSIGNMENT</Text>
+                                                onPress={() => this.onPressDownloadFile(assignment.property.attachment)}>
+                                                <Text style={{ fontSize: 14, color: '#FFFFFF', paddingRight: 5 }}>DONWLOAD ASSIGNMENT</Text>
+                                                <Image source={require('../../assets/image/downloadicon.png')} style={{ height: 15, width: 15 }} />
                                             </TouchableOpacity>
                                         </View>
                                     </View>

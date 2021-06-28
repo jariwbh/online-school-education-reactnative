@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     downloadButton: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         width: WIDTH - 60,
         backgroundColor: '#2855AE',
         alignItems: 'center',

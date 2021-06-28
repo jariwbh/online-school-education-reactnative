@@ -149,7 +149,7 @@ function MainNavigation({ navigation }) {
             }} component={Myprofile} />
 
             <HomeStack.Screen name="DateSheetScreen" options={{
-                headerTintColor: '#FFFFFF', title: 'Exam Date Sheet',
+                headerTintColor: '#FFFFFF', title: 'Exam Schedule',
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0

@@ -10,7 +10,6 @@ import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 import DocumentPicker from 'react-native-document-picker';
-import axiosConfig from "../../Helpers/axiosConfig";
 import Loader from '../../Components/Loader/Loader'
 import HTML from 'react-native-render-html';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -31,8 +30,8 @@ export default class AssignmentScreen extends Component {
             assignmentRemarks: null,
             singleFile: null,
             fileURL: null,
-            contextId: null,
-            spinner: false
+            spinner: false,
+            assignmentid: null
         };
         this.submitAssignmentList = [];
         this.onPressDownloadFile = this.onPressDownloadFile.bind(this);
@@ -49,48 +48,40 @@ export default class AssignmentScreen extends Component {
         await assignmentListService(body).then(response => {
             let newAssignment = []
             if (response.data && (response.data || response.data.length != 0)) {
-                console.log(`response.data`, response.data);
+                //console.log(` response.data`, response.data);
                 response.data.forEach(element => {
                     element.viewResult = false;
-
-                    // if (element.assingeestudents && element.assingeestudents.length != 0) {
-                    //     console.log('call');
-                    //     var check = element.assingeestudents.indexOf(studentId);
-                    //     if (check != -1) {
-                    //         console.log('if call');
-                    //         //                 this.submitAssignmentList.forEach(ele => {
-                    //         //                     if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
-                    //         //                         element.viewResult = true;
-                    //         //                         element.viewResultID = ele._id;
-                    //         //                     }
-                    //         //                 });
-                    newAssignment.push(element);
-                    //     }
-                    // }
-                    // else {
-                    //     console.log('else call');
-                    //     // All Student of Particular Membership
-                    //     //             this.submitAssignmentList.forEach(ele => {
-                    //     //                 if (ele.objectid && ele.objectid._id == element._id && ele.userid._id == studentId) {
-                    //     //                     element.viewResult = true;
-                    //     //                     element.viewResultID = ele._id;
-                    //     //                 }
-                    //     //             });
-                    //     //             newAssignment.push(element);
-                    // }
+                    if (element.assingeestudents && element.assingeestudents.length != 0) {
+                        this.submitAssignmentList.forEach(ele => {
+                            if (ele.property.refid && ele.property.refid == element._id && ele.contextid._id == studentId) {
+                                element.viewResult = true;
+                                element.viewResultID = ele._id;
+                            }
+                        });
+                        newAssignment.push(element);
+                    }
+                    else {
+                        //  All Student of Particular Membership
+                        this.submitAssignmentList.forEach(ele => {
+                            if (ele.property.refid && ele.property.refid == element._id && ele.contextid._id == studentId) {
+                                element.viewResult = true;
+                                element.viewResultID = ele._id;
+                            }
+                        });
+                        newAssignment.push(element);
+                    }
                 });
             }
-            console.log(`newAssignment`, newAssignment)
             this.setState({ assignmentList: newAssignment });
             this.setState({ loader: false });
         });
     }
 
     async getSubmitAssignmentList(studentId) {
-        // await submitAssignmentListService(studentId).then(response => {
-        //     this.submitAssignmentList = response.data;
-        //     this.wait(1000).then(() => this.setState({ loader: false }));
-        // });
+        await submitAssignmentListService(studentId).then(response => {
+            this.submitAssignmentList = response.data;
+            this.setState({ loader: false });
+        });
     }
 
     //get student information api
@@ -140,7 +131,8 @@ export default class AssignmentScreen extends Component {
 
     //pdf image icon click to download file 
     onPressDownloadFile(item) {
-        const REMOTE_IMAGE_PATH = `${item.templateid.property.attachment}`;
+        let url = item.templateid.attachment && item.templateid.attachment.attachment;
+        const REMOTE_IMAGE_PATH = `${url}`;
         // To add the time suffix in filename
         let date = new Date();
         // Image URL which we want to download
@@ -245,24 +237,16 @@ export default class AssignmentScreen extends Component {
 
     //model popup submit button to submit assignment
     async onSubmitAssignment() {
-        const { studentInfo, contextId, assignmentRemarks, fileURL, studentId } = this.state;
+        const { studentInfo, assignmentRemarks, fileURL, studentId, assignmentid } = this.state;
         let body = {
-            status: "done",
-            dispositionid: "5def2f78686b1901582ff6c7", //dispositions api id
-            formdispositionid: "5def3054686b1901582ff6cf",
-            formid: "5a3366a50861a9670928e5c9", //static
-            contextid: contextId, //membertask api id 
-            property: {
-                remark: assignmentRemarks,
-                attachment: [fileURL],
-                submitteddate: moment().format('YYYY-MM-DD'),
-                followupdate: moment().format('YYYY-MM-DD')
-            },
-            userid: studentId,
-            onUser: "Member",
-            objectid: contextId, //membertask api id
-            onObject: "Membertask",
-            onModel: "Formdata",
+            "onModel": "Member",
+            "formid": "605dd48599e17f2404bb40a2", //static
+            "contextid": studentId, //student api id 
+            "property": {
+                "remark": assignmentRemarks,
+                "attachment": fileURL,
+                "refid": assignmentid //examid
+            }
         }
 
         if (!fileURL) {
@@ -277,7 +261,6 @@ export default class AssignmentScreen extends Component {
 
         try {
             if (studentInfo) {
-                await axiosConfig(studentId);
                 //Upload Assignment Service
                 await uploadAssignmentService(body).then(response => {
                     if (response.data != null && response.data != 'undefind' && response.status == 200) {
@@ -286,9 +269,9 @@ export default class AssignmentScreen extends Component {
                         } else {
                             ToastAndroid.show("Assignment Sumitted", ToastAndroid.LONG);
                         }
-                        let token = studentInfo.addedby;
-                        axiosConfig(token);
                         this.toggleModalVisibility();
+                        this.getSubmitAssignmentList(studentId);
+                        this.getAssignmentList();
                         return;
                     }
                 })
@@ -326,7 +309,7 @@ export default class AssignmentScreen extends Component {
 
     //model popup show funaction
     UploadFileController(item) {
-        this.setState({ contextId: item._id })
+        this.setState({ assignmentid: item._id })
         this.setState({ isModalVisible: true });
         this.resetButton();
     }
@@ -350,7 +333,7 @@ export default class AssignmentScreen extends Component {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ marginTop: 10, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
-                    <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA', }}>{item.templateid.subjectid.property.title}</Text>
+                    <Text style={{ fontSize: 14, marginLeft: 10, flex: 1, color: '#6789CA' }}>{item.templateid && item.templateid.subjectid && item.templateid.subjectid.property.title}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.templateid.title}</Text>

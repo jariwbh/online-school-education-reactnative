@@ -29,7 +29,24 @@ const styles = StyleSheet.create({
         elevation: 2,
         width: WIDTH - 30,
         marginTop: 15
+    },
+    innercardview2: {
+        flexDirection: 'column',
+        backgroundColor: "#FFFFFF",
+        borderColor: '#FF0000',
+        borderWidth: 0.5,
+        borderRadius: 10,
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 2,
+        width: WIDTH - 30,
+        marginTop: 15
     }
+
 })
 
 export { styles };

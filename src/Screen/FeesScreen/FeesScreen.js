@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, RefreshControl, FlatList, Dimensions } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, TouchableOpacity, RefreshControl, FlatList, Dimensions, Image } from 'react-native';
 import { getPaymentService, getPaymentSchedulesService } from '../../Services/PaymentService/PaymentService';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
@@ -8,6 +8,7 @@ import * as STYLES from './Styles';
 import moment from 'moment';
 const WIDTH = Dimensions.get('window').width;
 import getCurrency from '../../Services/getCurrency/getCurrency';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export class FeesScreen extends Component {
     constructor(props) {
@@ -76,7 +77,7 @@ export class FeesScreen extends Component {
     //render Payment Schedule using flatlist
     renderPaymentSchedule = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <View style={STYLES.styles.innercardview}>
+            <View style={STYLES.styles.innercardview2}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Period</Text>
                     <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.paymentterms.period}</Text>
@@ -102,9 +103,13 @@ export class FeesScreen extends Component {
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
-                <TouchableOpacity style={{ width: WIDTH - 30, backgroundColor: '#2855AE', height: 38, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, }}
+                <TouchableOpacity style={{
+                    width: WIDTH - 30, backgroundColor: '#FF1A1A', justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
+                    height: 38, borderBottomLeftRadius: 10, borderBottomRightRadius: 10
+                }}
                     onPress={() => { }}>
-                    <Text style={{ fontSize: 14, color: '#FFFFFF', textAlign: 'center', marginTop: 5 }}>PAY NOW</Text>
+                    <Text style={{ fontSize: 14, color: '#FFFFFF', textAlign: 'center', paddingRight: 5 }}>PAY NOW</Text>
+                    <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />
                 </TouchableOpacity>
             </View>
         </View>
@@ -143,9 +148,13 @@ export class FeesScreen extends Component {
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                 </View>
-                <TouchableOpacity style={{ width: WIDTH - 30, backgroundColor: '#2855AE', height: 38, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}
+                <TouchableOpacity style={{
+                    width: WIDTH - 30, backgroundColor: '#2855AE', justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
+                    height: 38, borderBottomLeftRadius: 10, borderBottomRightRadius: 10
+                }}
                     onPress={() => { }}>
-                    <Text style={{ fontSize: 14, color: '#FFFFFF', textAlign: 'center', marginTop: 5 }}>DOWNLOAD NOW</Text>
+                    <Text style={{ fontSize: 14, color: '#FFFFFF', textAlign: 'center', paddingRight: 5 }}>DOWNLOAD NOW</Text>
+                    <Image source={require('../../assets/image/downloadicon.png')} style={{ height: 15, width: 15 }} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -159,7 +168,7 @@ export class FeesScreen extends Component {
                     {((paymentScheduleList == null) || (paymentScheduleList && paymentScheduleList.length == 0) && (paymentList == null) || (paymentList && paymentList.length == 0))
                         ?
                         (loader == false ?
-                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}> Data Not Available</Text>
+                            <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}> fees Details Not Available</Text>
                             : <Loader />
                         )
                         :

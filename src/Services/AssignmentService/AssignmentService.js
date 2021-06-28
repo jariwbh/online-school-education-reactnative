@@ -10,12 +10,12 @@ const assignmentListService = (data) => {
         ],
         "formname": "assignment"
     }
-    return Axios.post('assignments/filter', body)
+    return Axios.post('assignments/filter', body);
 }
 
 function uploadAssignmentService(data) {
     const body = JSON.stringify(data)
-    return Axios.post('dispositiondatas', body);
+    return Axios.post('formdatas', body);
 }
 
 function submitAssignmentListService(id) {
@@ -23,17 +23,24 @@ function submitAssignmentListService(id) {
     {
         "search": [{
             "searchfield": "status",
-            "searchvalue": "done",
+            "searchvalue": "active",
             "criteria": "eq",
             "datatype": "text"
-        }, {
-            "searchfield": "userid",
+        },
+        {
+            "searchfield": "formid",
+            "searchvalue": "605dd48599e17f2404bb40a2",
+            "criteria": "eq",
+            "datatype": "ObjectId"
+        },
+        {
+            "searchfield": "contextid",
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "ObjectId"
-        }]
+        }], "formname": "assignment"
     }
-    return Axios.post('dispositiondatas/filter', body)
+    return Axios.post('formdatas/filter', body);
 }
 
 export { assignmentListService, uploadAssignmentService, submitAssignmentListService };

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, StatusBar, Platform } from 'react-native';
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, StatusBar, Platform, Dimensions } from 'react-native';
 import { AttendenceCalculateService, getTodayAttendenceService } from '../../Services/AttendenceService/AttendenceService';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AUTHUSER } from '../../Action/Type';
@@ -12,6 +12,7 @@ import { getStudentService } from '../../Services/StudentService/StudentService'
 const ProfileURL = 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613538969/profile1_xspwoy.png'
 import axiosConfig from '../../Helpers/axiosConfig';
 import getCurrency from '../../Services/getCurrency/getCurrency';
+const WIDTH = Dimensions.get('window').width;
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -137,13 +138,13 @@ class HomeScreen extends Component {
                 <StatusBar barStyle="light-content" backgroundColor="#5D81C6" />
                 {loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
-                        <View style={{ justifyContent: 'space-evenly', flexDirection: 'row', marginTop: 20 }}>
-                            <View style={{ width: '50%' }}>
+                        <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                            <View style={{ width: '50%', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 20 }}>
                                 <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.fullname} </Text>
                                 <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, borderRadius: 100 }}>
+                                <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                                    <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, marginBottom: 10, borderRadius: 100 }}>
                                         <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                     </View>
                                     {
@@ -155,25 +156,28 @@ class HomeScreen extends Component {
                                                 <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" style={{ marginTop: 5, marginLeft: 20 }} />
                                             </TouchableOpacity>
                                     }
-
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
-                                <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }} style={{ height: 90, width: 90, borderRadius: 100 }}
-                                />
-                            </TouchableOpacity>
+                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginLeft: WIDTH / 5 }}>
+                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
+                                    <View style={{ height: 84, width: 84, borderColor: '#FFFFFF', borderRadius: 100, borderWidth: 2 }}>
+                                        <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }}
+                                            style={{ height: 80, width: 80, borderRadius: 100, marginTop: 0 }} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={STYLES.styles.inputView}>
-                            <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
+                            <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin: 10 }}>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.ATTENDANCESCREEN) }}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_attendance_mzthkn.png' }}
-                                        style={{ height: 80, width: 80, borderRadius: 10, marginTop: 5 }}
+                                        style={{ height: 80, width: 80, borderRadius: 100, marginTop: 5 }}
                                     />
                                     <View style={{ marginTop: 5 }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}>{attendencePercent} %</Text>
+                                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#000000' }}>{attendencePercent} %</Text>
                                     </View>
                                     <View style={{ marginTop: 5 }}>
-                                        <Text style={{ fontSize: 16, color: '#000000' }}>Attendance</Text>
+                                        <Text style={{ fontSize: 16, color: '#555555' }}>Attendance</Text>
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.FEESSCREEN) }}>
@@ -181,15 +185,15 @@ class HomeScreen extends Component {
                                         style={{ height: 80, width: 80, borderRadius: 10, marginTop: 5 }}
                                     />
                                     <View style={{ marginTop: 5 }}>
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000000' }}> {this.state.currencySymbol + StudentData.paymentterms[0].amount} </Text>
+                                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#000000' }}> {this.state.currencySymbol + StudentData.paymentterms[0].amount} </Text>
                                     </View>
                                     <View style={{ marginTop: 5 }}>
-                                        <Text style={{ fontSize: 16, color: '#000000' }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>
+                                        <Text style={{ fontSize: 16, color: '#555555' }}> {StudentData.paymentterms[0].period == 'Once' ? 'Year' : 'Fees Due'} </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate(SCREENNAME.PLAYQUIZLISTSCREEN)}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }}
@@ -212,7 +216,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.HOLIDAYSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_holiday_u8m9dr.png' }}
@@ -235,7 +239,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SELECTRESULT) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_results_yiabkk.png' }}
@@ -252,13 +256,13 @@ class HomeScreen extends Component {
                                             style={{ height: 50, width: 50 }}
                                         />
                                         <View style={{ marginTop: 15 }}>
-                                            <Text style={{ fontSize: 16, color: '#000000' }}>Date Sheet </Text>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Exam Schedule</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SCHOOLGALLERYSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={require('../../assets/image/ic_gallery.png')}
@@ -280,14 +284,14 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SUPPORTSCREEN) }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EVENTSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
-                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }}
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }}
                                             style={{ height: 50, width: 50 }}
                                         />
                                         <View style={{ marginTop: 15 }}>
-                                            <Text style={{ fontSize: 16, color: '#000000' }}>Support</Text>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Events</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -301,14 +305,14 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 20, justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EVENTSCREEN) }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SUPPORTSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
-                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }}
+                                        <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }}
                                             style={{ height: 50, width: 50 }}
                                         />
                                         <View style={{ marginTop: 15 }}>
-                                            <Text style={{ fontSize: 16, color: '#000000' }}>Events</Text>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Support</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -323,7 +327,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: 20 }} />
+                            <View style={{ marginTop: 10 }} />
                         </View>
                     </ScrollView>
                     : <View style={STYLES.styles.loaderView}><Loader /></View>
