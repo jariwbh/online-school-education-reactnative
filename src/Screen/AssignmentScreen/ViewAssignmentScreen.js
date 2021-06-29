@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, ToastAndroid, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { Text, View, SafeAreaView, ToastAndroid, ScrollView, TouchableOpacity, Image, Platform } from 'react-native'
 import Loader from '../../Components/Loader/Loader'
 import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
@@ -9,7 +9,7 @@ export default class ViewAssignmentScreen extends Component {
     constructor(props) {
         super(props);
         this.assignmentObject = this.props.route.params.assignmentView;
-        console.log(`this.assignmentObject`, this.assignmentObject)
+        console.log(`this.assignmentObject`, this.assignmentObject);
         this.state = {
             assignment: this.assignmentObject,
             loader: true
@@ -23,44 +23,49 @@ export default class ViewAssignmentScreen extends Component {
 
     //Download file function
     onPressDownloadFile(assignment) {
-        const REMOTE_IMAGE_PATH = `${assignment.objectid.attachmenturl[0]}`;
-        // To add the time suffix in filename
-        let date = new Date();
-        // Image URL which we want to download
-        let image_URL = REMOTE_IMAGE_PATH;
-        // Getting the extention of the file
-        let ext = this.getExtention(image_URL);
-        ext = '.' + ext[0];
-        // Get config and fs from RNFetchBlob
-        // config: To pass the downloading related options
-        // fs: Directory path where we want our image to download
-        const { config, fs } = RNFetchBlob;
-        let PictureDir = fs.dirs.PictureDir;
-        let options = {
-            fileCache: true,
-            addAndroidDownloads: {
-                // Related to the Android only
-                useDownloadManager: true,
-                notification: true,
-                path:
-                    PictureDir +
-                    `/${assignment.objectid.title}_` +
-                    Math.floor(date.getTime() + date.getSeconds() / 2) +
-                    ext,
-                description: 'file',
-            },
-        };
-        config(options)
-            .fetch('GET', image_URL)
-            .then(res => {
-                // Showing alert after successful downloading
-                console.log('res -> ', JSON.stringify(res));
-                if (Platform.OS === 'ios') {
-                    alert("File Downloaded");
-                } else {
-                    ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
-                }
-            });
+        let url = assignment.property && assignment.property.attachment;
+        if (Platform.OS === "ios") {
+            RNFetchBlob.ios.openDocument(url);
+        } else {
+            const REMOTE_IMAGE_PATH = `${url}`;
+            // To add the time suffix in filename
+            let date = new Date();
+            // Image URL which we want to download
+            let image_URL = REMOTE_IMAGE_PATH;
+            // Getting the extention of the file
+            let ext = this.getExtention(image_URL);
+            ext = '.' + ext[0];
+            // Get config and fs from RNFetchBlob
+            // config: To pass the downloading related options
+            // fs: Directory path where we want our image to download
+            const { config, fs } = RNFetchBlob;
+            let PictureDir = fs.dirs.PictureDir;
+            let options = {
+                fileCache: true,
+                addAndroidDownloads: {
+                    // Related to the Android only
+                    useDownloadManager: true,
+                    notification: true,
+                    path:
+                        PictureDir +
+                        `/${assignment.refid.templateid.title}_` +
+                        Math.floor(date.getTime() + date.getSeconds() / 2) +
+                        ext,
+                    description: 'file',
+                },
+            };
+            config(options)
+                .fetch('GET', image_URL)
+                .then(res => {
+                    // Showing alert after successful downloading
+                    console.log('res -> ', JSON.stringify(res));
+                    if (Platform.OS === 'ios') {
+                        alert("File Downloaded");
+                    } else {
+                        ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
+                    }
+                });
+        }
     }
 
     // Getting the extention of the file
@@ -107,16 +112,20 @@ export default class ViewAssignmentScreen extends Component {
                                         <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                         </View>
-                                        <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Remarks :</Text>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginRight: 15, flex: 0.5 }}>{assignment.property.remark}</Text>
+                                        <View style={{ flexDirection: 'row', marginTop: 5, justifyContent: 'space-between' }}>
+                                            <View style={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                                                <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>Remarks :</Text>
+                                            </View>
+                                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', width: '40%' }}>
+                                                <Text style={{ fontSize: 14, color: '#000000', marginRight: 15, flex: 0.5 }}>{assignment.property.remark}</Text>
+                                            </View>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
                                         </View>
                                         <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                                             <TouchableOpacity style={STYLES.styles.downloadButton}
-                                                onPress={() => this.onPressDownloadFile(assignment.property.attachment)}>
+                                                onPress={() => this.onPressDownloadFile(assignment)}>
                                                 <Text style={{ fontSize: 14, color: '#FFFFFF', paddingRight: 5 }}>DONWLOAD ASSIGNMENT</Text>
                                                 <Image source={require('../../assets/image/downloadicon.png')} style={{ height: 15, width: 15 }} />
                                             </TouchableOpacity>

@@ -133,7 +133,7 @@ export default class AssignmentScreen extends Component {
     onPressDownloadFile(item) {
         let url = item.templateid.attachment && item.templateid.attachment.attachment;
         if (Platform.OS === "ios") {
-            RNFetchBlob.ios.openDocument(resp.data);
+            RNFetchBlob.ios.openDocument(url);
         } else {
             const REMOTE_IMAGE_PATH = `${url}`;
             // To add the time suffix in filename
@@ -193,7 +193,7 @@ export default class AssignmentScreen extends Component {
             });
             // Printing the log realted to the file
             console.log('res : ' + JSON.stringify(res));
-            if (res.size <= 30000) {
+            if (res.size <= 80000) {
                 this.setState({ spinner: true });
                 this.onPressUploadFile(res);
                 this.setState({ singleFile: res });
@@ -282,8 +282,7 @@ export default class AssignmentScreen extends Component {
                             ToastAndroid.show("Assignment Sumitted", ToastAndroid.LONG);
                         }
                         this.toggleModalVisibility();
-                        this.getSubmitAssignmentList(studentId);
-                        this.getAssignmentList();
+                        this.getStudentData();
                         return;
                     }
                 })
