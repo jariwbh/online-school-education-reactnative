@@ -11,11 +11,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 import DocumentPicker from 'react-native-document-picker';
 import Loader from '../../Components/Loader/Loader'
-import HTML from 'react-native-render-html';
 import RNFetchBlob from 'rn-fetch-blob';
 import * as STYLES from './Styles';
 import moment from 'moment'
 const { width } = Dimensions.get("window");
+//import HTML from 'react-native-render-html';
 
 export default class AssignmentScreen extends Component {
     constructor(props) {
@@ -132,44 +132,48 @@ export default class AssignmentScreen extends Component {
     //pdf image icon click to download file 
     onPressDownloadFile(item) {
         let url = item.templateid.attachment && item.templateid.attachment.attachment;
-        const REMOTE_IMAGE_PATH = `${url}`;
-        // To add the time suffix in filename
-        let date = new Date();
-        // Image URL which we want to download
-        let image_URL = REMOTE_IMAGE_PATH;
-        // Getting the extention of the file
-        let ext = this.getExtention(image_URL);
-        ext = '.' + ext[0];
-        // Get config and fs from RNFetchBlob
-        // config: To pass the downloading related options
-        // fs: Directory path where we want our image to download
-        const { config, fs } = RNFetchBlob;
-        let PictureDir = fs.dirs.PictureDir;
-        let options = {
-            fileCache: true,
-            addAndroidDownloads: {
-                // Related to the Android only
-                useDownloadManager: true,
-                notification: true,
-                path:
-                    PictureDir +
-                    `/${item.templateid.title}_` +
-                    Math.floor(date.getTime() + date.getSeconds() / 2) +
-                    ext,
-                description: 'file',
-            },
-        };
-        config(options)
-            .fetch('GET', image_URL)
-            .then(res => {
-                // Showing alert after successful downloading
-                console.log('res -> ', JSON.stringify(res));
-                if (Platform.OS === 'ios') {
-                    alert("File Downloaded");
-                } else {
-                    ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
-                }
-            });
+        if (Platform.OS === "ios") {
+            RNFetchBlob.ios.openDocument(resp.data);
+        } else {
+            const REMOTE_IMAGE_PATH = `${url}`;
+            // To add the time suffix in filename
+            let date = new Date();
+            // Image URL which we want to download
+            let image_URL = REMOTE_IMAGE_PATH;
+            // Getting the extention of the file
+            let ext = this.getExtention(image_URL);
+            ext = '.' + ext[0];
+            // Get config and fs from RNFetchBlob
+            // config: To pass the downloading related options
+            // fs: Directory path where we want our image to download
+            const { config, fs } = RNFetchBlob;
+            let PictureDir = fs.dirs.PictureDir;
+            let options = {
+                fileCache: true,
+                addAndroidDownloads: {
+                    // Related to the Android only
+                    useDownloadManager: true,
+                    notification: true,
+                    path:
+                        PictureDir +
+                        `/${item.templateid.title}_` +
+                        Math.floor(date.getTime() + date.getSeconds() / 2) +
+                        ext,
+                    description: 'file',
+                },
+            };
+            config(options)
+                .fetch('GET', image_URL)
+                .then(res => {
+                    // Showing alert after successful downloading
+                    console.log('res -> ', JSON.stringify(res));
+                    if (Platform.OS === 'ios') {
+                        alert("File Downloaded");
+                    } else {
+                        ToastAndroid.show("File Downloaded", ToastAndroid.LONG);
+                    }
+                });
+        }
     }
 
     // Getting the extention of the file
