@@ -141,11 +141,11 @@ class HomeScreen extends Component {
                         <View style={{ flexDirection: 'row', marginTop: 20 }}>
                             <View style={{ width: '50%', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 20 }}>
                                 <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.fullname} </Text>
-                                <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold', marginTop: 5 }}>
+                                <Text style={{ fontSize: 16, color: '#FFFFFF', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>
                                 <View style={{ flexDirection: 'row', marginTop: 5 }}>
                                     <View style={{ width: 100, height: 30, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', marginTop: 5, marginBottom: 10, borderRadius: 100 }}>
-                                        <Text style={{ fontSize: 14, color: '#6184C7', fontWeight: 'bold', }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
+                                        <Text style={{ fontSize: 14, color: '#6184C7' }}>{moment(StudentData.membershipstart).format('YYYY') + '-' + moment(StudentData.membershipend).format('YYYY')} </Text>
                                     </View>
                                     {
                                         checkin == true
@@ -158,17 +158,17 @@ class HomeScreen extends Component {
                                     }
                                 </View>
                             </View>
-                            <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginLeft: WIDTH / 5 }}>
-                                <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
-                                    <View style={{ height: 84, width: 84, borderColor: '#FFFFFF', borderRadius: 100, borderWidth: 2 }}>
-                                        <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }}
-                                            style={{ height: 80, width: 80, borderRadius: 100, marginTop: 0 }} />
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
+                        </View>
+                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginLeft: WIDTH / 6, marginTop: -100, marginRight: 20 }}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate(SCREENNAME.MYPROFILE) }}>
+                                <View style={{ height: 84, width: 84, borderColor: '#FFFFFF', borderRadius: 100, borderWidth: 2 }}>
+                                    <Image source={{ uri: studentProfile && studentProfile !== null ? studentProfile : ProfileURL }}
+                                        style={{ height: 80, width: 80, borderRadius: 100 }} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={STYLES.styles.inputView}>
-                            <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: -40, justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardview} onPress={() => { this.props.navigation.navigate(SCREENNAME.ATTENDANCESCREEN) }}>
                                     <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451580/school%20Images/ic_attendance_mzthkn.png' }}
                                         style={{ height: 80, width: 80, borderRadius: 100, marginTop: 5 }}
@@ -193,7 +193,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => this.props.navigation.navigate(SCREENNAME.PLAYQUIZLISTSCREEN)}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451582/school%20Images/ic_quiz_kb6cld.png' }}
@@ -216,7 +216,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.HOLIDAYSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_holiday_u8m9dr.png' }}
@@ -239,7 +239,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SELECTRESULT) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_results_yiabkk.png' }}
@@ -262,7 +262,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SCHOOLGALLERYSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={require('../../assets/image/ic_gallery.png')}
@@ -284,7 +284,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EVENTSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }}
@@ -305,7 +305,7 @@ class HomeScreen extends Component {
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row', margin: 10 }}>
+                            <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
                                 <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.SUPPORTSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451583/school%20Images/ic_doubts_lkdtha.png' }}

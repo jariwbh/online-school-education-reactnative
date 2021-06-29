@@ -29,7 +29,7 @@ function submitAssignmentListService(id) {
         },
         {
             "searchfield": "formid",
-            "searchvalue": "605dd48599e17f2404bb40a2",
+            "searchvalue": "60d71c8199e17f3bf85cfd40",
             "criteria": "eq",
             "datatype": "ObjectId"
         },
@@ -38,7 +38,7 @@ function submitAssignmentListService(id) {
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "ObjectId"
-        }], "formname": "assignment"
+        }], "formname": "assignmentsubmissionlisting"
     }
     return Axios.post('formdatas/filter', body);
 }

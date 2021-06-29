@@ -76,7 +76,7 @@ export default class EventsScreen extends Component {
                             : <Loader />
                         )
                         :
-                        <View style={{ marginTop: 5 }}>
+                        <View style={{ marginTop: 15 }}>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <View>
                                     <FlatList

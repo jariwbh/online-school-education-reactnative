@@ -84,7 +84,7 @@ export default class ViewAssignmentScreen extends Component {
                                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                     <View style={STYLES.styles.AssignmentCardview}>
                                         <View style={{ justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', marginTop: 10 }}>
-                                            <Text style={{ fontSize: 14, color: '#000000', marginLeft: 15 }}>{assignment._id}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000000', fontWeight: 'bold', textTransform: 'capitalize', marginLeft: 15 }}>{assignment.refid.templateid.title}</Text>
                                         </View>
                                         <View style={{ alignItems: 'center', marginTop: 10, flexDirection: 'row' }}>
                                             <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />

@@ -40,31 +40,33 @@ export default class MeetingScreen extends Component {
     }
 
     renderMeeting = ({ item }) => (
-        <View style={STYLES.styles.innercardview}>
-            <View style={{ marginTop: 5, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
-                <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA' }}>{item.property.course.membershipname}</Text>
-            </View>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5, }}>
-                <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.property.title}</Text>
-            </View>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Today Date </Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.date).format('ll')}</Text>
-            </View>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Start Time </Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.starttime).format('LT')}</Text>
-            </View>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>End Time </Text>
-                <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.endtime).format('LT')}</Text>
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
-                    onPress={() => this.props.navigation.navigate('MeetingWebViewScreen', { data: item.property.url })}
-                    disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
-                    <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold' }}>Join Meeting </Text>
-                </TouchableOpacity>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={STYLES.styles.innercardview}>
+                <View style={{ marginTop: 10, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
+                    <Text style={{ fontSize: 14, flex: 1, marginLeft: 15, color: '#6789CA' }}>{item.property.course.membershipname}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 5, }}>
+                    <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.property.title}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Today Date </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.date).format('ll')}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Start Time </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.starttime).format('LT')}</Text>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>End Time </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.endtime).format('LT')}</Text>
+                </View>
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
+                        onPress={() => this.props.navigation.navigate('MeetingWebViewScreen', { data: item.property.url })}
+                        disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
+                        <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold' }}>Join Meeting </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )

@@ -32,6 +32,7 @@ export default class TimeTableScreen extends Component {
             var date = new Date(curr.setDate(last)).toUTCString();
             if (moment(date).format('ddd').toLowerCase() !== "sun") {
                 let obj = { day: moment(date).format('ddd'), date: date, _id: i }
+                console.log(`obj`, obj);
                 this.state.listTab.push(obj);
             }
         }

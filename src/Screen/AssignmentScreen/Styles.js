@@ -80,13 +80,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         borderRadius: 10,
         borderColor: '#000000',
-        shadowOpacity: 0.1,
-        shadowRadius: 1,
         shadowOffset: {
             height: 0,
             width: 0,
         },
-        elevation: 2,
+        elevation: 1,
         width: WIDTH - 30,
         marginTop: 10
     },

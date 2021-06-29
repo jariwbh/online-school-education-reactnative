@@ -53,7 +53,7 @@ export default class AssignmentScreen extends Component {
                     element.viewResult = false;
                     if (element.assingeestudents && element.assingeestudents.length != 0) {
                         this.submitAssignmentList.forEach(ele => {
-                            if (ele.property.refid && ele.property.refid == element._id && ele.contextid._id == studentId) {
+                            if (ele.refid && ele.refid._id == element._id && ele.contextid._id == studentId) {
                                 element.viewResult = true;
                                 element.viewResultID = ele._id;
                             }
@@ -63,7 +63,7 @@ export default class AssignmentScreen extends Component {
                     else {
                         //  All Student of Particular Membership
                         this.submitAssignmentList.forEach(ele => {
-                            if (ele.property.refid && ele.property.refid == element._id && ele.contextid._id == studentId) {
+                            if (ele.refid && ele.refid._id == element._id && ele.contextid._id == studentId) {
                                 element.viewResult = true;
                                 element.viewResultID = ele._id;
                             }
@@ -212,9 +212,15 @@ export default class AssignmentScreen extends Component {
     //submitted button click to upload file
     onPressUploadFile = async (singleFile) => {
         if (singleFile != null) {
+            const realPath = Platform.OS === 'ios' ? singleFile.uri.replace('file://', '') : singleFile.uri;
             await RNFetchBlob.fetch('POST', 'https://api.cloudinary.com/v1_1/dlopjt9le/upload', { 'Content-Type': 'multipart/form-data' },
-                [{ name: 'file', filename: singleFile.name, type: singleFile.type, data: RNFetchBlob.wrap(singleFile.uri) },
-                { name: 'upload_preset', data: 'gs95u3um' }])
+                Platform.OS === 'ios' ?
+                    [{ name: 'file', filename: singleFile.fileSize, type: singleFile.type, data: RNFetchBlob.wrap(decodeURIComponent(realPath)) },
+                    { name: 'upload_preset', data: 'gs95u3um' }]
+                    :
+                    [{ name: 'file', filename: singleFile.name, type: singleFile.type, data: RNFetchBlob.wrap(singleFile.uri) },
+                    { name: 'upload_preset', data: 'gs95u3um' }]
+            )
                 .then(response => response.json())
                 .then(data => {
                     this.wait(3000).then(() => { this.setState({ spinner: false }) });
@@ -227,11 +233,12 @@ export default class AssignmentScreen extends Component {
                         this.setState({ fileURL: data.url });
                     }
                 }).catch(error => {
-                    console.log(`error`, error);
-                    alert("Uploading Failed!");
+                    this.setState({ spinner: false, singleFile: null });
+                    alert("Uploading Timeout!");
                 })
         } else {
             alert('Please Select File');
+            this.setState({ spinner: false, singleFile: null });
         }
     }
 
@@ -240,12 +247,13 @@ export default class AssignmentScreen extends Component {
         const { studentInfo, assignmentRemarks, fileURL, studentId, assignmentid } = this.state;
         let body = {
             "onModel": "Member",
-            "formid": "605dd48599e17f2404bb40a2", //static
+            "formid": "60d71c8199e17f3bf85cfd40", //static
             "contextid": studentId, //student api id 
+            "refid": assignmentid, //assigement id
+            "onRefModel": "Assignment",
             "property": {
                 "remark": assignmentRemarks,
-                "attachment": fileURL,
-                "refid": assignmentid //examid
+                "attachment": fileURL
             }
         }
 

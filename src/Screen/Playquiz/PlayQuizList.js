@@ -83,7 +83,7 @@ export default class PlayQuizList extends Component {
                     <TouchableOpacity
                         style={STYLES.styles.viewButton}
                         onPress={() => { this.props.navigation.navigate(PLAYQUIZSTARTSCREEN, { item }) }}>
-                        <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>VIEW DETAILS</Text>
+                        <Text style={{ fontSize: 14, color: '#FFFFFF' }}>VIEW DETAILS</Text>
                     </TouchableOpacity>
                 </View>
             </View>

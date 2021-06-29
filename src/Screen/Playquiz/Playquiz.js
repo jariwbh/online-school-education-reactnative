@@ -379,7 +379,6 @@ export default class Playquiz extends Component {
                             {currentQuestionOptions && currentQuestionOptions.map(val => (
                                 <TouchableOpacity onPress={() => this.selectedQuestionOption(currentQuestion, val)}
                                     style={[STYLES.styles.optionbtn, this.checkAnswerColor(val._id) && STYLES.styles.optionselectedbtn]}>
-
                                     <View style={{ flexDirection: 'row', marginLeft: 20, alignItems: 'center' }}>
                                         <HTML baseFontStyle={{ fontSize: 16, textTransform: 'capitalize', color: '#000000' }}
                                             html={`<html>${val.option + '. '} </html>`} />

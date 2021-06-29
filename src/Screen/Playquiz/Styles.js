@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderRadius: 10,
         shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowRadius: 0,
         shadowOffset: {
             height: 0,
             width: 0,
         },
         elevation: 2,
         width: WIDTH - 30,
-        marginBottom: 10
+        marginBottom: 20
     },
     viewButton: {
         width: WIDTH / 2 + 50,

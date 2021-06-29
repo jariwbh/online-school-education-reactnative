@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: 50
+        marginTop: 100
     },
     loaderView: {
         flex: 1,
         backgroundColor: "#FFFFFF",
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop: 150
+        marginTop: 210
     },
     cardview: {
         flexDirection: 'column',
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
         width: WIDTH / 3 + 40,
         height: 200,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: 5,
+        marginTop: -40
     },
     cardView: {
         flexDirection: 'column',
@@ -44,7 +46,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         shadowRadius: 3,
         width: WIDTH / 3 + 40,
-        height: 140
+        height: 140,
+        margin: 5
     }
 })
 

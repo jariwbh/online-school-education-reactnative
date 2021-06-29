@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     innercardview: {
-        flexDirection: 'column',
+        flexDirection: 'row',
         backgroundColor: "#FFFFFF",
         borderColor: '#2855AE',
         borderWidth: 1,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         height: 45,
         fontSize: 14,
         marginLeft: 20,
-        marginTop: -5,
+        marginTop: -5
     }
 })
 export { styles };

@@ -44,16 +44,16 @@ export default function ResultScreen(props) {
                     <BackButton onPress={() => props.navigation.navigate('OfflineResultListScreen')} />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: WIDTH / 3 }}>
-                    <Image source={require('../../assets/image/grey_circle.png')} style={{ width: 120, height: 120, }} />
-                    <Image source={require('../../assets/image/circle_bg.png')} style={{ width: 100, height: 100, position: 'absolute' }} />
+                    <Image source={require('../../assets/image/grey_circle.png')} style={{ width: 100, height: 100, }} />
+                    <Image source={require('../../assets/image/circle_bg.png')} style={{ width: 80, height: 80, position: 'absolute' }} />
                 </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: -85, marginLeft: WIDTH / 3 }}>
-                    <Text style={{ fontSize: 26, color: '#000000', fontWeight: 'bold' }}>{result.percentage + '%'}</Text>
+                <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: -75, marginLeft: WIDTH / 3 }}>
+                    <Text style={{ fontSize: 20, color: '#000000', fontWeight: 'bold' }}>{result.percentage + '%'}</Text>
                     <Text style={{ fontSize: 14, color: '#000000', fontWeight: 'bold' }}>{'GRADE' + ' ' + result.grade}</Text>
                 </View>
                 <View>
-                    <Image source={require('../../assets/image/star_bg.png')} style={{ width: 40, height: 40, marginLeft: WIDTH / 3 }} />
-                    <Image source={require('../../assets/image/ic_star.png')} style={{ width: 30, height: 30, position: 'absolute', marginLeft: WIDTH / 3 + 3, top: 3 }} />
+                    <Image source={require('../../assets/image/star_bg.png')} style={{ width: 30, height: 30, marginLeft: WIDTH / 3 }} />
+                    <Image source={require('../../assets/image/ic_star.png')} style={{ width: 20, height: 20, position: 'absolute', marginLeft: WIDTH / 3 + 3, top: 3 }} />
                 </View>
             </View>
             <View style={STYLES.styles.cardviewResult}>

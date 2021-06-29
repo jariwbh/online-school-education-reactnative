@@ -5,6 +5,7 @@ import { AUTHUSER, HOMESCREEN, LOGINSCREEN, VIEWFULLPICTURESCREEN } from '../../
 import AsyncStorage from '@react-native-community/async-storage';
 import MyPermissionController from '../../Helpers/appPermission';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 import Spinner from 'react-native-loading-spinner-overlay';
 import ImagePicker from 'react-native-image-picker';
 import Loader from '../../Components/Loader/Loader'
@@ -175,7 +176,7 @@ export default class Myprofile extends Component {
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                                 <View style={STYLES.styles.innercardview}>
-                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5, marginBottom: 10 }}>
+                                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 10, marginLeft: 5, marginBottom: 10 }}>
                                         <View style={{ marginLeft: 5, flexDirection: 'row' }}>
                                             <View>
                                                 <TouchableOpacity onPress={() => this.onTouchViewProfile()}>
@@ -183,16 +184,17 @@ export default class Myprofile extends Component {
                                                         style={{ height: 80, width: 80, borderRadius: 10, borderColor: '#000000', borderWidth: 0.5 }} />
                                                 </TouchableOpacity>
                                             </View>
-                                            <View>
-                                                <TouchableOpacity onPress={() => this.onChangeProfilePic()} style={{ marginLeft: -10, marginTop: 65, position: 'absolute' }}>
-                                                    <FontAwesome name="camera" size={20} color="#000000" />
-                                                </TouchableOpacity>
-                                            </View>
-                                            <View style={{ marginTop: 8, width: '65%' }}>
+
+                                            <View style={{ width: '65%' }}>
                                                 <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: 'bold', textTransform: 'capitalize', color: '#000000' }}>{studentInfo.fullname}</Text>
                                                 <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#777777', marginTop: 5 }}>{studentInfo.membershipid.membershipname}  |  Roll no: {studentInfo.property.roll_number}</Text>
                                             </View>
                                         </View>
+                                    </View>
+                                    <View>
+                                        <TouchableOpacity onPress={() => this.onChangeProfilePic()} style={{ justifyContent: 'flex-end', alignItems: 'flex-end', marginRight: 0, marginTop: 10 }}>
+                                            <Feather name="camera" size={20} color="#777777" />
+                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
@@ -209,7 +211,7 @@ export default class Myprofile extends Component {
                                         underlineColorAndroid="#A5A5A5"
                                     />
                                     <View>
-                                        <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                        <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                     </View>
                                 </View>
                             </View>
@@ -227,7 +229,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -247,7 +249,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -266,7 +268,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -285,7 +287,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -304,7 +306,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -323,7 +325,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -342,7 +344,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -361,7 +363,7 @@ export default class Myprofile extends Component {
                                     />
                                     <View>
                                         <TouchableOpacity>
-                                            <FontAwesome name="lock" size={24} color="#5D81C6" style={{ marginLeft: -25, marginTop: 5 }} />
+                                            <FontAwesome name="lock" size={24} color="#A5A5A5" style={{ marginLeft: -25, marginTop: 5 }} />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
