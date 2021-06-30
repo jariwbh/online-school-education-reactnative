@@ -2,9 +2,7 @@ import React from 'react';
 import NavigationApp from './src/Navigations/Navigations';
 
 const App = () => {
-  return (    
-      <NavigationApp />
-  );
+  return <NavigationApp />;
 };
 
 export default App;
