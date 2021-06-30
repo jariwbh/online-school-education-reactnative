@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Text, Pressable, BackHandler, SafeAreaView, View, Dimensions } from 'react-native';
+import { TouchableOpacity, Text, StatusBar, BackHandler, SafeAreaView, View, Dimensions } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -92,6 +92,7 @@ class ScanScreen extends Component {
         const { torchon } = this.state;
         return (
             <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar barStyle="light-content" backgroundColor="#5D81C6" />
                 <View style={{ backgroundColor: '#5D81C6', height: 50, width: '100%', flexDirection: 'row', alignItems: 'center' }} >
                     <TouchableOpacity style={{ marginLeft: 20, alignItems: 'flex-start', justifyContent: 'flex-start' }}
                         onPress={() => this.props.navigation.navigate(SCREENNAME.HOMESCREEN)} >

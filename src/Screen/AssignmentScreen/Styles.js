@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFFFFF",
         borderRadius: 10,
         shadowOpacity: 0.5,
-        shadowRadius: 3,
+        shadowRadius: 1,
         shadowOffset: {
             height: 0,
             width: 0,
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: 35,
         marginBottom: 25,
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'center'
     },
     downloadButton: {
         flexDirection: 'row',
@@ -74,7 +75,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: 35,
         marginBottom: 25,
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'center'
     },
     AssignmentCardview: {
         flexDirection: 'column',

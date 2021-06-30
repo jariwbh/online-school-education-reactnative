@@ -152,8 +152,8 @@ class HomeScreen extends Component {
                                             ?
                                             null
                                             :
-                                            <TouchableOpacity onPress={() => this.openBarcodeScaner()}>
-                                                <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" style={{ marginTop: 5, marginLeft: 20 }} />
+                                            <TouchableOpacity onPress={() => this.openBarcodeScaner()} style={{ marginTop: 5, marginLeft: 20}} >
+                                                <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" />
                                             </TouchableOpacity>
                                     }
                                 </View>

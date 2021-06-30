@@ -365,7 +365,7 @@ export default class AssignmentScreen extends Component {
                         <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? true : false}
                             style={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
                             onPress={() => this.UploadFileController(item)}>
-                            <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>TO BE SUBMITTED</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF'}}>TO BE SUBMITTED</Text>
                         </TouchableOpacity>
                     </View>
                 }
@@ -374,7 +374,7 @@ export default class AssignmentScreen extends Component {
                         <TouchableOpacity
                             style={STYLES.styles.submitButton}
                             onPress={() => this.viewAssignment(item)}>
-                            <Text style={{ fontSize: 14, color: '#FFFFFF', marginTop: 5 }}>VIEW ASSIGNMENT</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF'}}>VIEW ASSIGNMENT</Text>
                         </TouchableOpacity>
                     </View>
                 }

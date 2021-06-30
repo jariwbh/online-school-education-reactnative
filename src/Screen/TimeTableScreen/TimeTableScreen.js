@@ -100,14 +100,14 @@ export default class TimeTableScreen extends Component {
                     <View style={{ justifyContent: 'flex-start', flexDirection: 'column', marginTop: 5 }}>
                         <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.property.subjectid}</Text>
                         <Text style={{ fontSize: 14, marginLeft: 15, marginTop: 5, color: '#777777' }}>{moment(item.timeslot.starttime).format('LT') + ' - ' + moment(item.timeslot.endtime).format('LT')}</Text>
-                    </View>
-                    {item.property.link &&
-                        <View style={{ flexDirection: 'column', marginTop: 25, marginLeft: (WIDTH - 30) / 4 + 10 }}>
+                        {item.property.link &&
+                        <View style={{ marginLeft: 15, marginTop: 15}}>
                             <TouchableOpacity style={{ backgroundColor: '#5D81C6', height: 30, width: 70, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.joinMeetingNow(item.property.link)}>
                                 <Text style={STYLES.styles.textTabActive}>{'Join Now'}</Text>
                             </TouchableOpacity>
                         </View>
                     }
+                    </View>                   
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE' }} />

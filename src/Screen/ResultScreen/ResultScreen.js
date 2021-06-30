@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, Image, Dimensions, ActivityIndicator } from 'react-native'
+import { Text, View, SafeAreaView, Image, Dimensions, Platform } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import * as STYLES from './Styles';
 import BackButton from '../../Components/BackButton/BackButton';
@@ -40,7 +40,7 @@ export default function ResultScreen(props) {
         <SafeAreaView style={STYLES.styles.container}>
             <Image source={require('../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: '100%', height: '40%' }} />
             <View style={{ marginTop: 20, position: 'absolute' }}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row',marginTop:Platform=='android'?0:30 }}>
                     <BackButton onPress={() => props.navigation.navigate('OfflineResultListScreen')} />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: WIDTH / 3 }}>

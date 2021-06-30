@@ -373,7 +373,8 @@ export default class Playquiz extends Component {
                     </View>
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20, flex: 1 }}>
                         <View style={{ width: WIDTH - 50, backgroundColor: "#FFFFFF", borderRadius: 20, alignItems: 'center', flex: 1 }}>
-                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}
+                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000'}}
+                            containerStyle={{marginTop:10}}
                                 html={`<html>${currentQuestion && currentQuestion.question} </html>`} />
 
                             {currentQuestionOptions && currentQuestionOptions.map(val => (
@@ -388,7 +389,7 @@ export default class Playquiz extends Component {
                                 </TouchableOpacity>
                             ))}
 
-                            <View style={{ flexDirection: 'row' }}>
+                            <View style={{ flexDirection: 'row' ,marginBottom:10}}>
                                 <TouchableOpacity
                                     disabled={index == 0}
                                     style={index == 0 ? STYLES.styles.prevButtonDisable : STYLES.styles.prevButton}
