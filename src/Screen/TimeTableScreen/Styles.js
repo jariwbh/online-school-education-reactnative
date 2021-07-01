@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15
     },
     innercardview: {
-        flexDirection: 'column',
         backgroundColor: "#FFFFFF",
         borderColor: '#bfbfbf',
         borderRadius: 10,

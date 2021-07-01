@@ -95,7 +95,7 @@ class HomeScreen extends Component {
             await this.getAttendenceCalculateService(userData._id);
             const response = getCurrency(userData.branchid.currency)
             this.getStudent(userData._id);
-            this.wait(3000).then(() => this.setState({
+            this.wait(1000).then(() => this.setState({
                 currencySymbol: response,
                 loader: false,
                 StudentData: userData,
@@ -152,7 +152,7 @@ class HomeScreen extends Component {
                                             ?
                                             null
                                             :
-                                            <TouchableOpacity onPress={() => this.openBarcodeScaner()} style={{ marginTop: 5, marginLeft: 20}} >
+                                            <TouchableOpacity onPress={() => this.openBarcodeScaner()} style={{ marginTop: 5, marginLeft: 20 }} >
                                                 <MaterialCommunityIcons name="barcode-scan" size={25} color="#FFFFFF" />
                                             </TouchableOpacity>
                                     }

@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         marginTop: 20,
+        height: HEIGHT
     },
     TextInput: {
         width: WIDTH - 60,

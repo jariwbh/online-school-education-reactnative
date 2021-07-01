@@ -254,11 +254,8 @@ export default class ChangePasswordScreen extends Component {
                                 style={loading == true ? STYLES.styles.cpBtnLoading : STYLES.styles.cpBtn}
                                 disabled={loading == true ? true : false}
                                 onPress={() => this.onPressSubmit()}>
-                                {loading == true ? <Loading /> : <Text style={STYLES.styles.cpText}>Change Password </Text>}
+                                {loading == true ? <Loading /> : <Text style={STYLES.styles.cpText}>Change Password</Text>}
                             </TouchableOpacity>
-                        </View>
-                        <View>
-                            <Image source={require('../../assets/image/1.png')} style={{ width: WIDTH, height: 150, marginTop: 50 }} />
                         </View>
                     </View>
                 </ScrollView>

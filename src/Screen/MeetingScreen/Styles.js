@@ -17,10 +17,17 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: "#FFFFFF",
         borderRadius: 10,
+        shadowOpacity: 0.5,
+        shadowRadius: 1,
+        shadowOffset: {
+            height: 0,
+            width: 0,
+        },
+        elevation: 1,
         width: WIDTH - 30,
         marginTop: 5,
         marginBottom: 10,
-        borderColor: '#999999',
+        borderColor: '#EEEEEE',
         borderWidth: 0.5
     },
     meetingbtn: {

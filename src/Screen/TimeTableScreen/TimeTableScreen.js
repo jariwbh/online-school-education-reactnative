@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, Dimensions, ScrollView } from 'react-native'
+import { Text, View, RefreshControl, FlatList, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
 import { timeTableService } from '../../Services/TimeTableService/TimeTableService'
 import AsyncStorage from '@react-native-community/async-storage'
 import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 import moment from 'moment';
 import { AUTHUSER, LOGINSCREEN } from "../../Action/Type";
-const WIDTH = Dimensions.get('window').width;
 
 export default class TimeTableScreen extends Component {
     constructor(props) {
@@ -25,14 +24,15 @@ export default class TimeTableScreen extends Component {
 
     //get Current week Days
     getCurrentweekDays() {
-        var curr = new Date; // get current date
-        var first = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+        var currentDate = moment();
+        var weekStart = currentDate.clone().startOf('isoWeek');
         for (var i = 0; i <= 6; i++) {
-            var last = first + i;
-            var date = new Date(curr.setDate(last)).toUTCString();
-            if (moment(date).format('ddd').toLowerCase() !== "sun") {
-                let obj = { day: moment(date).format('ddd'), date: date, _id: i }
-                console.log(`obj`, obj);
+            if (moment(weekStart).add(i, 'days').format("ddd") !== "Sun") {
+                let obj = {
+                    day: moment(weekStart).add(i, 'days').format("ddd"),
+                    date: moment(weekStart).add(i, 'days').format('LLLL'),
+                    _id: i
+                }
                 this.state.listTab.push(obj);
             }
         }
@@ -59,7 +59,6 @@ export default class TimeTableScreen extends Component {
     //Get Time Table Api
     getTimeTable(data) {
         timeTableService(data).then(response => {
-            console.log(`response.data`, response.data);
             this.setState({ timeTable: response.data, loader: false });
         });
     }
@@ -96,18 +95,18 @@ export default class TimeTableScreen extends Component {
     renderTimeTable = ({ item, index }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ flexDirection: 'row', }}>
-                    <View style={{ justifyContent: 'flex-start', flexDirection: 'column', marginTop: 5 }}>
-                        <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.property.subjectid}</Text>
+                <View style={{ flexDirection: 'column' }}>
+                    <View style={{ justifyContent: 'flex-start', alignItems: 'flex-start', flexDirection: 'column', marginTop: 5 }}>
+                        <Text style={{ fontSize: 14, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.subjectid.property.title}</Text>
                         <Text style={{ fontSize: 14, marginLeft: 15, marginTop: 5, color: '#777777' }}>{moment(item.timeslot.starttime).format('LT') + ' - ' + moment(item.timeslot.endtime).format('LT')}</Text>
-                        {item.property.link &&
-                        <View style={{ marginLeft: 15, marginTop: 15}}>
+                    </View>
+                    {item.property.link &&
+                        <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'column', marginTop: -30, marginRight: 10 }}>
                             <TouchableOpacity style={{ backgroundColor: '#5D81C6', height: 30, width: 70, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }} onPress={() => this.joinMeetingNow(item.property.link)}>
                                 <Text style={STYLES.styles.textTabActive}>{'Join Now'}</Text>
                             </TouchableOpacity>
                         </View>
                     }
-                    </View>                   
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE' }} />
