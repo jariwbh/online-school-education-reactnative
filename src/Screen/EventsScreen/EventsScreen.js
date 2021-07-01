@@ -56,9 +56,15 @@ export default class EventsScreen extends Component {
                             <Fontisto name="clock" size={15} color="#6789CA" />
                             <Text style={{ fontSize: 12, marginLeft: 5, color: '#6789CA' }}>{moment(item.property.startdate).format('LLL')}</Text>
                         </View>
-                        <View style={{ marginRight: 100, width: '70%', marginTop: 5 }}>
-                            <HTML baseFontStyle={{ fontSize: 12, textTransform: 'capitalize', color: '#555555' }} html={`<html> ${item.property.description.length < 100 ? `${item.property.description}` : `${item.property.description.substring(0, 100)}...`} </html>`} />
-                        </View>
+                        {
+                            item.property && item.property.description && item.property.description.length ?
+                                <View style={{ marginRight: 100, width: '70%', marginTop: 5 }}>
+                                    <HTML baseFontStyle={{ fontSize: 12, textTransform: 'capitalize', color: '#555555' }}
+                                        html={`<html> ${item.property.description.length < 100 ? `${item.property.description}` : `${item.property.description.substring(0, 100)}...`} </html>`} />
+                                </View>
+                                : null
+                        }
+
                     </View>
                 </View>
             </TouchableOpacity>

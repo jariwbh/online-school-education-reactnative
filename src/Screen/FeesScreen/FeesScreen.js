@@ -24,7 +24,7 @@ export class FeesScreen extends Component {
             refreshing: false,
             currencySymbol: null,
             studentDetails: null,
-            loader: false
+            loadering: false
         };
     }
 
@@ -36,6 +36,7 @@ export class FeesScreen extends Component {
                 this.props.navigation.replace(LOGINSCREEN)
             }, 3000);;
         } else {
+            this.setState({ loader: true })
             var userData = JSON.parse(getUser);
             const response = getCurrency(userData.branchid.currency)
             this.setState({ currencySymbol: response });
@@ -47,20 +48,20 @@ export class FeesScreen extends Component {
 
     //razorpay function
     razorPay = (options, res) => {
-        this.setState({ loader: false });
+        this.setState({ loadering: false });
         RazorpayCheckout.open(options).then((data) => {
             // handle success
             this.genratebill(data, res);
         }).catch((error) => {
             // handle failure
-            this.setState({ loader: false });
+            this.setState({ loadering: false });
             this.props.navigation.replace(FEESSCREEN);
         });
     }
 
     //generate bill function
     genratebill = async (data, res) => {
-        this.setState({ loader: true });
+        this.setState({ loadering: true });
         try {
             let billpayment = {
                 memberid: this.state.studentId,
@@ -77,14 +78,14 @@ export class FeesScreen extends Component {
                 this.props.navigation.replace(FEESSCREEN);
             }
         } catch (error) {
-            this.setState({ loader: false });
+            this.setState({ loadering: false });
         }
     }
 
     //open Payment Screen
     openPaymentScreen = async (item) => {
         const { studentDetails } = this.state;
-        this.setState({ loader: true });
+        this.setState({ loadering: true });
         try {
             var options = {
                 description: 'Pay Fees',
@@ -102,7 +103,7 @@ export class FeesScreen extends Component {
             }
             this.razorPay(options, item)
         } catch (error) {
-            this.setState({ loader: false });
+            this.setState({ loadering: false });
         }
     }
 
@@ -113,6 +114,7 @@ export class FeesScreen extends Component {
     //get Payment api
     async getPaymentService(id) {
         await getPaymentService(id).then(response => {
+            console.log(` response.data`, response.data);
             this.setState({ paymentList: response.data });
             this.wait(1000).then(() => this.setState({ loader: false }));
         });
@@ -261,7 +263,7 @@ export class FeesScreen extends Component {
                     }
                 </View>
                 <Spinner
-                    visible={this.state.loader}
+                    visible={this.state.loadering}
                     textStyle={{ color: '#2855AE' }}
                 />
             </SafeAreaView>

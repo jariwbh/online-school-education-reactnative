@@ -6,10 +6,11 @@ const assignmentListService = (data) => {
         "search": [
             { "searchfield": "assingeestudents", "searchvalue": data.assingeestudents, "criteria": "eq", "datatype": "ObjectId" },
             { "searchfield": "status", "searchvalue": "publish", "criteria": "eq", "datatype": "text" },
-            { "searchfield": "property.duedate", "searchvalue": data.duedate, "criteria": "gte", "datatype": "Date" }
+            { "searchfield": "duedate", "searchvalue": data.duedate, "criteria": "gte", "datatype": "Date" }
         ],
         "formname": "assignment"
     }
+    console.log(`body`, body)
     return Axios.post('assignments/filter', body);
 }
 

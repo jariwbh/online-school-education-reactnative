@@ -354,18 +354,18 @@ export default class AssignmentScreen extends Component {
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Assign Date </Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.createdAt).format('MMM DD, YYYY')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.duedate && moment(item.createdAt).format('MMM DD, YYYY')}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Last Submission Date </Text>
-                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.duedate).format('MMM DD, YYYY')}</Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.duedate && moment(item.duedate).format('MMM DD, YYYY')}</Text>
                 </View>
                 {item.viewResult == false &&
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? true : false}
-                            style={moment().format('YYYY-MM-DD') >= moment(item.property.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
+                        <TouchableOpacity disabled={moment().format('YYYY-MM-DD') >= item.duedate && moment(item.duedate).format('YYYY-MM-DD') ? true : false}
+                            style={moment().format('YYYY-MM-DD') >= item.duedate && moment(item.duedate).format('YYYY-MM-DD') ? STYLES.styles.submitButtonDisable : STYLES.styles.submitButton}
                             onPress={() => this.UploadFileController(item)}>
-                            <Text style={{ fontSize: 14, color: '#FFFFFF'}}>TO BE SUBMITTED</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF' }}>TO BE SUBMITTED</Text>
                         </TouchableOpacity>
                     </View>
                 }
@@ -374,7 +374,7 @@ export default class AssignmentScreen extends Component {
                         <TouchableOpacity
                             style={STYLES.styles.submitButton}
                             onPress={() => this.viewAssignment(item)}>
-                            <Text style={{ fontSize: 14, color: '#FFFFFF'}}>VIEW ASSIGNMENT</Text>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF' }}>VIEW ASSIGNMENT</Text>
                         </TouchableOpacity>
                     </View>
                 }

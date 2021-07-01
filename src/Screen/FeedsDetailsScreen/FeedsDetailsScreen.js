@@ -19,7 +19,7 @@ export default class FeedsDetailsScreen extends Component {
             eventImage: this.eventDetails.property.gallery,
             eventDate: this.eventDetails.property.startdate,
             eventTitle: this.eventDetails.title,
-            eventDescription: this.eventDetails.property.description,
+            eventDescription: this.eventDetails && this.eventDetails.property && this.eventDetails.property.description ? this.eventDetails.property.description : null,
             loader: true
         };
     }
@@ -54,9 +54,13 @@ export default class FeedsDetailsScreen extends Component {
                         <View style={{ flexDirection: 'column', marginTop: 5 }}>
                             <Text style={{ fontSize: 16, marginLeft: 15, color: '#313131', fontWeight: 'bold', textTransform: 'capitalize' }}>{eventTitle}</Text>
                         </View>
-                        <View style={{ flexDirection: 'column', marginTop: 5, marginLeft: 15, marginRight: 15 }}>
-                            <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', color: '#555555' }} source={{ html: eventDescription }} />
-                        </View>
+                        {
+                            eventDescription &&
+                            <View style={{ flexDirection: 'column', marginTop: 5, marginLeft: 15, marginRight: 15 }}>
+                                <HTML baseFontStyle={{ fontSize: 14, textTransform: 'capitalize', color: '#555555' }} source={{ html: eventDescription }} />
+                            </View>
+                        }
+
                     </ScrollView>
                     : <Loader />
                 }
