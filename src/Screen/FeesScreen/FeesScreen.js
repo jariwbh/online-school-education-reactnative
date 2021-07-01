@@ -165,7 +165,7 @@ export class FeesScreen extends Component {
         return (
             <SafeAreaView style={STYLES.styles.container}>
                 <View style={STYLES.styles.cardview}>
-                    {((paymentScheduleList == null) || (paymentScheduleList && paymentScheduleList.length == 0) && (paymentList == null) || (paymentList && paymentList.length == 0))
+                    {(((paymentScheduleList == null) || (paymentScheduleList && paymentScheduleList.length == 0)) && ((paymentList == null) || (paymentList && paymentList.length == 0)))
                         ?
                         (loader == false ?
                             <Text style={{ textAlign: 'center', fontSize: 14, color: '#747474', marginTop: 50 }}> fees Details Not Available</Text>

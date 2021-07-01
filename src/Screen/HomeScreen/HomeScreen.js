@@ -327,7 +327,7 @@ class HomeScreen extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: 10 }} />
+                            <View style={{ marginTop: 15 }} />
                         </View>
                     </ScrollView>
                     : <View style={STYLES.styles.loaderView}><Loader /></View>
