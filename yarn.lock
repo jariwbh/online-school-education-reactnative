@@ -5736,6 +5736,11 @@ react-native-qrcode-scanner@^1.5.4:
     prop-types "^15.5.10"
     react-native-permissions "^2.0.2"
 
+react-native-razorpay@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/react-native-razorpay/-/react-native-razorpay-2.2.7.tgz#2bc47fca4e3069ae18966f60d445bab30613169b"
+  integrity sha512-5TxqYCsWN93NmxZtba4WX+W5mk44ErST1UfsTxtNp2Mp0stTkg6azQX1J6Y+zCDhzRcxwW3j0TN1v2CdNy4Jrw==
+
 react-native-render-html@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-native-render-html/-/react-native-render-html-5.1.0.tgz#049591d9a72f39634877991c33d546f277103520"

@@ -21,4 +21,9 @@ const getPaymentSchedulesService = (id) => {
     return Axios.post('paymentschedules/filter', body)
 }
 
-export { getPaymentService, getPaymentSchedulesService } 
+function BillPaymentService(data) {
+    const body = JSON.stringify(data)
+    return Axios.post('payments', body);
+}
+
+export { getPaymentService, getPaymentSchedulesService, BillPaymentService }

@@ -12,8 +12,9 @@ target 'schooleducationapp' do
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
-
+  
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+  pod 'react-native-razorpay', :path => '../node_modules/react-native-razorpay'
 
   target 'schooleducationappTests' do
     inherit! :complete
