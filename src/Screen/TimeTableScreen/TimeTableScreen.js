@@ -6,6 +6,7 @@ import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 import moment from 'moment';
 import { AUTHUSER, LOGINSCREEN } from "../../Action/Type";
+import { checkLocationAccuracy } from 'react-native-permissions'
 
 export default class TimeTableScreen extends Component {
     constructor(props) {
@@ -58,9 +59,13 @@ export default class TimeTableScreen extends Component {
 
     //Get Time Table Api
     getTimeTable(data) {
-        timeTableService(data).then(response => {
-            this.setState({ timeTable: response.data, loader: false });
-        });
+        try {
+            timeTableService(data).then(response => {
+                this.setState({ timeTable: response.data, loader: false });
+            });
+        } catch (error) {
+            this.setState({ loader: false });
+        }
     }
 
     //click days and get data
