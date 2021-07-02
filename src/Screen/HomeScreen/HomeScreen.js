@@ -48,16 +48,18 @@ class HomeScreen extends Component {
 
     async reloadData() {
         const { StudentData } = this.state;
-        let data = {
-            id: StudentData._id,
-            date: moment().format('YYYY-MM-DD')
-        }
-        await this.getAttendenceCalculateService(StudentData._id);
-        return getTodayAttendenceService(data).then(response => {
-            if (response.data[0] != null && response.status == 200) {
-                this.setState({ checkin: true });
+        if (StudentData) {
+            let data = {
+                id: StudentData._id,
+                date: moment().format('YYYY-MM-DD')
             }
-        });
+            await this.getAttendenceCalculateService(StudentData._id);
+            return getTodayAttendenceService(data).then(response => {
+                if (response.data[0] != null && response.status == 200) {
+                    this.setState({ checkin: true });
+                }
+            });
+        }
     }
 
     //get student Attendence Calculate Service

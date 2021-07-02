@@ -94,7 +94,7 @@ export default class LoginScreen extends Component {
             return;
         }
         const body = {
-            username: username,
+            username: username.trim(),
             password: password
         }
         this.setState({ loading: true });
