@@ -114,7 +114,6 @@ export class FeesScreen extends Component {
     //get Payment api
     async getPaymentService(id) {
         await getPaymentService(id).then(response => {
-            console.log(` response.data`, response.data);
             this.setState({ paymentList: response.data });
             this.wait(1000).then(() => this.setState({ loader: false }));
         });

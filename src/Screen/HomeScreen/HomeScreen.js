@@ -26,6 +26,7 @@ class HomeScreen extends Component {
             currencySymbol: null
         };
         this._unsubscribeSiFocus = this.props.navigation.addListener('focus', e => {
+            this.reloadData();
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
         });
 
@@ -45,13 +46,26 @@ class HomeScreen extends Component {
         this.getStudentData();
     }
 
+    async reloadData() {
+        const { StudentData } = this.state;
+        let data = {
+            id: StudentData._id,
+            date: moment().format('YYYY-MM-DD')
+        }
+        await this.getAttendenceCalculateService(StudentData._id);
+        return getTodayAttendenceService(data).then(response => {
+            if (response.data[0] != null && response.status == 200) {
+                this.setState({ checkin: true });
+            }
+        });
+    }
+
     //get student Attendence Calculate Service
     async getAttendenceCalculateService(id) {
         return AttendenceCalculateService(id).then(response => {
             var StudentDayIn = response.data.length
             var calAttendences = ((StudentDayIn / 365) * 100).toFixed(2)
             this.setState({ attendencePercent: calAttendences });
-            return;
         })
     }
 
@@ -61,7 +75,7 @@ class HomeScreen extends Component {
             id: id,
             date: moment().format('YYYY-MM-DD')
         }
-        getTodayAttendenceService(data).then(response => {
+        return getTodayAttendenceService(data).then(response => {
             if (response.data[0] != null && response.status == 200) {
                 this.setState({ checkin: true });
             }
