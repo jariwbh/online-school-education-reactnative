@@ -343,14 +343,18 @@ export default class AssignmentScreen extends Component {
     renderAssignmentList = ({ item }) => (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={STYLES.styles.innercardview}>
-                <View style={{ marginTop: 10, flex: 1, width: 100, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
+                {/* <View style={{ marginTop: 10, flex: 1, width: 120, height: 25, backgroundColor: '#E6EFFF', marginLeft: 15, borderRadius: 5 }}>
                     <Text style={{ fontSize: 14, marginLeft: 10, flex: 1, color: '#6789CA' }}>{item.templateid && item.templateid.subjectid && item.templateid.subjectid.property.title}</Text>
-                </View>
+                </View> */}
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginLeft: 15, marginTop: 10 }}>
                     <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>{item.templateid.title}</Text>
                     <TouchableOpacity onPress={() => this.onPressDownloadFile(item)}>
                         <FontAwesome name="file-pdf-o" size={25} color="#6789CA" style={{ marginRight: 15 }} />
                     </TouchableOpacity>
+                </View>
+                <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
+                    <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Subject </Text>
+                    <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{item.templateid && item.templateid.subjectid && item.templateid.subjectid.property.title}</Text>
                 </View>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 7 }}>
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>Assign Date </Text>
