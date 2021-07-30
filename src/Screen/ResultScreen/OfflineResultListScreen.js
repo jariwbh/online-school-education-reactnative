@@ -63,7 +63,7 @@ export default function OfflineResultListScreen(props) {
             resultlist.forEach(element => {
                 if (element && element.result && element.result.length > 0) {
                     element.result.forEach(ele => {
-                        if (studentID == ele.studentid) {
+                        if (studentID == ele.studentid._id) {
                             ele['examid'] = element.examid;
                             arrayresult.push(ele);
                         }
@@ -79,7 +79,7 @@ export default function OfflineResultListScreen(props) {
         <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => props.navigation.navigate(RESULTSCREEN, { result: item })}>
             <View style={STYLES.styles.innercardview}>
                 <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginTop: 5 }}>
-                    <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.examid.title}</Text>
+                    <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: 'bold', color: '#313131', textTransform: 'capitalize' }}>{item.examid && item.examid.title}</Text>
                 </View>
                 <View style={{ alignItems: 'center', marginTop: 15, flexDirection: 'row' }}>
                     <View style={{ marginLeft: 15, marginRight: 15, flex: 1, height: 1, backgroundColor: '#EEEEEE' }} />

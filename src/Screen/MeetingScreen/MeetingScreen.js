@@ -4,6 +4,8 @@ import { meetingService } from '../../Services/MeetingService/MeetingService'
 import Loader from '../../Components/Loader/Loader'
 import * as STYLES from './Styles';
 import moment from 'moment'
+import { AUTHUSER, LOGINSCREEN } from '../../Action/Type';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class MeetingScreen extends Component {
     constructor(props) {
@@ -13,18 +15,33 @@ export default class MeetingScreen extends Component {
             meetingList: [],
             loader: true,
             refreshing: false,
+            courseid: null
         };
     }
 
+    //get student information api
+    getStudentData = async () => {
+        var getUser = await AsyncStorage.getItem(AUTHUSER);
+        if (getUser == null) {
+            setTimeout(() => {
+                this.props.navigation.replace(LOGINSCREEN)
+            }, 3000);;
+        } else {
+            var userData = JSON.parse(getUser);
+            await this.setState({ courseid: userData.membershipid._id });
+            this.getMeeting(userData.membershipid._id);
+        }
+    }
+
     //call Meeting API
-    getMeeting() {
-        meetingService().then(response => {
+    getMeeting(id) {
+        meetingService(id).then(response => {
             this.setState({ meetingList: response.data, loader: false });
         });
     }
 
     componentDidMount() {
-        this.getMeeting();
+        this.getStudentData();
     }
 
     wait = (timeout) => {
@@ -34,8 +51,9 @@ export default class MeetingScreen extends Component {
     }
 
     onRefresh = () => {
+        const { courseid } = this.state;
         this.setState({ refreshing: true })
-        this.getMeeting()
+        this.getMeeting(courseid);
         this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 

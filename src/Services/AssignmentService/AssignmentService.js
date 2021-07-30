@@ -10,7 +10,6 @@ const assignmentListService = (data) => {
         ],
         "formname": "assignment"
     }
-    console.log(`body`, body)
     return Axios.post('assignments/filter', body);
 }
 

@@ -56,7 +56,7 @@ export default class Playquiz extends Component {
     //get calculate Minutes
     get_Diff_minutes() {
         let maintDate = new Date();
-        let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.property.time * 60000);
+        let dt1 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.currentExamData.time * 60000);
         let dt2 = new Date(new Date(maintDate.getFullYear(), maintDate.getMonth(), maintDate.getDate()).getTime() + this.state.minutes * 60000 + this.state.seconds * 1000);
         let difference = dt1.getTime() - dt2.getTime(); // This will give difference in milliseconds
         let resultInMinutes = Math.round(difference / 60000);
@@ -84,7 +84,6 @@ export default class Playquiz extends Component {
             this.setState({ spinner: false });
             // console.log(error);
         });
-
     }
 
     componentDidMount() {
@@ -92,13 +91,12 @@ export default class Playquiz extends Component {
         this.setState({
             currentExamData: this.currentExamDetails,
             questionArray: this.currentExamDetails.questions,
-            minutes: this.currentExamDetails.property.time
+            minutes: this.currentExamDetails.time
         });
-
         if (this.IsTimerStart) {
             this.setState({
                 questionArray: this.currentExamDetails.questions,
-                minutes: this.currentExamDetails.property.time
+                minutes: this.currentExamDetails.time
             });
             if (this.currentExamDetails.questions.length == 1) {
                 this.setState({ disabledNext: true })
@@ -121,12 +119,14 @@ export default class Playquiz extends Component {
 
     //time set and start exam to count time
     startTimer() {
+
         const { seconds, minutes } = this.state
         if (seconds > 0) {
             this.setState(({ seconds }) => ({
                 seconds: seconds - 1
             }))
         }
+
         if (seconds === 0) {
             if (minutes === 0) {
                 clearInterval(this.myInterval)
@@ -175,14 +175,12 @@ export default class Playquiz extends Component {
                                     isValidTotal += 1;
                                 }
                             });
-
                             if ((answerObj.answerid.length == CorrectOptions.length) && (isValidTotal == CorrectOptions.length)) {
                                 markesobtained = markesobtained + element.mark;
                                 correctanswers = correctanswers + 1;
                             } else {
                                 incorrectanswers = incorrectanswers + 1;
                             }
-
                         } else {
                             var optionObj = element.options.find(x => x.iscorrect == true);
                             if (optionObj && optionObj._id == answerObj.answerid[0]) {
@@ -194,7 +192,6 @@ export default class Playquiz extends Component {
                         }
                     }
                 }
-
             });
         }
 
@@ -278,7 +275,6 @@ export default class Playquiz extends Component {
                 option: [answer.option]
             }
             this.answers.push(obj);
-            console.log(`obj`, obj);
             this.checkAnswerColor(answer._id)
         }
     }

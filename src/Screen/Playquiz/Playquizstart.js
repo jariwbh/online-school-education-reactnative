@@ -25,7 +25,7 @@ export default function Playquizstart(props) {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginLeft: 14, marginRight: 20 }}>
                         <Text style={{ fontSize: 14, textTransform: 'capitalize', color: '#555555' }}> {moment(selectedExamDeatils.property.enddatetime).format('LL')}</Text>
-                        <Text style={{ fontSize: 14, textTransform: 'capitalize', color: '#555555' }}> {selectedExamDeatils.property.time + ' ' + 'Minutes'} </Text>
+                        <Text style={{ fontSize: 14, textTransform: 'capitalize', color: '#555555' }}> {selectedExamDeatils.time + ' ' + 'Minutes'} </Text>
                     </View>
                     <View style={{ marginTop: 10, marginLeft: 20 }}>
                         <Text style={{ fontSize: 14, textTransform: 'capitalize', fontWeight: 'bold', color: '#000000' }}>EXAM RULES AND REGULATIONS</Text>

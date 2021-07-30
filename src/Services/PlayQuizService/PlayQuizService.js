@@ -5,11 +5,11 @@ const getAllPlayQuizService = (id) => {
     {
         "search": [{
             "searchfield": "status",
-            "searchvalue": "active",
+            "searchvalue": "Publish",
             "criteria": "eq",
             "datatype": "text"
         }, {
-            "searchfield": "property.course",
+            "searchfield": "course",
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "text"

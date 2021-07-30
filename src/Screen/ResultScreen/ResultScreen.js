@@ -39,8 +39,8 @@ export default function ResultScreen(props) {
     return (
         <SafeAreaView style={STYLES.styles.container}>
             <Image source={require('../../assets/image/vector2.png')} style={{ resizeMode: "cover", width: '100%', height: '40%' }} />
-            <View style={{ marginTop: 20, position: 'absolute' }}>
-                <View style={{ flexDirection: 'row',marginTop:Platform=='android'?0:30 }}>
+            <View style={{ marginTop: 0, position: 'absolute' }}>
+                <View style={{ flexDirection: 'row', marginTop: Platform === 'android' ? 30 : 10 }}>
                     <BackButton onPress={() => props.navigation.navigate('OfflineResultListScreen')} />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: WIDTH / 3 }}>
