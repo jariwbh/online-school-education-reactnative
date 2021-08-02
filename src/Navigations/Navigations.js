@@ -33,7 +33,8 @@ import SelectResult from '../Screen/ResultScreen/SelectResult';
 import OfflineResultListScreen from '../Screen/ResultScreen/OfflineResultListScreen';
 import MeetingWebViewScreen from '../Screen/MeetingScreen/MeetingWebViewScreen';
 import WebViewScreen from '../Screen/WebViewScreen/WebViewScreen';
-
+import CircularScreen from '../Screen/CircularScreen/CircularScreen';
+import CircularFeedsDetailsScreen from '../Screen/CircularScreen/CircularFeedsDetailsScreen';
 import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SELECTRESULT } from '../Action/Type';
 
 const Stack = createStackNavigator();
@@ -163,6 +164,16 @@ function MainNavigation({ navigation }) {
                     shadowOpacity: 0, borderBottomWidth: 0
                 }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
             }} component={ChangePasswordScreen} />
+
+            <HomeStack.Screen name="CircularScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Circulars',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={CircularScreen} />
+
+            <HomeStack.Screen name="CircularFeedsDetailsScreen" options={{ title: '', headerShown: false }} component={CircularFeedsDetailsScreen} />
 
             <HomeStack.Screen name="EventsScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Events & Programs',

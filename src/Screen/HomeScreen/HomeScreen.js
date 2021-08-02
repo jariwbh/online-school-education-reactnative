@@ -301,13 +301,13 @@ class HomeScreen extends Component {
                             </View>
 
                             <View style={{ marginTop: 10, justifyContent: 'space-around', flexDirection: 'row' }}>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EVENTSCREEN) }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.CIRCULARSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_event_mo9h2g.png' }}
                                             style={{ height: 50, width: 50 }}
                                         />
                                         <View style={{ marginTop: 15 }}>
-                                            <Text style={{ fontSize: 16, color: '#000000' }}>Events</Text>
+                                            <Text style={{ fontSize: 16, color: '#000000' }}>Circular</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
