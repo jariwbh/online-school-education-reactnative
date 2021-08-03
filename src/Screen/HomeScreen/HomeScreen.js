@@ -266,7 +266,7 @@ class HomeScreen extends Component {
                                         </View>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.DATESHEETSCREEN) }}>
+                                <TouchableOpacity style={STYLES.styles.cardView} onPress={() => { this.props.navigation.navigate(SCREENNAME.EXAMSCREEN) }}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center', bottom: 0, flex: 1, top: 0 }}>
                                         <Image source={{ uri: 'https://res.cloudinary.com/dnogrvbs2/image/upload/v1613451581/school%20Images/ic_date_sheet_gg77cp.png' }}
                                             style={{ height: 50, width: 50 }}

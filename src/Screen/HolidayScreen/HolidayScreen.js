@@ -6,6 +6,8 @@ import Loader from '../../Components/Loader/Loader';
 import { Calendar } from 'react-native-calendars';
 import * as STYLES from './Styles';
 import moment from 'moment';
+import SelectDropdown from 'react-native-select-dropdown'
+const dropdowndata = ["Holiday", "Event", "Meal"]
 
 export default class HolidayScreen extends Component {
     constructor(props) {
@@ -118,6 +120,25 @@ export default class HolidayScreen extends Component {
                         <>
                             <View style={{ marginTop: 25 }} />
                             <ScrollView showsVerticalScrollIndicator={false}>
+                                {/* <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                    <SelectDropdown
+                                        defaultValue={"Holiday"}
+                                        data={dropdowndata}
+                                        onSelect={(selectedItem, index) => {
+                                            console.log(selectedItem, index)
+                                        }}
+                                        buttonTextAfterSelection={(selectedItem, index) => {
+                                            // text represented after item is selected
+                                            // if data array is an array of objects then return selectedItem.property to render after item is selected
+                                            return selectedItem
+                                        }}
+                                        rowTextForSelection={(item, index) => {
+                                            // text represented for each item in dropdown
+                                            // if data array is an array of objects then return item.property to represent item in dropdown
+                                            return item
+                                        }}
+                                    />
+                                </View> */}
                                 <Calendar
                                     markedDates={this.state.renderList}
                                     onMonthChange={(month) => this.onChangeMonth(month.month)}

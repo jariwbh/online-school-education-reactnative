@@ -13,50 +13,23 @@ const WIDTH = Dimensions.get('window').width;
 export default class DateSheetScreen extends Component {
     constructor(props) {
         super(props);
+        this.examSchedule = this.props.route.params.item;
         this.state = {
             studentClassId: null,
-            examSchedule: [],
+            examSchedule: this.examSchedule.examschedule,
             loader: true,
             refreshing: false
         };
     }
 
-    //get local storage fetch infomation 
-    getStudentData = async () => {
-        var getUser = await AsyncStorage.getItem(AUTHUSER);
-        if (getUser == null) {
-            setTimeout(() => {
-                this.props.navigation.replace(LOGINSCREEN)
-            }, 3000);;
-        } else {
-            var userData = JSON.parse(getUser);
-            this.getexamSchedule(userData.membershipid._id);
-            this.wait(1000).then(() => this.setState({ studentClassId: userData.membershipid._id }));
-        }
-    }
-
-    //get exam schedule api
-    getexamSchedule(id) {
-        ExamDatesheet(id).then(response => {
-            this.setState({ examSchedule: response.data[0] && response.data[0].examschedule, loader: false })
-        });
-    }
-
     componentDidMount() {
-        this.getStudentData();
+        this.wait(1000).then(() => this.setState({ loader: false }));
     }
 
     wait = (timeout) => {
         return new Promise(resolve => {
             setTimeout(resolve, timeout);
         });
-    }
-
-    onRefresh = () => {
-        const { studentClassId } = this.state;
-        this.setState({ refreshing: true });
-        this.getexamSchedule(studentClassId);
-        this.wait(3000).then(() => this.setState({ refreshing: false }));
     }
 
     //render exam schedule using flatlist

@@ -78,13 +78,16 @@ export default class MeetingScreen extends Component {
                     <Text style={{ fontSize: 14, marginLeft: 15, color: '#555555' }}>End Time </Text>
                     <Text style={{ fontSize: 14, marginRight: 15, color: '#000000' }}>{moment(item.property.endtime).format('LT')}</Text>
                 </View>
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
-                        onPress={() => this.props.navigation.navigate('MeetingWebViewScreen', { data: item.property.url })}
-                        disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
-                        <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold' }}>Join Meeting </Text>
-                    </TouchableOpacity>
-                </View>
+                {item && item.property && item.property.url ?
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity style={moment(item.property.date).format('YYYY-MM-DD') == this.today ? STYLES.styles.meetingbtn : STYLES.styles.meetingErrorbtn}
+                            onPress={() => this.props.navigation.navigate('MeetingWebViewScreen', { data: item.property.url })}
+                            disabled={moment(item.property.date).format('YYYY-MM-DD') == this.today ? false : true}>
+                            <Text style={{ fontSize: 14, color: '#FFFFFF', fontWeight: 'bold' }}>Join Meeting </Text>
+                        </TouchableOpacity>
+                    </View>
+                    : null
+                }
             </View>
         </View>
     )

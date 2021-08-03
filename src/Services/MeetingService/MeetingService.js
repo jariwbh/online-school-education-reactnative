@@ -14,7 +14,14 @@ const meetingService = (id) => {
             "searchvalue": id,
             "criteria": "eq",
             "datatype": "ObjectId"
-        }], "formname": "meeting"
+        },
+        {
+            "searchfield": "status",
+            "searchvalue": "active",
+            "criteria": "eq",
+            "datatype": "text"
+        }
+        ], "formname": "meeting"
     }
     return Axios.post('formdatas/filter', body)
 }

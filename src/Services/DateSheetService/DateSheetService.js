@@ -6,9 +6,9 @@ const ExamDatesheet = (id) => {
         "search": [{
             "searchfield": "courseid", "searchvalue": id, "criteria": "eq", "datatype": "ObjectId"
         },
-        { "searchfield": "status", "searchvalue": "active", "criteria": "eq" }],
+        { "searchfield": "status", "searchvalue": "active", "criteria": "eq", "datatype": "text" }],
     }
     return Axios.post('examschedules/filter', body)
 }
 
-export { ExamDatesheet } 
+export { ExamDatesheet }

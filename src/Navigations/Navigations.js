@@ -35,7 +35,8 @@ import MeetingWebViewScreen from '../Screen/MeetingScreen/MeetingWebViewScreen';
 import WebViewScreen from '../Screen/WebViewScreen/WebViewScreen';
 import CircularScreen from '../Screen/CircularScreen/CircularScreen';
 import CircularFeedsDetailsScreen from '../Screen/CircularScreen/CircularFeedsDetailsScreen';
-import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SELECTRESULT } from '../Action/Type';
+import ExamScreen from '../Screen/DateSheetScreen/ExamScreen';
+import { HOMESCREEN, ASSIGNMENTSCREEN, PLAYQUIZLISTSCREEN, PLAYQUIZSTARTSCREEN, MYPROFILE, SCHOOLGALLERYSCREEN, SELECTRESULT, DATESHEETSCREEN, EXAMSCREEN } from '../Action/Type';
 
 const Stack = createStackNavigator();
 export default NavigationsApp = () => {
@@ -154,8 +155,16 @@ function MainNavigation({ navigation }) {
                 headerStyle: {
                     backgroundColor: '#5D81C6', elevation: 0,
                     shadowOpacity: 0, borderBottomWidth: 0
-                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(EXAMSCREEN)} />
             }} component={DateSheetScreen} />
+
+            <HomeStack.Screen name="ExamScreen" options={{
+                headerTintColor: '#FFFFFF', title: 'Exam Schedule',
+                headerStyle: {
+                    backgroundColor: '#5D81C6', elevation: 0,
+                    shadowOpacity: 0, borderBottomWidth: 0
+                }, headerLeft: () => <BackButton onPress={() => navigation.navigate(HOMESCREEN)} />
+            }} component={ExamScreen} />
 
             <HomeStack.Screen name="ChangePasswordScreen" options={{
                 headerTintColor: '#FFFFFF', title: 'Change Password',
