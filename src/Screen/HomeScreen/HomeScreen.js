@@ -155,7 +155,7 @@ class HomeScreen extends Component {
                 {loader == false ?
                     <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={"always"}>
                         <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                            <View style={{ width: '50%', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 20 }}>
+                            <View style={{ width: WIDTH / 2, justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: 20 }}>
                                 <Text style={{ fontSize: 22, color: '#FFFFFF', fontWeight: 'bold', textTransform: 'capitalize', flex: 1 }}>{StudentData.fullname} </Text>
                                 <Text style={{ fontSize: 16, color: '#FFFFFF', marginTop: 5 }}>
                                     {StudentData.membershipid.membershipname}  |  Roll no: {StudentData.property.roll_number} </Text>

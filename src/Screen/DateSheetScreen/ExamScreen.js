@@ -60,12 +60,15 @@ export default class ExamScreen extends Component {
 
     //render exam schedule using flatlist
     renderexamSchedule = ({ item }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 0 }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate(DATESHEETSCREEN, { item })}>
-                <View style={{ flexDirection: 'column', marginTop: 5 }}>
+                <View style={{ flexDirection: 'column' }}>
                     <Text style={{ fontSize: 16, marginLeft: 15, color: '#313131', textAlign: 'center', textTransform: 'capitalize' }}>{item.title}</Text>
                 </View>
             </TouchableOpacity>
+            <View style={{ alignItems: 'center', marginTop: 0, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
+                <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+            </View>
         </View>
     )
 
@@ -83,12 +86,14 @@ export default class ExamScreen extends Component {
                         <View style={{ marginTop: 0 }}>
                             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} title="Pull to refresh" tintColor="#5D81C6" titleColor="#5D81C6" colors={["#5D81C6"]} onRefresh={this.onRefresh} />} showsVerticalScrollIndicator={false}>
                                 <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
+                                    <View style={{ alignItems: 'center', marginTop: 20, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
+                                        <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
+                                    </View>
                                     <FlatList
                                         data={examSchedule}
                                         renderItem={this.renderexamSchedule}
                                         keyExtractor={item => `${item._id}`}
-
-                                        numColumns={2} />
+                                    />
                                 </View>
                             </ScrollView>
                         </View>
