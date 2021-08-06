@@ -6,7 +6,7 @@ const WIDTH = Dimensions.get('window').width;
 
 const MeetingWebViewScreen = (props) => {
     const URI = props.route.params.data;
-    console.log(`URI`, URI);
+    //console.log(`URI`, URI);
     const [title, settitle] = useState('');
 
     const _onNavigationStateChange = (webViewState) => {

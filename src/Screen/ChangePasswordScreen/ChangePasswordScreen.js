@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, SafeAreaView, Image, TouchableOpacity, TextInput, ScrollView, ToastAndroid, Platform, Dimensions } from 'react-native'
 import { ChangePasswordService } from '../../Services/PasswordService/PasswordService'
-import { AUTHUSER, AUTHUSERINFO, LOGINSCREEN } from '../../Action/Type'
+import { AUTHUSER, AUTHUSERINFO, HOMESCREEN, LOGINSCREEN } from '../../Action/Type'
 import AsyncStorage from '@react-native-community/async-storage';
 import Loading from '../../Components/Loader/Loading';
 import * as STYLES from './Styles';
@@ -162,6 +162,7 @@ export default class ChangePasswordScreen extends Component {
                         ToastAndroid.show("Change Password Success!", ToastAndroid.LONG);
                     }
                     this.resetScreen();
+                    this.props.navigation.replace(HOMESCREEN);
                     return;
                 }
             })
