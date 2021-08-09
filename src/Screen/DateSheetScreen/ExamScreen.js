@@ -61,11 +61,13 @@ export default class ExamScreen extends Component {
     //render exam schedule using flatlist
     renderexamSchedule = ({ item }) => (
         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableOpacity style={STYLES.styles.innercardview} onPress={() => this.props.navigation.navigate(DATESHEETSCREEN, { item })}>
-                <View style={{ flexDirection: 'column' }}>
-                    <Text style={{ fontSize: 16, marginLeft: 15, color: '#313131', textAlign: 'center', textTransform: 'capitalize' }}>{item.title}</Text>
-                </View>
-            </TouchableOpacity>
+            <View style={STYLES.styles.innercardview}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate(DATESHEETSCREEN, { item })}>
+                    <View style={{ flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 16, marginLeft: 15, color: '#313131', textAlign: 'center', textTransform: 'capitalize' }}>{item.title}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
             <View style={{ alignItems: 'center', marginTop: 0, flexDirection: 'row', marginLeft: 20, marginRight: 20 }}>
                 <View style={{ flex: 1, height: 1, backgroundColor: '#AAAAAA' }} />
             </View>

@@ -25,18 +25,33 @@ export default class TimeTableScreen extends Component {
 
     //get Current week Days
     getCurrentweekDays() {
-        var currentDate = moment();
-        var weekStart = currentDate.clone().startOf('isoWeek');
-        for (var i = 0; i <= 6; i++) {
-            if (moment(weekStart).add(i, 'days').format("ddd") !== "Sun") {
+        var current = new Date();
+        // Starting Monday not Sunday
+        current.setDate((current.getDate() - current.getDay() + 1));
+        for (var i = 0; i < 7; i++) {
+            if (moment(current).format("ddd") !== "Sun") {
                 let obj = {
-                    day: moment(weekStart).add(i, 'days').format("ddd"),
-                    date: moment(weekStart).add(i, 'days').format('LLLL'),
+                    day: moment(current).format("ddd"),
+                    date: moment(current).format('LLLL'),
                     _id: i
                 }
                 this.state.listTab.push(obj);
             }
+            current.setDate(current.getDate() + 1);
         }
+
+        // var currentDate = moment();
+        // var weekStart = currentDate.clone().startOf('isoWeek');
+        // for (var i = 0; i <= 6; i++) {
+        //     if (moment(weekStart).add(i, 'days').format("ddd") !== "Sun") {
+        //         let obj = {
+        //             day: moment(weekStart).add(i, 'days').format("ddd"),
+        //             date: moment(weekStart).add(i, 'days').format('LLLL'),
+        //             _id: i
+        //         }
+        //         this.state.listTab.push(obj);
+        //     }
+        // }
     }
 
     //get login user infomation and api
